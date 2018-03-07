@@ -1,8 +1,21 @@
+# **************************************************************************** #
+#                                                           LE - /             #
+#                                                               /              #
+#    Makefile                                         .::    .:/ .      .::    #
+#                                                  +:+:+   +:    +:  +:+:+     #
+#    By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
+#                                                  #+#   #+    #+    #+#       #
+#    Created: 2018/03/07 17:08:49 by vbranco      #+#   ##    ##    #+#        #
+#    Updated: 2018/03/07 20:23:46 by vbranco     ###    #+. /#+    ###.fr      #
+#                                                          /                   #
+#                                                         /                    #
+# **************************************************************************** #
+
 NAME        =   ft_ls 
 
 HEADER      =   ft_ls.h 
 
-FILENAMES   =   main.c ft_init.c
+FILENAMES   =   main.c ft_init.c ft_flag.c
 
 SOURCES     =   $(addprefix ./, $(FILENAMES))
 
