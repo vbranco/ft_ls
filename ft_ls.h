@@ -39,5 +39,6 @@ typedef struct		s_flag
 
 void			ft_init(t_flag *flag);
 void			ft_flag(char *str, t_flag *flag);
+void			ft_stat(char *buf, char *file, struct stat *st);
 
 #endif

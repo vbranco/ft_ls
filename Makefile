@@ -15,7 +15,7 @@ NAME        =   ft_ls
 
 HEADER      =   ft_ls.h 
 
-FILENAMES   =   main.c ft_init.c ft_flag.c
+FILENAMES   =   main.c ft_init.c ft_flag.c ft_stat.c
 
 SOURCES     =   $(addprefix ./, $(FILENAMES))
 
