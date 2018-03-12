@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_flag.c                                        .::    .:/ .      .::   */
+/*   ft_no_flag.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/07 17:07:57 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/12 17:57:01 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/03/12 18:00:51 by vbranco      #+#   ##    ##    #+#       */
+/*   Updated: 2018/03/12 18:10:28 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ft_flag(char *str, t_flag *flag)
+int     ft_no_flag(t_flag *flag)
 {
-	int i;
-
-	i = 0;
-	str++;
-	while (str[i])
-	{
-		if (str[i] == 'l')
-			flag->l = 1;
-		else if (str[i] == 'R')
-			flag->R = 1;
-		else if (str[i] == 'r')
-			flag->r = 1;
-		else if (str[i] == 'a')
-			flag->a = 1;
-		else if (str[i] == 't')
-			flag->t = 1;
-		i++;
-	}
+	if (flag->l == 1)
+		return (1);
+	if (flag->R == 1)
+		return(1);
+	if (flag->r == 1)
+		return (1);
+	if (flag->a == 1)
+		return (1);
+	if (flag->t == 1)
+		return (1);
+	return (0);
 }

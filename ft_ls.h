@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:30 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/07 20:23:45 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/12 20:06:27 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,8 +37,15 @@ typedef struct		s_flag
 	int		t;
 }			t_flag;
 
+typedef struct		s_list
+{
+	char			*str;
+	struct s_list	*next;
+}					t_list
+
 void			ft_init(t_flag *flag);
 void			ft_flag(char *str, t_flag *flag);
 void			ft_stat(char *buf, char *file, struct stat *st);
+int				ft_no_flag(t_flag *flag);
 
 #endif

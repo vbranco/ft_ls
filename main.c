@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:23 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/07 20:23:42 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/12 20:06:29 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,11 +29,9 @@ void		ft_dir(char *av, DIR *dir, struct dirent *pdir, t_flag *flag)
 
 	if (opendir(av) != NULL && flag->l == 1)
 	{
-//		printf("c'est un dossier");
 		dir = opendir(av);
 		while ((pdir = readdir(dir)) != NULL)
 		{
-//			ft_init_stat(&st);
 			buf = ft_memalloc(20);
 			ft_stat(buf, pdir->d_name, &st);
 			free(buf);
@@ -49,34 +47,50 @@ void		ft_dir(char *av, DIR *dir, struct dirent *pdir, t_flag *flag)
 		printf("  %s\n", av);
 		return ;
 	}
-//	ft_stat(pdir->d_name);
-//	ft_dir(pdir->d_name, dir, pdir);
-//	while ((pdir = readdir(dir)) != NULL)
-//		ft_dir(pdir->d_name, dir, pdir);
-/*	while ((pdir = readdir(dir)) != NULL)
-	{
-		printf("[%s]\n", pdir->d_name);
-	}
-	*/
 }
-int		main(int ac, char **av)
+
+void	ft_list(char *av, DIR *dir, struct dirent *pdir)
 {
-	int		i;
-	t_flag		flag;
-//	struct stat	stat;
+	dir = opendir(av);
+	while ((pdir = readdir(dir)) != NULL)
+	{
+		if (pdir->d_name[0] != '.')
+				printf("%s	", pdir->d_name);
+	}
+	printf("\n");
+}
+
+int					main(int ac, char **av)
+{
+	int				i;
+	t_flag			flag;
 	struct dirent	*pdir;
-	DIR		*dir;
+	DIR				*dir;
 
 	i = 1;
 	ft_init(&flag);
-	while (i < ac)
+	if (ac == 1)
+		ft_list(".", dir, pdir);
+	else
 	{
-		if (ft_strchr(av[i], '-') != 0 && av[i][1] != '\0')
-			ft_flag(av[i], &flag);
-		ft_dir(av[i], dir, pdir, &flag);
-		i++;
+		if (av[1][0] == '-')
+			ft_flag(av[1], &flag);
+		if (ft_no_flag(&flag) == 0)
+		{
+			while (i < ac)
+			{
+				ft_list(av[i], dir, pdir);
+				i++;
+			}
+		}
+		else
+		{
+			while (i < ac)
+			{
+				ft_dir(av[i], dir, pdir, &flag);
+				i++;
+			}
+		}
 	}
-//	ft_etat_flag(&flag);
-//	ft_dir(av[1], dir, pdir);
 	return (0);
 }
