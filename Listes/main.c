@@ -28,7 +28,6 @@ void	nouveau_element_debut(t_list **liste, char *str)
 
 void	initialisation(t_list *list)
 {
-//	list->nb = 9;
 	list->next = NULL;
 }
 
@@ -54,17 +53,81 @@ void	del(t_list *liste)
 	}
 }
 
+void	nouveau_element_trie_nliste(n_list **nliste, int n)
+{
+	n_list	*new;
+	n_list	*tmp = NULL;
+	n_list	*ll;
+
+	ll = *nliste;
+	new = malloc(sizeof(n_list));
+	if (!new)
+		exit(1);
+	while (ll && ll->nb < n)
+	{
+		tmp = ll;
+		ll = ll->next;
+	}
+	new->nb = n;
+	new->next = ll;
+	if (tmp)
+		tmp->next = new;
+	else
+		*nliste = new;
+}
+
+void	del_nliste(n_list *nlist)
+{
+	nlist = nlist->next;
+	while (nlist)
+	{
+		free(nlist);
+		nlist = nlist->next;
+	}
+}
+
+void	initialisation_nliste(n_list *nliste)
+{
+	nliste->next = NULL;
+}
+
+void	afficher_nliste(n_list *nliste)
+{
+	while (nliste)
+	{
+		printf("%d\n", nliste->nb);
+		nliste = nliste->next;
+	}
+}
+
+void	sort(n_list **nliste)
+{
+	n_list	*tmp;
+
+	tmp = *nliste;
+}
+
 int		main(void)
 {
-	t_list	*liste;
-	t_list	*tmp;
+//	t_list	*liste;
+	n_list *nliste;
 
-	initialisation(liste);
-	nouveau_element_debut(&liste, "bonjour");
+//	initialisation(liste);
+	initialisation_nliste(nliste);
+	nouveau_element_trie_nliste(&nliste, 5);
+	nouveau_element_trie_nliste(&nliste, 1);
+	nouveau_element_trie_nliste(&nliste, 4);
+	nouveau_element_trie_nliste(&nliste, 3);
+	nouveau_element_trie_nliste(&nliste, 2);
+/*	nouveau_element_debut(&liste, "bonjour");
 	nouveau_element_debut(&liste, "les");
 	nouveau_element_debut(&liste, "amis");
 	nouveau_element_debut(&liste, "?");
 	afficher(liste);
-	del(liste);
+*/	afficher_nliste(nliste);
+//	del(liste);
+	sort(&nliste);
+//	afficher_nliste(nliste);
+//	del_nliste(nliste);
 	return (0);
 }

@@ -1,1 +1,10 @@
-gcc ft_flag.c ft_init.c ft_ls.h ft_stat.c ft_no_flag.c main.c libft/libft.a
+#!/bin/bash
+
+if [ -z $1 ]
+then
+	rm ft_ls
+	make && ./ft_ls
+else
+	rm ft_ls
+	make re && ./ft_ls
+fi

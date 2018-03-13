@@ -15,7 +15,8 @@ NAME        =   ft_ls
 
 HEADER      =   ft_ls.h 
 
-FILENAMES   =   main.c ft_init.c ft_flag.c ft_stat.c ft_no_flag.c
+FILENAMES   =   main.c ft_init_flag.c ft_flag.c ft_stat.c ft_no_flag.c \
+ft_init_liste.c ft_new_elem_front_list.c
 
 SOURCES     =   $(addprefix ./, $(FILENAMES))
 
@@ -29,7 +30,7 @@ LIB_LNK     =   -L $(L_FT) -l ft
 
 LIB_INC     =   -I $(L_FT)/libft.h
 
-FLAGS	    =  -Wall -Wextra -Werror
+#FLAGS	    =  -Wall -Wextra -Werror
 
 .PHONY: all clean fclean re
 

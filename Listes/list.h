@@ -24,4 +24,10 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+typedef struct		l_liste
+{
+	int		nb;
+	struct l_liste	*next;
+}			n_list;
+
 #endif

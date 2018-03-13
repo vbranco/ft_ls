@@ -68,7 +68,7 @@ int					main(int ac, char **av)
 	DIR				*dir;
 
 	i = 1;
-	ft_init(&flag);
+	ft_init_flag(&flag);
 	if (ac == 1)
 		ft_list(".", dir, pdir);
 	else
