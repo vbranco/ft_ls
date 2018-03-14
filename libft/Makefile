@@ -25,7 +25,8 @@ SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	   ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c \
 	   ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c \
 	   ft_isblank.c ft_isupper.c ft_isxdigit.c ft_isspace.c ft_islower.c \
-	   ft_size_nb.c ft_reverse.c ft_count_words.c
+	   ft_size_nb.c ft_reverse.c ft_count_words.c ft_init_list.c \
+	   ft_list_front_add.c ft_listdell.c
 
 OBJ = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror

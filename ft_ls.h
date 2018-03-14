@@ -37,16 +37,10 @@ typedef struct		s_flag
 	int		t;
 }			t_flag;
 
-typedef struct		s_liste
-{
-	char			*str;
-	struct s_liste	*next;
-}			t_liste;
-
 void			ft_init_flag(t_flag *flag);
 void			ft_flag(char *str, t_flag *flag);
 void			ft_stat(char *buf, char *file, struct stat *st);
 int				ft_no_flag(t_flag *flag);
-int				ft_new_elem_front_list(t_liste **liste, char *str);
+void			ft_lstprint(t_list *liste);
 
 #endif

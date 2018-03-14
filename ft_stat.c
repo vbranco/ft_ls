@@ -33,9 +33,10 @@ void	ft_stat(char *buf, char *file, struct stat *st)
 	ft_strcat(buf, ft_itoa(st->st_size));
 	ft_strcat(buf, "  ");
 	ft_strcat(buf, time);
+	ft_strcat(buf, "  ");
 //	ft_strcat(buf, "  ");
 //	ft_strcat(buf, "  ");
-	printf("%s", buf);
+//	printf("%s", buf);
 //	printf(" %s", ctime(&st->st_mtime));
 //	free(time);
 //	printf("%-*s%*s%*s", (int)ft_strlen(buf) + 2, buf, (int)ft_strlen(ft_itoa(st->st_nlink)), ft_itoa(st->st_nlink), (int)ft_strlen(pwd->pw_name) + 2, pwd->pw_name);

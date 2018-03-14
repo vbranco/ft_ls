@@ -16,7 +16,7 @@ NAME        =   ft_ls
 HEADER      =   ft_ls.h 
 
 FILENAMES   =   main.c ft_init_flag.c ft_flag.c ft_stat.c ft_no_flag.c \
-ft_init_liste.c ft_new_elem_front_list.c
+ft_lstprint.c
 
 SOURCES     =   $(addprefix ./, $(FILENAMES))
 
@@ -56,7 +56,7 @@ build:
 $(NAME): $(OBJECTS)
 	    @$(MAKE) -C $(L_FT)
 		@echo "\033[32m"
-		gcc $(FLAGS) -I $(HEADER) $(SOURCES) $(LIB) -o $@
+		gcc $(FLAGS) -I  $(HEADER) $(SOURCES) $(LIB) -o $@ -g
 
 build/%.o: ./%.c | build
 	    gcc $(FLAGS) $(LIB_INC) -I $(HEADER) -c $< -o $@
