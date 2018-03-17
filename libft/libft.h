@@ -118,6 +118,6 @@ int					ft_count_words(char const *s, char c);
 void				ft_init_list(t_list **liste);
 void				ft_list_front_add(t_list **liste, void *content, size_t content_size);
 void				ft_listdell(t_list *liste);
-
+void				ft_list_back_add(t_list **liste, void *content, size_t content_size);
 
 #endif

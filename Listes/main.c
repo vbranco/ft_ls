@@ -107,6 +107,24 @@ void	sort(n_list **nliste)
 	tmp = *nliste;
 }
 
+void	nouveau_element_fin(n_list **liste, int n)
+{
+	n_list	*tmp;
+	n_list	*new;
+
+	new = malloc(sizeof(n_list));
+	if (!new)
+		return ;
+	tmp = *liste;
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+	}
+	new->nb = n;
+	new->next = NULL;
+	tmp->next = new;
+}
+
 int		main(void)
 {
 //	t_list	*liste;
@@ -114,11 +132,14 @@ int		main(void)
 
 //	initialisation(liste);
 	initialisation_nliste(nliste);
+	nouveau_element_fin(&nliste, 51);
 	nouveau_element_trie_nliste(&nliste, 5);
 	nouveau_element_trie_nliste(&nliste, 1);
 	nouveau_element_trie_nliste(&nliste, 4);
+	nouveau_element_fin(&nliste, 555551);
 	nouveau_element_trie_nliste(&nliste, 3);
 	nouveau_element_trie_nliste(&nliste, 2);
+	nouveau_element_fin(&nliste, 2);
 /*	nouveau_element_debut(&liste, "bonjour");
 	nouveau_element_debut(&liste, "les");
 	nouveau_element_debut(&liste, "amis");

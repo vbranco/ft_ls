@@ -42,5 +42,6 @@ void			ft_flag(char *str, t_flag *flag);
 void			ft_stat(char *buf, char *file, struct stat *st);
 int				ft_no_flag(t_flag *flag);
 void			ft_lstprint(t_list *liste);
+void			ft_dir_name(t_list **liste, char *str);
 
 #endif

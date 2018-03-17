@@ -2,7 +2,10 @@
 
 if [ -z $1 ]
 then
-	rm ft_ls
+	if [ -f ft_ls ]
+	then
+		rm ft_ls
+	fi
 	make && ./ft_ls
 else
 	rm ft_ls
