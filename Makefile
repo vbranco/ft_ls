@@ -15,8 +15,8 @@ NAME        =   ft_ls
 
 HEADER      =   ft_ls.h 
 
-FILENAMES   =   main.c ft_init_flag.c ft_flag.c ft_stat.c ft_no_flag.c \
-ft_lstprint.c ft_dir_name.c
+FILENAMES   =   main.c ft_init_flag.c ft_flag.c ft_stat.c ft_flag_status.c \
+	ft_lstprint.c ft_dir_name.c ft_no_flag.c
 
 SOURCES     =   $(addprefix ./, $(FILENAMES))
 

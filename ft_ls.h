@@ -40,8 +40,9 @@ typedef struct		s_flag
 void			ft_init_flag(t_flag *flag);
 void			ft_flag(char *str, t_flag *flag);
 void			ft_stat(char *buf, char *file, struct stat *st);
-int				ft_no_flag(t_flag *flag);
+int				ft_flag_status(t_flag *flag);
 void			ft_lstprint(t_list *liste);
 void			ft_dir_name(t_list **liste, char *str);
+void			ft_no_flag(char *av, DIR *dir, struct dirent *pdir, t_list **liste, int ac);
 
 #endif

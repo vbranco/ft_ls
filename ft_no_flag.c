@@ -1,29 +1,16 @@
-/* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_no_flag.c                                     .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/12 18:00:51 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/12 18:10:28 by vbranco     ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
-/* ************************************************************************** */
-
 #include "ft_ls.h"
 
-int     ft_no_flag(t_flag *flag)
+void	ft_no_flag(char *av, DIR *dir, struct dirent *pdir, t_list **liste, int ac)
 {
-	if (flag->l == 1)
-		return (1);
-	if (flag->R == 1)
-		return(1);
-	if (flag->r == 1)
-		return (1);
-	if (flag->a == 1)
-		return (1);
-	if (flag->t == 1)
-		return (1);
-	return (0);
+	dir = opendir(av);
+	if (ac > 2)
+		ft_dir_name(liste, av);
+	while ((pdir = readdir(dir)) != NULL)
+	{
+		if (pdir->d_name[0] != '.')
+		{
+			ft_list_sort_add(liste, pdir->d_name, ft_strlen(pdir->d_name));
+		}
+	}
+	closedir(dir);
 }
