@@ -33,7 +33,14 @@ void		ft_flag_al(t_list **liste, t_flag *flag, char *buf, char *content, size_t 
 		ft_list_back_add(liste, ft_strcat(buf, content), content_size);
 }
 
-void		ft_dir(char *av, DIR *dir, struct dirent *pdir, t_flag *flag, t_list **liste, int ac)
+void		ft_buf(char *buf, t_format *format)
+{
+	ft_strcat(buf, format->umode);
+	ft_strcat(buf, format->gmode);
+	ft_strcat(buf, format->omode);
+}
+
+void		ft_dir(char *av, DIR *dir, struct dirent *pdir, t_flag *flag, t_list **liste, int ac, t_format *format)
 {
 	char		*buf;
 	struct stat	st;
@@ -47,8 +54,9 @@ void		ft_dir(char *av, DIR *dir, struct dirent *pdir, t_flag *flag, t_list **lis
 		}
 		while ((pdir = readdir(dir)) != NULL)
 		{
-			buf = ft_memalloc(20);
-			ft_stat(buf, pdir->d_name, &st);
+			buf = ft_memalloc(200);
+			ft_stat(pdir->d_name, &st, format);
+			ft_buf(buf, format);
 			ft_flag_al(liste, flag, buf, pdir->d_name, (ft_strlen(buf) + ft_strlen(pdir->d_name)));
 //			if (pdir->d_name[0] != '.')
 //				ft_list_back_add(liste, ft_strcat(buf, pdir->d_name), (ft_strlen(buf) + ft_strlen(pdir->d_name)));
@@ -59,7 +67,7 @@ void		ft_dir(char *av, DIR *dir, struct dirent *pdir, t_flag *flag, t_list **lis
 	else
 	{
 		buf = ft_memalloc(20);
-		ft_stat(buf, av, &st);
+		ft_stat(av, &st, format);
 		ft_list_back_add(liste, ft_strcat(buf, pdir->d_name), (ft_strlen(buf) + ft_strlen(pdir->d_name)));
 		free(buf);
 		return ;
@@ -69,23 +77,26 @@ void		ft_dir(char *av, DIR *dir, struct dirent *pdir, t_flag *flag, t_list **lis
 int					main(int ac, char **av)
 {
 	int				i;
-	t_flag			flag;
+	t_flag			*flag;
 	struct dirent	*pdir;
 	DIR				*dir;
 	t_list			*liste;
+	t_format		*format;
 
 	i = 1;
 	ft_init_list(&liste);
+	ft_init_flag(flag);
+	ft_init_format(format);
 	if (ac == 1)
 		ft_no_flag(".", dir, pdir, &liste, ac);
 	else
 	{
 		if (av[1][0] == '-')
 		{
-			ft_flag(av[1], &flag);
+			ft_flag(av[1], flag);
 			i = 2;
 		}
-		if (ft_flag_status(&flag) == 0)//pas de flag mais plusieurs arguments
+		if (ft_flag_status(flag) == 0)//pas de flag mais plusieurs arguments
 		{
 			while (i < ac)
 			{
@@ -99,15 +110,15 @@ int					main(int ac, char **av)
 		{
 			if (ac == 2)
 			{
-				ft_dir(".", dir, pdir, &flag, &liste, ac);
+				ft_dir(".", dir, pdir, flag, &liste, ac, format);
 			}
 			else
 			{
 				while (i < ac)
 				{
-					ft_dir(av[i], dir, pdir, &flag, &liste, ac);
-//					if (i < ac - 1)
-//						ft_list_front_add(&liste, "\0", 2);
+					ft_dir(av[i], dir, pdir, flag, &liste, ac, format);
+//					if (i < ac - 1)   ca segfault!! why??
+//						ft_list_back_add(&liste, "\0", 2);
 					i++;
 				}
 			}

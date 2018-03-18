@@ -37,9 +37,23 @@ typedef struct		s_flag
 	int		t;
 }			t_flag;
 
+typedef struct		s_format
+{
+	char		mode;
+	char		umode[4];
+	char		gmode[4];
+	char		omode[4];
+	int		nlink;
+	char		*pw_name;
+	char		*gr_name;
+	int		st_size;
+	char		*time;
+}			t_format;
+
 void			ft_init_flag(t_flag *flag);
+void			ft_init_format(t_format *format);
 void			ft_flag(char *str, t_flag *flag);
-void			ft_stat(char *buf, char *file, struct stat *st);
+void			ft_stat(char *file, struct stat *st, t_format *format);
 int				ft_flag_status(t_flag *flag);
 void			ft_lstprint(t_list *liste);
 void			ft_dir_name(t_list **liste, char *str);
