@@ -13,7 +13,27 @@ void	ft_stat(char *buf, char *file, struct stat *st)
 	ft_strcat(time, ctime(&st->st_mtime));
 	time += 4;
 	time[12] = '\0';
-	ft_strcat(buf, ((S_ISDIR(st->st_mode)) ? "d" : "-"));
+
+
+
+
+	if (S_ISLNK(st->st_mode))
+		ft_strcat(buf, "l");
+	else if (S_ISDIR(st->st_mode))
+		ft_strcat(buf, "d");
+	else if (S_ISREG(st->st_mode))
+		ft_strcat(buf, "-");
+	else if (S_ISCHR(st->st_mode))
+		ft_strcat(buf, "c");
+	else if (S_ISBLK(st->st_mode))
+		ft_strcat(buf, "b");
+	else if (S_ISFIFO(st->st_mode))
+		ft_strcat(buf, "p");
+	else if (S_ISSOCK(st->st_mode))
+		ft_strcat(buf, "s");
+
+
+
 	ft_strcat(buf, ((st->st_mode & S_IRUSR) ? "r" : "-"));
 	ft_strcat(buf, ((st->st_mode & S_IWUSR) ? "w" : "-"));
 	ft_strcat(buf, ((st->st_mode & S_IXUSR) ? "x" : "-"));
@@ -25,6 +45,7 @@ void	ft_stat(char *buf, char *file, struct stat *st)
 	ft_strcat(buf, ((st->st_mode & S_IXOTH) ? "x" : "-"));
 	ft_strcat(buf, "  ");
 	ft_strcat(buf, ft_itoa(st->st_nlink));
+//	printf(" size >> %d", ft_strlen(ft_itoa(st->st_nlink)));
 	ft_strcat(buf, "  ");
 	ft_strcat(buf, pwd->pw_name);
 	ft_strcat(buf, "  ");
@@ -34,6 +55,7 @@ void	ft_stat(char *buf, char *file, struct stat *st)
 	ft_strcat(buf, "  ");
 	ft_strcat(buf, time);
 	ft_strcat(buf, "  ");
+//	free(time-4);
 //	ft_strcat(buf, "  ");
 //	ft_strcat(buf, "  ");
 //	printf("%s", buf);

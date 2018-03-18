@@ -22,12 +22,23 @@ void		ft_etat_flag(t_flag *flag)
 	printf("t : %d\n", flag->t);
 }
 
+void		ft_flag_al(t_list **liste, t_flag *flag, char *buf, char *content, size_t content_size)
+{
+	if (flag->a == 0)
+	{
+		if (content[0] != '.')
+			ft_list_back_add(liste, ft_strcat(buf, content), content_size);
+	}
+	else
+		ft_list_back_add(liste, ft_strcat(buf, content), content_size);
+}
+
 void		ft_dir(char *av, DIR *dir, struct dirent *pdir, t_flag *flag, t_list **liste, int ac)
 {
 	char		*buf;
 	struct stat	st;
 
-	if (opendir(av) != NULL && flag->l == 1)
+	if (opendir(av) != NULL && (flag->l == 1 || flag->a == 1))
 	{
 		dir = opendir(av);
 		if (ac > 3)
@@ -38,8 +49,9 @@ void		ft_dir(char *av, DIR *dir, struct dirent *pdir, t_flag *flag, t_list **lis
 		{
 			buf = ft_memalloc(20);
 			ft_stat(buf, pdir->d_name, &st);
-			if (pdir->d_name[0] != '.')
-				ft_list_back_add(liste, ft_strcat(buf, pdir->d_name), (ft_strlen(buf) + ft_strlen(pdir->d_name)));
+			ft_flag_al(liste, flag, buf, pdir->d_name, (ft_strlen(buf) + ft_strlen(pdir->d_name)));
+//			if (pdir->d_name[0] != '.')
+//				ft_list_back_add(liste, ft_strcat(buf, pdir->d_name), (ft_strlen(buf) + ft_strlen(pdir->d_name)));
 			free(buf);
 		}
 		closedir(dir);

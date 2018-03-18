@@ -9,7 +9,7 @@ void	ft_no_flag(char *av, DIR *dir, struct dirent *pdir, t_list **liste, int ac)
 	{
 		if (pdir->d_name[0] != '.')
 		{
-			ft_list_sort_add(liste, pdir->d_name, ft_strlen(pdir->d_name));
+			ft_list_back_add(liste, pdir->d_name, ft_strlen(pdir->d_name));
 		}
 	}
 	closedir(dir);
