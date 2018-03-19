@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/23 16:46:53 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/12 20:00:30 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 17:27:30 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -110,15 +110,5 @@ int					ft_islower(int c);
 int					ft_size_nb(intmax_t n);
 char				*ft_reverse(char *str);
 int					ft_count_words(char const *s, char c);
-
-/*
-**MINES
-*/
-
-void				ft_init_list(t_list **liste);
-void				ft_list_front_add(t_list **liste, void *content, size_t content_size);
-void				ft_listdell(t_list *liste);
-void				ft_list_back_add(t_list **liste, void *content, size_t content_size);
-void				ft_list_sort_add(t_list **liste, void *content, size_t content_size);
 
 #endif

@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "ft_ls.h"
 
 static int	ft_sort(char *s1, char *s2)
 {
@@ -7,14 +7,14 @@ static int	ft_sort(char *s1, char *s2)
 	return (0);
 }
 
-void	ft_list_sort_add(t_list **liste, void *content, size_t content_size)
+void	ft_node_sort_add(t_node **node, void *content, size_t content_size)
 {
-	t_list  *new;
-	t_list  *tmp = NULL;
-	t_list  *ll;
+	t_node  *new;
+	t_node  *tmp = NULL;
+	t_node  *ll;
 
-	ll = *liste;
-	if (!(new = malloc(sizeof(t_list))))
+	ll = *node;
+	if (!(new = (t_node*)malloc(sizeof(t_node))))
 		return ;
 	if (!(new->content = ft_memalloc(content_size)))
 		return ;
@@ -29,5 +29,5 @@ void	ft_list_sort_add(t_list **liste, void *content, size_t content_size)
 	if (tmp)
 		tmp->next = new;
 	else
-		*liste = new;
+		*node = new;
 }

@@ -1,20 +1,20 @@
-#include "libft.h"
+#include "ft_ls.h"
 
-void	ft_list_back_add(t_list **liste, void *content, size_t content_size)
+void	ft_node_back_add(t_node **node, void *content, size_t content_size)
 {
-	t_list	*tmp;
-	t_list	*new;
+	t_node	*tmp;
+	t_node	*new;
 
 	tmp = NULL;
-	if (!(new = (t_list*)malloc(sizeof(t_list))))
+	if (!(new = (t_node*)malloc(sizeof(t_node))))
 		return ;
 	if (!(new->content = ft_memalloc(content_size)))
 		return ;
-	tmp = *liste;
+	tmp = *node;
 	if (!tmp)
 	{
-		new->next = *liste;
-		*liste = new;
+		new->next = *node;
+		*node = new;
 	}
 	else
 	{

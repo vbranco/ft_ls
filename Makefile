@@ -6,7 +6,7 @@
 #    By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/03/07 17:08:49 by vbranco      #+#   ##    ##    #+#        #
-#    Updated: 2018/03/12 18:19:14 by vbranco     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/03/19 20:00:26 by vbranco     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -16,7 +16,8 @@ NAME        =   ft_ls
 HEADER      =   ft_ls.h 
 
 FILENAMES   =   main.c ft_init_flag.c ft_flag.c ft_stat.c ft_flag_status.c \
-	ft_lstprint.c ft_dir_name.c ft_no_flag.c ft_init_format.c
+	ft_nodeprint.c ft_dir_name.c ft_no_flag.c ft_init_format.c ft_init_node.c\
+	ft_node_back_add.c ft_node_front_add.c ft_node_sort_add.c ft_nodedell.c
 
 SOURCES     =   $(addprefix ./, $(FILENAMES))
 
