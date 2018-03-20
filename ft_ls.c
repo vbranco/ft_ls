@@ -1,49 +1,59 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_flag.c                                        .::    .:/ .      .::   */
+/*   ft_ls.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/07 17:07:57 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/20 19:46:04 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/03/20 16:39:39 by vbranco      #+#   ##    ##    #+#       */
+/*   Updated: 2018/03/20 19:56:47 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	ft_rec(char *str, t_flag *flag)
+static int	ft_count_args(int ac, char **av)
 {
 	int		i;
+	int		z;
 
-	i = 0;
-	while (str[i])
+	i = 1;
+	z = 0;
+	while (i < ac)
 	{
-		if (str[i] == 'l')
-			flag->l = 1;
-		else if (str[i] == 'R')
-			flag->R = 1;
-		else if (str[i] == 'r')
-			flag->r = 1;
-		else if (str[i] == 'a')
-			flag->a = 1;
-		else if (str[i] == 't')
-			flag->t = 1;
+		if (av[i][0] == '-')
+			z++;
 		i++;
 	}
+	return (z + 1);
 }
 
-void		ft_flag(int ac, char **av, t_flag *flag)
+void		ft_ls(char **av, t_flag *flag, t_node **node)
 {
 	int		i;
 
 	i = 1;
-	while (i < ac)
+	if (flag->ac == 1)
+		ft_dir(".", flag, node);
+	else
 	{
-		if (av[i][0] == '-')
-			ft_rec(av[i], flag);
-		i++;
+		if (ft_flag_status(flag) == 0)
+		{
+			while (i < flag->ac)
+			{
+				ft_dir(av[i], flag, node);
+				i++;
+			}
+		}
+		else
+		{
+			i = ft_count_args(flag->ac, av);
+			while (i < flag->ac)
+			{
+				ft_dir(av[i], flag, node);
+				i++;
+			}
+		}
 	}
-	flag->ac = ac;
 }

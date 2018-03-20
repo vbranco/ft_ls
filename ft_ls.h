@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:30 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 20:00:25 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/20 19:56:36 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,7 @@ typedef struct		s_flag
 	int				r;
 	int				a;
 	int				t;
+	int				ac;
 }					t_flag;
 
 typedef struct		s_format
@@ -44,10 +45,10 @@ typedef struct		s_format
 	char			gmode[4];
 	char			omode[4];
 	int				nlink;
-	char			*pw_name;
-	char			*gr_name;
+	char			pw_name[100];
+	char			gr_name[100];
 	int				st_size;
-	char			*time;
+	char			time[100];
 }					t_format;
 
 typedef struct		s_node
@@ -63,14 +64,15 @@ void			ft_init_format(t_format *format);
 void			ft_flag(int ac, char **av, t_flag *flag);
 void			ft_stat(char *file, struct stat *st, t_format *format);
 int				ft_flag_status(t_flag *flag);
-void			ft_nodeprint(t_node *node);
-void			ft_dir_name(t_node **node, char *str);
-void			ft_no_flag(char *av, DIR *dir, struct dirent *pdir, t_node **node, int ac);
+void			ft_file(char *str, t_flag *flag, t_format *format, t_node **node);
+void			ft_dir(char *str, t_flag *flag, t_node **node);
+void			ft_ls(char **av, t_flag *flag, t_node **node);
 
 /*
 **Listes
 */
 
+void			ft_nodeprint(t_node *node);
 void			ft_init_node(t_node	**node);
 void			ft_nodedell(t_node *node);
 void			ft_node_back_add(t_node **node, void *content, size_t content_size);
