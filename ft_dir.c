@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 17:11:48 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/20 19:56:43 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/21 19:59:10 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,9 @@ static void	ft_open_dir(char *str, t_flag *flag, t_format *format, t_node **node
 	}
 	else
 	{
-		perror("impossible d'ouvrir le dossier!!!");
+//		perror(pdir->d_name);
+//		trouver un moyen de passer une chaine de caracteres a perror
+		exit(1);
 	}
 }
 
