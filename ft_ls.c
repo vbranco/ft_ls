@@ -13,46 +13,36 @@
 
 #include "ft_ls.h"
 
-static int	ft_count_args(int ac, char **av)
+void		ft_ls(t_flag *flag, t_node **node)
 {
-	int		i;
-	int		z;
+	t_node		*args;
+	t_format	format;
 
-	i = 1;
-	z = 0;
-	while (i < ac)
-	{
-		if (av[i][0] == '-')
-			z++;
-		i++;
-	}
-	return (z + 1);
-}
-
-void		ft_ls(char **av, t_flag *flag, t_node **node)
-{
-	int		i;
-
-	i = 1;
+	args = *node;
 	if (flag->ac == 1)
-		ft_dir(".", flag, node);
+		ft_dir(args->content, flag, &format,  node);
 	else
 	{
 		if (ft_flag_status(flag) == 0)
 		{
-			while (i < flag->ac)
+			while (args)
 			{
-				ft_dir(av[i], flag, node);
-				i++;
+				if (opendir(args->content) != NULL)
+					ft_dir(args->content, flag, &format, node);
+				else
+					ft_file(args->content, flag, &format, node);
+				args = args->next;
 			}
 		}
 		else
 		{
-			i = ft_count_args(flag->ac, av);
-			while (i < flag->ac)
+			while (args)
 			{
-				ft_dir(av[i], flag, node);
-				i++;
+				if (opendir(args->content) != NULL)
+					ft_dir(args->content, flag, &format, node);
+				else
+					ft_file(args->content, flag, &format, node);
+				args = args->next;
 			}
 		}
 	}

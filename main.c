@@ -30,7 +30,8 @@ int			main(int ac, char **av)
 	ft_init_flag(&flag);
 	ft_init_node(&node);
 	ft_flag(ac, av, &flag);
-	ft_ls(av, &flag, &node);
+	ft_args(av, &flag, &node);
+	ft_ls(&flag, &node);
 	ft_nodeprint(node);
 	ft_nodedell(node);
 //	ft_etat_flag(&flag);

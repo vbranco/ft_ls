@@ -45,10 +45,10 @@ typedef struct		s_format
 	char			gmode[4];
 	char			omode[4];
 	int				nlink;
-	char			pw_name[100];
-	char			gr_name[100];
+	char			*pw_name;
+	char			*gr_name;
 	int				st_size;
-	char			time[100];
+	char			*time;
 }					t_format;
 
 typedef struct		s_node
@@ -65,8 +65,10 @@ void			ft_flag(int ac, char **av, t_flag *flag);
 void			ft_stat(char *file, struct stat *st, t_format *format);
 int				ft_flag_status(t_flag *flag);
 void			ft_file(char *str, t_flag *flag, t_format *format, t_node **node);
-void			ft_dir(char *str, t_flag *flag, t_node **node);
-void			ft_ls(char **av, t_flag *flag, t_node **node);
+void			ft_dir(char *str, t_flag *flag, t_format *format, t_node **node);
+void			ft_ls(t_flag *flag, t_node **node);
+int			ft_count_args(int ac, char **av);
+void			ft_args(char **av, t_flag *flag, t_node **node);
 
 /*
 **Listes

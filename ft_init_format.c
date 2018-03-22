@@ -23,8 +23,11 @@ void	ft_init_format(t_format *format)
 	ft_memset(format->gmode, '-', 3);
 	ft_memset(format->omode, '-', 3);
 	format->nlink = 0;
-	ft_memset(format->pw_name, '\0', 100);
-	ft_memset(format->gr_name, '\0', 100);
+	format->pw_name = NULL;
+	format->gr_name = NULL;
+//	ft_memset(format->pw_name, '\0', 100);
+//	ft_memset(format->gr_name, '\0', 100);
 	format->st_size = 0;
-	ft_memset(format->time, '\0', 100);
+//	ft_memset(format->time, '\0', 100);
+	format->time = NULL;
 }

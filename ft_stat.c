@@ -21,9 +21,9 @@ void	ft_stat(char *file, struct stat *st, t_format *format)
 	lstat(file, st);
 	pwd = getpwuid(st->st_uid);
 	grp = getgrgid(st->st_gid);
+	format->time = ft_memalloc(ft_strlen(ctime(&st->st_mtime)));
 	ft_strcat(format->time, ctime(&st->st_mtime));
-	format->time[12] = '\0';
-
+	format->time[16] = '\0';
 
 
 	if (S_ISLNK(st->st_mode))
@@ -52,6 +52,8 @@ void	ft_stat(char *file, struct stat *st, t_format *format)
 	((st->st_mode & S_IXOTH) ? format->omode[2] = 'x' : 0);
 
 	format->nlink = st->st_nlink;
+	format->pw_name = ft_memalloc(ft_strlen(pwd->pw_name));
+	format->gr_name = ft_memalloc(ft_strlen(grp->gr_name));
 	ft_strcat(format->pw_name, pwd->pw_name);
 	ft_strcat(format->gr_name, grp->gr_name);
 	format->st_size = st->st_size;
