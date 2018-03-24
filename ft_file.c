@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 18:52:29 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/21 19:59:22 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/24 18:24:57 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,13 +24,11 @@ void    ft_file(char *str, t_flag *flag, t_format *format, t_node **node)
 		ft_stat(str, &st, format);
 		buf = ft_memalloc(1 + 4 + 4 + 4 + 4 + ft_strlen(format->pw_name) + ft_strlen(format->gr_name) + 4 + ft_strlen(format->time));
 		char s[2];
-		s[0] = format->mode;
+		s[0] = format->amode;
 		s[1] = '\0';
 		ft_strcat(buf, s);
 //		ft_strcat(buf, format->mode);
-		ft_strcat(buf, format->umode);
-		ft_strcat(buf, format->gmode);
-		ft_strcat(buf, format->omode);
+		ft_strcat(buf, format->mode);
 		ft_strcat(buf, "  ");
 		ft_strcat(buf, ft_itoa(format->nlink));
 		ft_strcat(buf, "  ");

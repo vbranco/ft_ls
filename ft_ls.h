@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:30 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/21 19:59:13 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/24 18:24:49 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,10 +40,8 @@ typedef struct		s_flag
 
 typedef struct		s_format
 {
-	char			mode;
-	char			umode[4];
-	char			gmode[4];
-	char			omode[4];
+	char			amode;
+	char			mode[10];
 	int				nlink;
 	char			*pw_name;
 	char			*gr_name;
