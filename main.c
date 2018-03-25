@@ -13,7 +13,7 @@
 
 #include "ft_ls.h"
 
-void		ft_etat_flag(t_flag *flag)
+void	ft_etat_flag(t_flag *flag)
 {
 	printf("l : %d\n", flag->l);
 	printf("R : %d\n", flag->R);
@@ -22,7 +22,7 @@ void		ft_etat_flag(t_flag *flag)
 	printf("t : %d\n", flag->t);
 }
 
-int			main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_flag	flag;
 	t_node	*node;
@@ -34,6 +34,6 @@ int			main(int ac, char **av)
 	ft_ls(&flag, &node);
 	ft_nodeprint(node);
 	ft_nodedell(node);
-//	ft_etat_flag(&flag);
+	//	ft_etat_flag(&flag);
 	return (0);
 }

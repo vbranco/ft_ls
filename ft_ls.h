@@ -27,6 +27,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
+# include <errno.h>
 
 typedef struct		s_flag
 {
@@ -38,16 +39,17 @@ typedef struct		s_flag
 	int				ac;
 }					t_flag;
 
-typedef struct		s_format
+typedef struct		s_fileinfo
 {
+	struct stat		*st;
 	char			amode;
 	char			mode[10];
 	int				nlink;
 	char			*pw_name;
 	char			*gr_name;
 	int				st_size;
-	char			*time;
-}					t_format;
+	char			time[50];
+}					t_fileinfo;
 
 typedef struct		s_node
 {
@@ -58,19 +60,19 @@ typedef struct		s_node
 }					t_node;
 
 void			ft_init_flag(t_flag *flag);
-void			ft_init_format(t_format *format);
+void			ft_init_fileinfo(t_fileinfo *fileinfo);
 void			ft_flag(int ac, char **av, t_flag *flag);
-void			ft_stat(char *file, struct stat *st, t_format *format);
+void			ft_stat(char *file, t_fileinfo *fileinfo);
 int				ft_flag_status(t_flag *flag);
-void			ft_file(char *str, t_flag *flag, t_format *format, t_node **node);
-void			ft_dir(char *str, t_flag *flag, t_format *format, t_node **node);
+void			ft_file(char *name, t_flag *flag, t_fileinfo *fileinfo, t_node **node);
+void			ft_dir(char *str, t_flag *flag, t_fileinfo *fileinfo, t_node **node);
 void			ft_ls(t_flag *flag, t_node **node);
 int			ft_count_args(int ac, char **av);
 void			ft_args(char **av, t_flag *flag, t_node **node);
 
 /*
-**Listes
-*/
+ **Listes
+ */
 
 void			ft_nodeprint(t_node *node);
 void			ft_init_node(t_node	**node);

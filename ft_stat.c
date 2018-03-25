@@ -13,44 +13,62 @@
 
 #include "ft_ls.h"
 
-void	ft_stat(char *file, struct stat *st, t_format *format)
+static void	ft_amode(t_fileinfo *fileinfo)
+{
+	if (S_ISLNK(fileinfo->st->st_mode))
+		fileinfo->amode =  'l';
+	else if (S_ISREG(fileinfo->st->st_mode))
+		fileinfo->amode =  '-';
+	else if (S_ISCHR(fileinfo->st->st_mode))
+		fileinfo->amode =  'c';
+	else if (S_ISBLK(fileinfo->st->st_mode))
+		fileinfo->amode =  'b';
+	else if (S_ISFIFO(fileinfo->st->st_mode))
+		fileinfo->amode =  'p';
+	else if (S_ISSOCK(fileinfo->st->st_mode))
+		fileinfo->amode =  's';
+	else if (S_ISDIR(fileinfo->st->st_mode))
+		fileinfo->amode =  'd';
+}
+
+static void	ft_rmode(t_fileinfo *fileinfo)
+{
+	((fileinfo->st->st_mode & S_IRUSR) ? fileinfo->mode[0] = 'r' : 0);
+	((fileinfo->st->st_mode & S_IWUSR) ? fileinfo->mode[1] = 'w' : 0);
+	((fileinfo->st->st_mode & S_IXUSR) ? fileinfo->mode[2] = 'x' : 0);
+	((fileinfo->st->st_mode & S_IRGRP) ? fileinfo->mode[3] = 'r' : 0);
+	((fileinfo->st->st_mode & S_IWGRP) ? fileinfo->mode[4] = 'w' : 0);
+	((fileinfo->st->st_mode & S_IXGRP) ? fileinfo->mode[5] = 'x' : 0);
+	((fileinfo->st->st_mode & S_IROTH) ? fileinfo->mode[6] = 'r' : 0);
+	((fileinfo->st->st_mode & S_IWOTH) ? fileinfo->mode[7] = 'w' : 0);
+	((fileinfo->st->st_mode & S_IXOTH) ? fileinfo->mode[8] = 'x' : 0);
+	fileinfo->nlink = fileinfo->st->st_nlink;
+}
+
+void	ft_stat(char *file, t_fileinfo *fileinfo)
 {
 	struct passwd	*pwd;
 	struct group	*grp;
 
-	lstat(file, st);
-	pwd = getpwuid(st->st_uid);
-	grp = getgrgid(st->st_gid);
-	format->time = ft_memalloc(ft_strlen(ctime(&st->st_mtime)));
-	ft_strcat(format->time, ctime(&st->st_mtime));
-	format->time[16] = '\0';
-	if (S_ISLNK(st->st_mode))
-		format->amode =  'l';
-	else if (S_ISREG(st->st_mode))
-		format->amode =  '-';
-	else if (S_ISCHR(st->st_mode))
-		format->amode =  'c';
-	else if (S_ISBLK(st->st_mode))
-		format->amode =  'b';
-	else if (S_ISFIFO(st->st_mode))
-		format->amode =  'p';
-	else if (S_ISSOCK(st->st_mode))
-		format->amode =  's';
-	else if (S_ISDIR(st->st_mode))
-		format->amode =  'd';
-	((st->st_mode & S_IRUSR) ? format->mode[0] = 'r' : 0);
-	((st->st_mode & S_IWUSR) ? format->mode[1] = 'w' : 0);
-	((st->st_mode & S_IXUSR) ? format->mode[2] = 'x' : 0);
-	((st->st_mode & S_IRGRP) ? format->mode[3] = 'r' : 0);
-	((st->st_mode & S_IWGRP) ? format->mode[4] = 'w' : 0);
-	((st->st_mode & S_IXGRP) ? format->mode[5] = 'x' : 0);
-	((st->st_mode & S_IROTH) ? format->mode[6] = 'r' : 0);
-	((st->st_mode & S_IWOTH) ? format->mode[7] = 'w' : 0);
-	((st->st_mode & S_IXOTH) ? format->mode[8] = 'x' : 0);
-	format->nlink = st->st_nlink;
-	format->pw_name = ft_memalloc(ft_strlen(pwd->pw_name));
-	format->gr_name = ft_memalloc(ft_strlen(grp->gr_name));
-	ft_strcat(format->pw_name, pwd->pw_name);
-	ft_strcat(format->gr_name, grp->gr_name);
-	format->st_size = st->st_size;
+	errno = 0;
+	if (!(fileinfo->st = malloc(sizeof(struct stat))))
+		return ;
+	if (lstat(file, fileinfo->st) != 0)
+	{
+		free(fileinfo->st);
+		perror(file);
+		return ;
+	}
+	pwd = getpwuid(fileinfo->st->st_uid);
+	grp = getgrgid(fileinfo->st->st_gid);
+	ft_strcat(fileinfo->time, ctime(&fileinfo->st->st_mtime));
+	fileinfo->time[16] = '\0';
+	ft_amode(fileinfo);
+	ft_rmode(fileinfo);
+	fileinfo->pw_name = ft_memalloc(ft_strlen(pwd->pw_name));
+	fileinfo->gr_name = ft_memalloc(ft_strlen(grp->gr_name));
+	ft_strcat(fileinfo->pw_name, pwd->pw_name);
+	ft_strcat(fileinfo->gr_name, grp->gr_name);
+	fileinfo->st_size = fileinfo->st->st_size;
+	free(fileinfo->st);
 }

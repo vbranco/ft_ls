@@ -13,40 +13,50 @@
 
 #include "ft_ls.h"
 
-void    ft_file(char *str, t_flag *flag, t_format *format, t_node **node)
+void	ft_cat(char *buf, t_fileinfo *fileinfo)
 {
-	struct stat	st;
-	char		*buf;
+	char	s[2];
+	char	*nlin;
+	char	*siz;
+
+	nlin = ft_itoa(fileinfo->nlink);
+	siz = ft_itoa(fileinfo->st_size);
+	s[0] = fileinfo->amode;
+	s[1] = '\0';
+	ft_strcat(buf, s);
+	ft_strcat(buf, fileinfo->mode);
+	ft_strcat(buf, "  ");
+	ft_strcat(buf, nlin);
+	ft_strcat(buf, "  ");
+	ft_strcat(buf, fileinfo->pw_name);
+	ft_strcat(buf, "  ");
+	ft_strcat(buf, fileinfo->gr_name);
+	ft_strcat(buf, "  ");
+	ft_strcat(buf, siz);
+	ft_strcat(buf, "  ");
+	ft_strcat(buf, fileinfo->time);
+	ft_strcat(buf, "  ");
+	free(nlin);
+	free(siz);
+}
+
+void	ft_file(char *name, t_flag *flag, t_fileinfo *fileinfo, t_node **node)
+{
+	char	*buf;
 
 	if (flag->l == 1)
 	{
-		ft_init_format(format);
-		ft_stat(str, &st, format);
-		buf = ft_memalloc(1 + 4 + 4 + 4 + 4 + ft_strlen(format->pw_name) + ft_strlen(format->gr_name) + 4 + ft_strlen(format->time));
-		char s[2];
-		s[0] = format->amode;
-		s[1] = '\0';
-		ft_strcat(buf, s);
-//		ft_strcat(buf, format->mode);
-		ft_strcat(buf, format->mode);
-		ft_strcat(buf, "  ");
-		ft_strcat(buf, ft_itoa(format->nlink));
-		ft_strcat(buf, "  ");
-		ft_strcat(buf, format->pw_name);
-		ft_strcat(buf, "  ");
-		ft_strcat(buf, format->gr_name);
-		ft_strcat(buf, "  ");
-		ft_strcat(buf, ft_itoa(format->st_size));
-		ft_strcat(buf, "  ");
-		ft_strcat(buf, format->time);
-		ft_strcat(buf, "  ");
-		ft_strcat(buf, str);
+		ft_init_fileinfo(fileinfo);
+		ft_stat(name, fileinfo);
+		buf = ft_memalloc(2 + 10 + 4 + ft_strlen(fileinfo->pw_name) + ft_strlen(fileinfo->gr_name) + 4 + ft_strlen(fileinfo->time));
+		ft_cat(buf, fileinfo);
+		ft_strcat(buf, name);
 		ft_node_front_add(node, buf, ft_strlen(buf));
 		free(buf);
-		free(format->time);
-		free(format->pw_name);
-		free(format->gr_name);
+		//		free(fileinfo->time);
+		free(fileinfo->pw_name);
+		free(fileinfo->gr_name);
 	}
 	else
-		ft_node_front_add(node, str, ft_strlen(str));
+		ft_node_front_add(node, name, ft_strlen(name));
 }
