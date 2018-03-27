@@ -13,22 +13,22 @@
 
 #include "ft_ls.h"
 
-void			ft_ls(t_flag *flag, t_node **node)
+void			ft_ls(t_flag *flag, t_fileinfo **file, t_node **arg)
 {
-	t_node		*args;
-	t_fileinfo	fileinfo;
+//	t_fileinfo		*file;
+	t_node			*args;
 
-	args = *node;
+	args = *arg;
 	if (flag->ac == 1)
-		ft_dir(args->content, flag, &fileinfo,  node);
+		ft_dir(args->content, flag, file);
 	else
 	{
 		while (args)
 		{
 			if (opendir(args->content) != NULL)
-				ft_dir(args->content, flag, &fileinfo, node);
+				ft_dir(args->content, flag, file);
 			else
-				ft_file(args->content, flag, &fileinfo, node);
+				ft_file(args->content, flag, file);
 			args = args->next;
 		}
 	}

@@ -24,16 +24,19 @@ void	ft_etat_flag(t_flag *flag)
 
 int		main(int ac, char **av)
 {
-	t_flag	flag;
-	t_node	*node;
+	t_flag		flag;
+	t_fileinfo	*file;
+	t_node		*args;
 
+	file = malloc(sizeof(struct s_fileinfo));
+	ft_init_node(&args);
 	ft_init_flag(&flag);
-	ft_init_node(&node);
+	ft_init_fileinfo(file);
 	ft_flag(ac, av, &flag);
-	ft_args(av, &flag, &node);
-	ft_ls(&flag, &node);
-	ft_nodeprint(node);
-	ft_nodedell(node);
+	ft_args(av, &flag, &args);
+	ft_ls(&flag, &file, &args);
+	ft_nodeprint(file);
+//	ft_nodedell(node);
 	//	ft_etat_flag(&flag);
 	return (0);
 }

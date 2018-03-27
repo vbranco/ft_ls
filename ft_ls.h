@@ -29,44 +29,47 @@
 # include <string.h>
 # include <errno.h>
 
-typedef struct		s_flag
+typedef struct			s_flag
 {
-	int				l;
-	int				R;
-	int				r;
-	int				a;
-	int				t;
-	int				ac;
-}					t_flag;
+	int					l;
+	int					R;
+	int					r;
+	int					a;
+	int					t;
+	int					ac;
+}						t_flag;
 
-typedef struct		s_fileinfo
+typedef struct			s_fileinfo
 {
-	struct stat		*st;
-	char			amode;
-	char			mode[10];
-	int				nlink;
-	char			*pw_name;
-	char			*gr_name;
-	int				st_size;
-	char			time[50];
-}					t_fileinfo;
+	struct stat			st;
+	char				*name;
+	char				amode;
+	char				mode[10];
+	int					nlink;
+	char				*pw_name;
+	char				*gr_name;
+	int					st_size;
+	char				time[50];
+	struct s_fileinfo	*next;
+	struct s_fileinfo	*other;
+}						t_fileinfo;
 
-typedef struct		s_node
+typedef struct			s_node
 {
-	void			*content;
-	size_t			content_size;
-	struct s_node	*next;
-	struct s_node	*other;
-}					t_node;
+	void				*content;
+	size_t				content_size;
+	struct s_node		*next;
+	struct s_node		*other;
+}						t_node;
 
 void			ft_init_flag(t_flag *flag);
 void			ft_init_fileinfo(t_fileinfo *fileinfo);
 void			ft_flag(int ac, char **av, t_flag *flag);
 void			ft_stat(char *file, t_fileinfo *fileinfo);
 int				ft_flag_status(t_flag *flag);
-void			ft_file(char *name, t_flag *flag, t_fileinfo *fileinfo, t_node **node);
-void			ft_dir(char *str, t_flag *flag, t_fileinfo *fileinfo, t_node **node);
-void			ft_ls(t_flag *flag, t_node **node);
+t_fileinfo		*ft_file(char *name, t_flag *flag, t_fileinfo **fileinfo);
+void			ft_dir(char *str, t_flag *flag, t_fileinfo **fileinfo);
+void			ft_ls(t_flag *flag, t_fileinfo **file, t_node **arg);
 int			ft_count_args(int ac, char **av);
 void			ft_args(char **av, t_flag *flag, t_node **node);
 
@@ -74,7 +77,7 @@ void			ft_args(char **av, t_flag *flag, t_node **node);
  **Listes
  */
 
-void			ft_nodeprint(t_node *node);
+void			ft_nodeprint(t_fileinfo *file);
 void			ft_init_node(t_node	**node);
 void			ft_nodedell(t_node *node);
 void			ft_node_back_add(t_node **node, void *content, size_t content_size);

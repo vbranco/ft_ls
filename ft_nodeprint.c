@@ -13,15 +13,15 @@
 
 #include "ft_ls.h"
 
-void	ft_nodeprint(t_node *node)
+void	ft_nodeprint(t_fileinfo *file)
 {
-	while (node)
+	while (file)
 	{
-//		if (node->other)
-//		{
-//			while(
-//		}
-		printf("%s\n", node->content);
-		node = node->next;
+		if (file->other)
+		{
+			ft_nodeprint(file->other);
+		}
+		printf("%s\n", file->name);
+		file = file->next;
 	}
 }
