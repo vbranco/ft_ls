@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 18:40:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/24 18:24:52 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/28 20:05:48 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,18 +55,16 @@ void	ft_stat(char *file, t_fileinfo *fileinfo)
 	errno = 0;
 	if (lstat(file, &tmp->st) != 0)
 	{
-		perror(file);
+		perror(file);//actuellement ca retourne une erreur!!!!
 		return ;
 	}
 	pwd = getpwuid(tmp->st.st_uid);
 	grp = getgrgid(tmp->st.st_gid);
-	ft_strcat(tmp->time, ctime(&tmp->st.st_mtime));
-	tmp->time[16] = '\0';
+	tmp->time = tmp->st.st_mtime;
 	ft_amode(tmp);
 	ft_rmode(tmp);
-	tmp->pw_name = ft_memalloc(ft_strlen(pwd->pw_name));
-	tmp->gr_name = ft_memalloc(ft_strlen(grp->gr_name));
-	ft_strcat(tmp->pw_name, pwd->pw_name);
-	ft_strcat(tmp->gr_name, grp->gr_name);
+	tmp->pw_name = ft_strdup(pwd->pw_name);
+	tmp->gr_name = ft_strdup(grp->gr_name);
 	tmp->st_size = tmp->st.st_size;
+	tmp->name = ft_strdup(file);
 }

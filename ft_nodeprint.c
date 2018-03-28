@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/24 10:49:51 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/24 18:24:54 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/28 20:06:03 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,11 +17,12 @@ void	ft_nodeprint(t_fileinfo *file)
 {
 	while (file)
 	{
-		if (file->other)
-		{
-			ft_nodeprint(file->other);
-		}
-		printf("%s\n", file->name);
+	//	if (file->other)
+	//	{
+	//		ft_nodeprint(file->other);
+	//	}
+		printf("%s ", file->name);
+		printf("%s\n", file->pw_name);
 		file = file->next;
 	}
 }

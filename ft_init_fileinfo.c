@@ -1,7 +1,21 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_init_fileinfo.c                               .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/03/28 18:17:44 by vbranco      #+#   ##    ##    #+#       */
+/*   Updated: 2018/03/28 18:23:07 by vbranco     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 void	ft_init_fileinfo(t_fileinfo *fileinfo)
 {
+	fileinfo = malloc(sizeof(t_fileinfo));
 	fileinfo->amode = 0;
 	fileinfo->name = NULL;
 	ft_memset(fileinfo->mode, '-', 10);
@@ -10,7 +24,7 @@ void	ft_init_fileinfo(t_fileinfo *fileinfo)
 	fileinfo->pw_name = NULL;
 	fileinfo->gr_name = NULL;
 	fileinfo->st_size = 0;
-	ft_memset(fileinfo->time, '\0', 50);
+	fileinfo->time = 0;
 	fileinfo->next = NULL;
 	fileinfo->other = NULL;
 }

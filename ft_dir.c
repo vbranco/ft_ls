@@ -6,24 +6,22 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 17:11:48 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/24 18:24:58 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/28 20:06:01 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void			ft_open_dir(char *str, t_flag *flag, t_fileinfo **fileinfo)
+static void			ft_open_dir(char *str, t_flag *flag, t_fileinfo *tmp)
 {
 	DIR				*dir;
 	struct dirent	*pdir;
-	t_fileinfo		*tmp;
 
-	tmp = *fileinfo;
 	errno = 0;
 	pdir = malloc(sizeof(struct dirent));
 	dir = opendir(str);
-	while ((pdir = readdir(dir)) != NULL)
+/*	while ((pdir = readdir(dir)) != NULL)
 	{
 		if (flag->a == 1)
 			tmp->next = ft_file(pdir->d_name, flag, fileinfo);
@@ -33,11 +31,11 @@ static void			ft_open_dir(char *str, t_flag *flag, t_fileinfo **fileinfo)
 				tmp->next = ft_file(pdir->d_name, flag, fileinfo);
 		}
 	}
-	closedir(dir);
+*/	closedir(dir);
 	free(pdir);
 }
 
-void	ft_dir(char *str, t_flag *flag, t_fileinfo **fileinfo)
+void	ft_dir(char *str, t_flag *flag, t_fileinfo *fileinfo)
 {
 	ft_open_dir(str, flag, fileinfo);
 }

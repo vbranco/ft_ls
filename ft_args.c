@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_args.c                                        .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/03/28 18:01:34 by vbranco      #+#   ##    ##    #+#       */
+/*   Updated: 2018/03/28 18:23:26 by vbranco     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 void            ft_args(char **av, t_flag *flag, t_node **node)
@@ -13,7 +26,7 @@ void            ft_args(char **av, t_flag *flag, t_node **node)
 		{
 			while (i < flag->ac)
 			{
-				ft_node_sort_add(node, av[i], ft_strlen(av[i]));
+				ft_node_front_add(node, av[i], ft_strlen(av[i]));
 				i++;
 			}
 		}
@@ -22,7 +35,7 @@ void            ft_args(char **av, t_flag *flag, t_node **node)
 			i = ft_count_args(flag->ac, av);
 			while (i < flag->ac)
 			{
-				ft_node_sort_add(node, av[i], ft_strlen(av[i]));
+				ft_node_front_add(node, av[i], ft_strlen(av[i]));
 				i++;
 			}
 
