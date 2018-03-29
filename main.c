@@ -22,7 +22,7 @@ void	ft_etat_flag(t_flag *flag)
 	printf("t : %d\n", flag->t);
 }
 
-void	fileprint(t_node *node)
+void	argsprint(t_node *node)
 {
 	while (node)
 	{
@@ -43,7 +43,7 @@ int		main(int ac, char **av)
 	ft_flag(ac, av, &flag);
 	ft_args(av, &flag, &args);
 	ft_ls(&flag, &file, &args);
-//	fileprint(args);
+//	argsprint(args);
 //	ft_nodeprint(file);
 	ft_nodedell(args);
 	//	ft_etat_flag(&flag);

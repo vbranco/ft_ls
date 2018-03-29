@@ -19,32 +19,35 @@ static void		ft_add_file_front(t_fileinfo **fileinfo, t_fileinfo *new)
 	*fileinfo = new;
 }
 
-void	ft_work(char *name, t_fileinfo **novo)
+void	ft_work(char *name)
 {
 	t_fileinfo	*new;
 
 	ft_init_fileinfo(new);
 	ft_stat(name, new);
 //	ft_add_file_front(novo, new);
+//	printf("%s\n", new->name);
+//	printf("%s\n", new->pw_name);
 }
 
-t_fileinfo		*ft_add_dir_front(t_fileinfo **fileinfo, t_fileinfo *new)
+void		ft_add_dir_front(t_fileinfo **fileinfo, t_fileinfo *new)
 {
-	t_fileinfo	*novo;
-	DIR			*dir;
+//	t_fileinfo		*novo;
+	DIR				*dir;
 	struct dirent	*pdir;
 
-	ft_init_fileinfo(novo);
+//	ft_init_fileinfo(novo);
 	pdir = malloc(sizeof(struct dirent));
 	dir = opendir(new->name);
 	while ((pdir = readdir(dir)) != NULL)
 	{
-		ft_work(pdir->d_name, &novo);
+		ft_work(pdir->d_name);
+//		printf("%s\n", pdir->d_name);
 	}
 	closedir(dir);
 	free(pdir);
 //	ft_add_file_front(fileinfo, new);
-	return (novo);
+//	return (novo);
 }
 
 
@@ -57,8 +60,8 @@ static void		ft_job(char	*name, t_flag *flag, t_fileinfo **fileinfo)
 	ft_stat(name, new);
 	if ((new->st.st_mode & S_IFMT) == S_IFDIR)
 	{
-//		ft_add_file_front(fileinfo, new);
-		new->other = ft_add_dir_front(fileinfo, new);
+//		new->other = ft_add_dir_front(fileinfo, new);
+		ft_add_dir_front(fileinfo, new);
 	}
 	else
 	{

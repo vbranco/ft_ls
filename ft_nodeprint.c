@@ -17,10 +17,13 @@ void	ft_nodeprint(t_fileinfo *file)
 {
 	while (file)
 	{
-	//	if (file->other)
-	//	{
-	//		ft_nodeprint(file->other);
-	//	}
+		if (file->other != NULL)
+		{
+			printf("other existe\n");
+//			ft_nodeprint(file->other);
+//			if (!file)
+//				return ;
+		}
 		printf("%s ", file->name);
 		printf("%s\n", file->pw_name);
 		file = file->next;
