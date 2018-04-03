@@ -26,7 +26,7 @@ void            ft_args(char **av, t_flag *flag, t_node **node)
 		{
 			while (i < flag->ac)
 			{
-				ft_node_front_add(node, av[i], ft_strlen(av[i]));
+				ft_node_sort_add(node, av[i], ft_strlen(av[i]));
 				i++;
 			}
 		}
@@ -35,7 +35,7 @@ void            ft_args(char **av, t_flag *flag, t_node **node)
 			i = ft_count_args(flag->ac, av);
 			while (i < flag->ac)
 			{
-				ft_node_front_add(node, av[i], ft_strlen(av[i]));
+				ft_node_sort_add(node, av[i], ft_strlen(av[i]));
 				i++;
 			}
 
