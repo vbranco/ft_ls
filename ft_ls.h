@@ -62,7 +62,7 @@ typedef struct			s_node
 }						t_node;
 
 void					ft_init_flag(t_flag *flag);
-void					ft_init_fileinfo(t_fileinfo *fileinfo);
+t_fileinfo				*ft_init_fileinfo();
 void					ft_flag(int ac, char **av, t_flag *flag);
 void					ft_stat(char *file, t_fileinfo *fileinfo);
 int						ft_flag_status(t_flag *flag);

@@ -13,8 +13,10 @@
 
 #include "ft_ls.h"
 
-void	ft_init_fileinfo(t_fileinfo *fileinfo)
+t_fileinfo	*ft_init_fileinfo(void)
 {
+	t_fileinfo	*fileinfo;
+
 	fileinfo = malloc(sizeof(t_fileinfo));
 	fileinfo->amode = 0;
 	fileinfo->name = NULL;
@@ -27,4 +29,5 @@ void	ft_init_fileinfo(t_fileinfo *fileinfo)
 	fileinfo->time = 0;
 	fileinfo->next = NULL;
 	fileinfo->other = NULL;
+	return (fileinfo);
 }

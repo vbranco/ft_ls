@@ -39,12 +39,13 @@ int		main(int ac, char **av)
 
 	ft_init_node(args);
 	ft_init_flag(&flag);
-	ft_init_fileinfo(file);
+	file = ft_init_fileinfo();
+	file = NULL;
 	ft_flag(ac, av, &flag);
 	ft_args(av, &flag, &args);
-//	ft_ls(&flag, &file, &args);
-	argsprint(args);
-//	ft_nodeprint(file);
+	ft_ls(&flag, &file, &args);
+//	argsprint(args);
+	ft_nodeprint(file);
 	ft_nodedell(args);
 	//	ft_etat_flag(&flag);
 	return (0);
