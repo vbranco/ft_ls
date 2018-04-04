@@ -64,7 +64,7 @@ typedef struct			s_node
 void					ft_init_flag(t_flag *flag);
 t_fileinfo				*ft_init_fileinfo();
 void					ft_flag(int ac, char **av, t_flag *flag);
-void					ft_stat(char *file, t_fileinfo *fileinfo);
+int						ft_stat(char *file, t_fileinfo *fileinfo);
 int						ft_flag_status(t_flag *flag);
 void					ft_dir(char *str, t_flag *flag, t_fileinfo *fileinfo);
 void					ft_ls(t_flag *flag, t_fileinfo **file, t_node **arg);
@@ -75,7 +75,7 @@ void					ft_args(char **av, t_flag *flag, t_node **node);
  **Listes
  */
 
-void					ft_nodeprint(t_fileinfo *file);
+void					ft_fileinfoprint(t_fileinfo *file);
 void					ft_init_node(t_node	*node);
 void					ft_nodedell(t_node *node);
 void					ft_node_back_add(t_node **node, void *content, size_t content_size);

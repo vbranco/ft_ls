@@ -45,27 +45,30 @@ static void	ft_rmode(t_fileinfo *fileinfo)
 	fileinfo->nlink = fileinfo->st.st_nlink;
 }
 
-void	ft_stat(char *file, t_fileinfo *fileinfo)
+static void	ft_file_name(char *str, t_fileinfo *tmp)
+{
+	tmp->name = ft_strdup(str);
+}
+
+int		ft_stat(char *file, t_fileinfo *fileinfo)
 {
 	struct passwd	*pwd;
 	struct group	*grp;
-	t_fileinfo		*tmp;
 
-	tmp = fileinfo;
 	errno = 0;
-//	printf("file >> %s\n", file);
-	if (lstat(file, &tmp->st) != 0)
+	if (lstat(file, &(fileinfo->st)) != 0)
 	{
-		perror(file);//actuellement ca retourne une erreur!!!!
-		return ;
+		perror(file);
+		return (1);
 	}
-	pwd = getpwuid(tmp->st.st_uid);
-	grp = getgrgid(tmp->st.st_gid);
-	tmp->time = tmp->st.st_mtime;
-	ft_amode(tmp);
-	ft_rmode(tmp);
-	tmp->pw_name = ft_strdup(pwd->pw_name);
-	tmp->gr_name = ft_strdup(grp->gr_name);
-	tmp->st_size = tmp->st.st_size;
-	tmp->name = ft_strdup(file);
+	pwd = getpwuid(fileinfo->st.st_uid);
+	grp = getgrgid(fileinfo->st.st_gid);
+	fileinfo->time = fileinfo->st.st_mtime;
+	ft_amode(fileinfo);
+	ft_rmode(fileinfo);
+	fileinfo->pw_name = ft_strdup(pwd->pw_name);
+	fileinfo->gr_name = ft_strdup(grp->gr_name);
+	fileinfo->st_size = fileinfo->st.st_size;
+	ft_file_name(file, fileinfo);
+	return (0);
 }

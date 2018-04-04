@@ -31,6 +31,23 @@ void	argsprint(t_node *node)
 	}
 }
 
+void	ft_fileinfodell(t_fileinfo *file)
+{
+	while (file->next)
+	{
+		file->amode = 0;
+		free(file->name);
+		file->nlink = 0;
+		free(file->pw_name);
+		free(file->gr_name);
+		file->st_size = 0;
+		file->time = 0;
+		free(file);
+		file = file->next;
+	}
+	file = NULL;
+}
+
 int		main(int ac, char **av)
 {
 	t_flag		flag;
@@ -45,8 +62,12 @@ int		main(int ac, char **av)
 	ft_args(av, &flag, &args);
 	ft_ls(&flag, &file, &args);
 //	argsprint(args);
-	ft_nodeprint(file);
+	ft_fileinfoprint(file);
 	ft_nodedell(args);
-	//	ft_etat_flag(&flag);
+//	argsprint(args);
+//	ft_fileinfodell(file);
+//	ft_nodeprint(file);
+//	sleep(1500);
+//	ft_etat_flag(&flag);
 	return (0);
 }

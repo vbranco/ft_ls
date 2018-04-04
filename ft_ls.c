@@ -19,16 +19,23 @@ static void		ft_add_file_front(t_fileinfo **fileinfo, t_fileinfo *new)
 	*fileinfo = new;
 }
 
-void	ft_work(char *name, t_fileinfo **fileinfo)
+void	ft_work(char *directory, char *name, t_fileinfo **fileinfo)
 {
 	t_fileinfo	*new;
+	char		*path;
 
+	path = ft_memalloc(ft_strlen(directory) + ft_strlen(name) + 2);
+	ft_strcat(path, directory);
+	ft_strcat(path, "/");
+	ft_strcat(path, name);
 	new = ft_init_fileinfo();
-	ft_stat(name, new);
+	if (ft_stat(path, new) == 1)
+		return ;
 	ft_add_file_front(fileinfo, new);
+	free(path);
 }
-
-void		ft_add_dir_front(t_fileinfo **fileinfo, t_fileinfo *current)
+/*
+void		ft_add_dir_front(t_fileinfo **fileinfo, t_fileinfo *current, t_flag *flag)
 {
 	DIR				*dir;
 	struct dirent	*pdir;
@@ -38,27 +45,53 @@ void		ft_add_dir_front(t_fileinfo **fileinfo, t_fileinfo *current)
 		perror("opendir() error\n");
 	while ((pdir = readdir(dir)) != NULL)
 	{
-		t_fileinfo	*new;
-
-		new = ft_init_fileinfo();
-		new = NULL;
-		ft_work(pdir->d_name, fileinfo);
+		if (flag->a == 0)
+		{
+			if (pdir->d_name[0] != '.')
+				ft_work(current->name, pdir->d_name, fileinfo);
+		}
+		else
+			ft_work(current->name, pdir->d_name, fileinfo);
 	}
 	closedir(dir);
 }
+*/
 
+t_fileinfo		*ft_add_dir_front(t_fileinfo **file, t_fileinfo *current, t_flag *flag)
+{
+	t_fileinfo	*new;
+	DIR				*dir;
+	struct dirent	*pdir;
+
+	errno = 0;
+	if ((dir = opendir(current->name)) == NULL)
+		perror("opendir() error\n");
+	while ((pdir = readdir(dir)) != NULL)
+	{
+		if (flag->a == 0)
+		{
+			if (pdir->d_name[0] != '.')
+				ft_work(current->name, pdir->d_name, &new);
+		}
+		else
+			ft_work(current->name, pdir->d_name, &new);
+	}
+	closedir(dir);
+	return (new);
+}
 
 static void		ft_job(char	*name, t_flag *flag, t_fileinfo **fileinfo)
 {
 	t_fileinfo	*new;
 
-//	new = malloc(sizeof(t_fileinfo));
 	new = ft_init_fileinfo();
 	ft_stat(name, new);
 	if ((new->st.st_mode & S_IFMT) == S_IFDIR)
 	{
-//		new->other = ft_add_dir_front(fileinfo, new);
-		ft_add_dir_front(fileinfo, new);
+		new->next = *fileinfo;
+		*fileinfo = new;
+		new->other = ft_add_dir_front(fileinfo, new, flag);
+//		ft_add_dir_front(fileinfo, new, flag);
 	}
 	else
 	{
