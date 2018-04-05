@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:23 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/28 20:05:59 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/05 19:47:01 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,10 +62,10 @@ int		main(int ac, char **av)
 	ft_args(av, &flag, &args);
 	ft_ls(&flag, &file, &args);
 //	argsprint(args);
-	ft_fileinfoprint(file);
+	ft_fileinfoprint(file, flag);
 	ft_nodedell(args);
 //	argsprint(args);
-//	ft_fileinfodell(file);
+	ft_fileinfodell(file);
 //	ft_nodeprint(file);
 //	sleep(1500);
 //	ft_etat_flag(&flag);

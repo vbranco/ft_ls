@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 18:40:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/28 20:05:48 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/05 19:46:57 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,7 @@ static void	ft_amode(t_fileinfo *fileinfo)
 		fileinfo->amode =  's';
 	else if (S_ISDIR(fileinfo->st.st_mode))
 		fileinfo->amode =  'd';
+	fileinfo->total = fileinfo->st.st_blocks;
 }
 
 static void	ft_rmode(t_fileinfo *fileinfo)

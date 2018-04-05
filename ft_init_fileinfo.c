@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 18:17:44 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/28 18:23:07 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/05 19:26:46 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,6 +27,7 @@ t_fileinfo	*ft_init_fileinfo(void)
 	fileinfo->gr_name = NULL;
 	fileinfo->st_size = 0;
 	fileinfo->time = 0;
+	fileinfo->total = 0;
 	fileinfo->next = NULL;
 	fileinfo->other = NULL;
 	return (fileinfo);

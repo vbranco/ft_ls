@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 16:39:39 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/28 20:05:58 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/05 19:46:58 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ static void		ft_add_file_front(t_fileinfo **fileinfo, t_fileinfo *new)
 	*fileinfo = new;
 }
 
-void	ft_work(char *directory, char *name, t_fileinfo **fileinfo)
+void		ft_work(char *directory, char *name, t_fileinfo **fileinfo)
 {
 	t_fileinfo	*new;
 	char		*path;
@@ -31,9 +31,13 @@ void	ft_work(char *directory, char *name, t_fileinfo **fileinfo)
 	new = ft_init_fileinfo();
 	if (ft_stat(path, new) == 1)
 		return ;
+//	printf("%llu\n", new->total);
+//	printf("rdev %i ", new->st.st_rdev);
 	ft_add_file_front(fileinfo, new);
 	free(path);
+//	return (new->total);
 }
+
 /*
 void		ft_add_dir_front(t_fileinfo **fileinfo, t_fileinfo *current, t_flag *flag)
 {
@@ -59,7 +63,7 @@ void		ft_add_dir_front(t_fileinfo **fileinfo, t_fileinfo *current, t_flag *flag)
 
 t_fileinfo		*ft_add_dir_front(t_fileinfo **file, t_fileinfo *current, t_flag *flag)
 {
-	t_fileinfo	*new;
+	t_fileinfo		*new;
 	DIR				*dir;
 	struct dirent	*pdir;
 
@@ -91,17 +95,18 @@ static void		ft_job(char	*name, t_flag *flag, t_fileinfo **fileinfo)
 		new->next = *fileinfo;
 		*fileinfo = new;
 		new->other = ft_add_dir_front(fileinfo, new, flag);
-//		ft_add_dir_front(fileinfo, new, flag);
+//		ft_add_dir_front(fileinfo, new, iflag);
 	}
 	else
 	{
+		ft_stat(name, new);
 		ft_add_file_front(fileinfo, new);
 	}
 }
 
 void			ft_ls(t_flag *flag, t_fileinfo **file, t_node **arg)
 {
-	t_node			*args;
+	t_node		*args;
 
 	args = *arg;
 	while (args)

@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:30 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/28 20:05:52 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/05 19:47:04 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,6 +50,7 @@ typedef struct			s_fileinfo
 	char				*gr_name;
 	int					st_size;
 	unsigned long long	time;
+	unsigned int		total;
 	struct s_fileinfo	*next;
 	struct s_fileinfo	*other;
 }						t_fileinfo;
@@ -75,7 +76,7 @@ void					ft_args(char **av, t_flag *flag, t_node **node);
  **Listes
  */
 
-void					ft_fileinfoprint(t_fileinfo *file);
+void					ft_fileinfoprint(t_fileinfo *file, t_flag flag);
 void					ft_init_node(t_node	*node);
 void					ft_nodedell(t_node *node);
 void					ft_node_back_add(t_node **node, void *content, size_t content_size);
