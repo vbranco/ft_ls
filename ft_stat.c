@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 18:40:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/05 19:46:57 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/07 18:31:31 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,7 +43,6 @@ static void	ft_rmode(t_fileinfo *fileinfo)
 	((fileinfo->st.st_mode & S_IROTH) ? fileinfo->mode[6] = 'r' : 0);
 	((fileinfo->st.st_mode & S_IWOTH) ? fileinfo->mode[7] = 'w' : 0);
 	((fileinfo->st.st_mode & S_IXOTH) ? fileinfo->mode[8] = 'x' : 0);
-	fileinfo->nlink = fileinfo->st.st_nlink;
 }
 
 static void	ft_file_name(char *str, t_fileinfo *tmp)
@@ -51,7 +50,23 @@ static void	ft_file_name(char *str, t_fileinfo *tmp)
 	tmp->name = ft_strdup(str);
 }
 
-int		ft_stat(char *file, t_fileinfo *fileinfo)
+char	*ft_time(char *time)
+{
+	char	*tmp;
+	char	*year;
+	char	*ret;
+
+	tmp = ft_strsub(time, 4, 7);
+	year = ft_strsub(time, 19, 5);
+	ret = ft_memalloc(ft_strlen(tmp) + ft_strlen(year) + 1);
+	ft_strcat(ret, tmp);
+	ft_strcat(ret, year);
+	free(tmp);
+	free(year);
+	return (ret);
+}
+
+int		ft_stat(char *file, t_fileinfo *fileinfo, t_space *sp)
 {
 	struct passwd	*pwd;
 	struct group	*grp;
@@ -64,12 +79,32 @@ int		ft_stat(char *file, t_fileinfo *fileinfo)
 	}
 	pwd = getpwuid(fileinfo->st.st_uid);
 	grp = getgrgid(fileinfo->st.st_gid);
-	fileinfo->time = fileinfo->st.st_mtime;
+	if (time(NULL) - fileinfo->st.st_mtime > 15778800 || time(NULL) < fileinfo->st.st_mtime)
+		fileinfo->time = ft_time(ctime(&fileinfo->st.st_mtime));
+	else
+		fileinfo->time = ft_strsub(ctime(&fileinfo->st.st_mtime), 4, 12);
 	ft_amode(fileinfo);
 	ft_rmode(fileinfo);
+	if (fileinfo->amode == 'l')
+	{
+		readlink(file, fileinfo->link, PATH_MAX);
+	}
 	fileinfo->pw_name = ft_strdup(pwd->pw_name);
 	fileinfo->gr_name = ft_strdup(grp->gr_name);
-	fileinfo->st_size = fileinfo->st.st_size;
 	ft_file_name(file, fileinfo);
+	fileinfo->maj = major(fileinfo->st.st_rdev);
+	fileinfo->min = minor(fileinfo->st.st_rdev);
+	if (ft_size_nb(fileinfo->st.st_nlink) > sp->size_nlink)
+		sp->size_nlink = ft_size_nb(fileinfo->st.st_nlink);
+	if (ft_strlen(fileinfo->pw_name) > sp->size_pname)
+		sp->size_pname = ft_strlen(fileinfo->pw_name);
+	if (ft_strlen(fileinfo->gr_name) > sp->size_gname)
+		sp->size_gname = ft_strlen(fileinfo->gr_name);
+	if (ft_size_nb(fileinfo->st.st_size) > sp->size_stsize)
+		sp->size_stsize = ft_size_nb(fileinfo->st.st_size);
+	if (ft_size_nb(fileinfo->maj) > sp->size_madev)
+		sp->size_madev = ft_size_nb(fileinfo->maj);
+	if (ft_size_nb(fileinfo->min) > sp->size_midev)
+		sp->size_midev = ft_size_nb(fileinfo->min);
 	return (0);
 }

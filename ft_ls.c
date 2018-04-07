@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 16:39:39 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/05 19:46:58 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/07 18:31:33 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,26 @@ static void		ft_add_file_front(t_fileinfo **fileinfo, t_fileinfo *new)
 	*fileinfo = new;
 }
 
-void		ft_work(char *directory, char *name, t_fileinfo **fileinfo)
+static void		ft_add_file_back(t_fileinfo **fileinfo, t_fileinfo *new)
+{
+	t_fileinfo	*tmp;
+
+	tmp = *fileinfo;
+	if (!tmp)
+	{
+		new->next = *fileinfo;
+		*fileinfo = new;
+	}
+	else
+	{
+		new->next = NULL;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+}
+
+static void		ft_work(char *directory, char *name, t_fileinfo **fileinfo, t_space *sp)
 {
 	t_fileinfo	*new;
 	char		*path;
@@ -29,45 +48,20 @@ void		ft_work(char *directory, char *name, t_fileinfo **fileinfo)
 	ft_strcat(path, "/");
 	ft_strcat(path, name);
 	new = ft_init_fileinfo();
-	if (ft_stat(path, new) == 1)
+	if (ft_stat(path, new, sp) == 1)
 		return ;
-//	printf("%llu\n", new->total);
-//	printf("rdev %i ", new->st.st_rdev);
-	ft_add_file_front(fileinfo, new);
+	ft_add_file_back(fileinfo, new);
 	free(path);
-//	return (new->total);
 }
 
-/*
-void		ft_add_dir_front(t_fileinfo **fileinfo, t_fileinfo *current, t_flag *flag)
-{
-	DIR				*dir;
-	struct dirent	*pdir;
-
-	errno = 0;
-	if ((dir = opendir(current->name)) == NULL)
-		perror("opendir() error\n");
-	while ((pdir = readdir(dir)) != NULL)
-	{
-		if (flag->a == 0)
-		{
-			if (pdir->d_name[0] != '.')
-				ft_work(current->name, pdir->d_name, fileinfo);
-		}
-		else
-			ft_work(current->name, pdir->d_name, fileinfo);
-	}
-	closedir(dir);
-}
-*/
-
-t_fileinfo		*ft_add_dir_front(t_fileinfo **file, t_fileinfo *current, t_flag *flag)
+t_fileinfo		*ft_add_dir_front(t_fileinfo **file, t_fileinfo *current, t_flag *flag, t_space *sp)
 {
 	t_fileinfo		*new;
 	DIR				*dir;
 	struct dirent	*pdir;
 
 	errno = 0;
+	new = ft_init_fileinfo();
 	if ((dir = opendir(current->name)) == NULL)
 		perror("opendir() error\n");
 	while ((pdir = readdir(dir)) != NULL)
@@ -75,43 +69,41 @@ t_fileinfo		*ft_add_dir_front(t_fileinfo **file, t_fileinfo *current, t_flag *fl
 		if (flag->a == 0)
 		{
 			if (pdir->d_name[0] != '.')
-				ft_work(current->name, pdir->d_name, &new);
+				ft_work(current->name, pdir->d_name, &new, sp);
 		}
 		else
-			ft_work(current->name, pdir->d_name, &new);
+			ft_work(current->name, pdir->d_name, &new, sp);
 	}
 	closedir(dir);
 	return (new);
 }
 
-static void		ft_job(char	*name, t_flag *flag, t_fileinfo **fileinfo)
+static void		ft_job(char	*name, t_flag *flag, t_fileinfo **fileinfo, t_space *sp)
 {
 	t_fileinfo	*new;
 
 	new = ft_init_fileinfo();
-	ft_stat(name, new);
+	ft_stat(name, new, sp);
 	if ((new->st.st_mode & S_IFMT) == S_IFDIR)
 	{
 		new->next = *fileinfo;
 		*fileinfo = new;
-		new->other = ft_add_dir_front(fileinfo, new, flag);
-//		ft_add_dir_front(fileinfo, new, iflag);
+		new->other = ft_add_dir_front(fileinfo, new, flag, sp);
 	}
 	else
 	{
-		ft_stat(name, new);
-		ft_add_file_front(fileinfo, new);
+		ft_add_file_back(fileinfo, new);
 	}
 }
 
-void			ft_ls(t_flag *flag, t_fileinfo **file, t_node **arg)
+void			ft_ls(t_flag *flag, t_fileinfo **file, t_node **arg, t_space *sp)
 {
 	t_node		*args;
 
 	args = *arg;
 	while (args)
 	{
-		ft_job(args->content, flag, file);
+		ft_job(args->content, flag, file, sp);
 		args = args->next;
 	}
 }
