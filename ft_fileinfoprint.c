@@ -15,26 +15,19 @@
 
 static void	printl(t_fileinfo *file, t_space *sp)
 {
-	printf("%c", file->amode);
-	printf("%s  ", file->mode);
-	printf("%*i ", sp->size_nlink, file->st.st_nlink);
-	printf("%-*s  ", sp->size_pname, file->pw_name);
-	printf("%-*s  ", sp->size_gname, file->gr_name);
+	printf("%c%s  %*i %-*s  %-*s  ", file->amode, file->mode, sp->size_nlink,
+	file->st.st_nlink, sp->size_pname, file->pw_name, sp->size_gname, file->gr_name);
 	if (file->amode == 'b' || file->amode == 'c')
-	{
-		printf(" %*i, ", sp->size_madev, file->maj);
-		printf("%*i ", sp->size_midev, file->min);
-	}
+		printf(" %*i, %*i ", sp->size_madev, file->maj, sp->size_midev, file->min);
 	else
-		printf("%*lli ", sp->size_stsize, file->st.st_size);
-//	printf(">>>%s<<<", ctime(&file->st.st_mtime));
-//	printf("time >> %ld<<", time(NULL));
-//	printf("   time modif >>%li<<", file->st.st_mtime);
-//	if (time(NULL) - file->st.st_mtime > 15778800)
-//		printf(" plus de 6 mois");
-//	else
-	printf("%s ", file->time);
-	printf("%s", file->name);
+	{
+		if (sp->size_midev != 0 || sp->size_madev != 0)
+			printf("%*lli ", (sp->size_madev + sp->size_midev + sp->size_stsize-1),
+			file->st.st_size);
+		else
+			printf("%*lli ", (sp->size_stsize), file->st.st_size);
+	}
+	printf("%s %s", file->time, file->name);
 	if (file->amode == 'l')
 	{
 		printf(" -> %s\n", file->link);
@@ -52,7 +45,6 @@ void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
 	{
 		if (file->other)
 		{
-			//			printf("other existe\n");
 			ft_fileinfoprint(file->other, flag, sp);
 		}
 		if (!file)

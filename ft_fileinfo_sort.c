@@ -13,25 +13,75 @@
 
 #include "ft_ls.h"
 
-void	sort_r(t_fileinfo **file, t_fileinfo *new)
+static int	ft_sort_r(t_flag *flag)
 {
-	t_fileinfo	*tmp;
-	t_fileinfo	*swap;
-
-	tmp = NULL;
-	swap = *node;
-	while (swap->next)
-	{
-		if (
-	}
+	if (flag->r == 0)
+		return (1);
+	else if (flag->r == 1)
+		return (0);
+	return (1);
 }
 
-void	ft_fileinfo_sort(t_fileinfo **file, t_flag flag, t_fileinfo *new)
+static int	ft_s(char *s1, char *s2, t_flag *flag)
 {
-	if (flag.r == 1)
-		sort_r(file, new);
-	else if (flag.t == 1)
-		sort_t(file, new);
+	int		i;
+
+	i = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (0);
+	while (s1[i] == s2[i] && s1[i] && s2[i])
+		i++;
+	if (!s1[i])
+		return (ft_sort_r(flag));
+	if (s1[i] < s2[i] && s1[i] && s2[i])
+		return (ft_sort_r(flag));
 	else
-		add_back(file, new);
+		return (!ft_sort_r(flag));
+	return (0);
+}
+
+static int	ft_t(unsigned long long file1, unsigned long long file2, t_flag *flag)
+{
+	if (file1 < file2)
+	{
+		if (flag->r == 0)
+			return (0);
+		else if (flag->r == 1)
+			return (1);
+	}
+	else
+	{
+		if (flag->r == 0)
+			return (1);
+		else if (flag->r == 1)
+			return (0);
+	}
+	return (0);
+}
+
+static int	ft_sort(t_fileinfo *file, t_fileinfo *novo, t_flag *flag)
+{
+	if (flag->t == 0)
+		return (ft_s(file->name, novo->name, flag));
+	else
+		return (ft_t(file->st.st_mtime, novo->st.st_mtime, flag));
+}
+
+void	ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *novo, t_flag *flag)
+{
+	t_fileinfo	*tmp;
+	t_fileinfo	*ll;
+
+	tmp = NULL;
+	ll = *file;
+	while (ll && ft_sort(ll, novo, flag))
+	{
+		tmp = ll;
+		ll = ll->next;
+	}
+	novo->next = ll;
+	if (tmp)
+		tmp->next = novo;
+	else
+		*file = novo;
 }

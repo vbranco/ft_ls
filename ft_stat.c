@@ -45,9 +45,26 @@ static void	ft_rmode(t_fileinfo *fileinfo)
 	((fileinfo->st.st_mode & S_IXOTH) ? fileinfo->mode[8] = 'x' : 0);
 }
 
-static void	ft_file_name(char *str, t_fileinfo *tmp)
+static void	ft_file_display(char *str, t_fileinfo *tmp, t_space *sp)
 {
 	tmp->name = ft_strdup(str);
+	if (tmp->amode == 'b' || tmp->amode == 'c')
+	{
+		tmp->maj = major(tmp->st.st_rdev);
+		tmp->min = minor(tmp->st.st_rdev);
+		if (ft_size_nb(tmp->maj) > sp->size_madev)
+			sp->size_madev = ft_size_nb(tmp->maj);
+		if (ft_size_nb(tmp->min) > sp->size_midev)
+			sp->size_midev = ft_size_nb(tmp->min);
+	}
+	if (ft_size_nb(tmp->st.st_nlink) > sp->size_nlink)
+		sp->size_nlink = ft_size_nb(tmp->st.st_nlink);
+	if (ft_strlen(tmp->pw_name) > sp->size_pname)
+		sp->size_pname = ft_strlen(tmp->pw_name);
+	if (ft_strlen(tmp->gr_name) > sp->size_gname)
+		sp->size_gname = ft_strlen(tmp->gr_name);
+	if (ft_size_nb(tmp->st.st_size) > sp->size_stsize)
+		sp->size_stsize = ft_size_nb(tmp->st.st_size);
 }
 
 char	*ft_time(char *time)
@@ -86,25 +103,9 @@ int		ft_stat(char *file, t_fileinfo *fileinfo, t_space *sp)
 	ft_amode(fileinfo);
 	ft_rmode(fileinfo);
 	if (fileinfo->amode == 'l')
-	{
 		readlink(file, fileinfo->link, PATH_MAX);
-	}
 	fileinfo->pw_name = ft_strdup(pwd->pw_name);
 	fileinfo->gr_name = ft_strdup(grp->gr_name);
-	ft_file_name(file, fileinfo);
-	fileinfo->maj = major(fileinfo->st.st_rdev);
-	fileinfo->min = minor(fileinfo->st.st_rdev);
-	if (ft_size_nb(fileinfo->st.st_nlink) > sp->size_nlink)
-		sp->size_nlink = ft_size_nb(fileinfo->st.st_nlink);
-	if (ft_strlen(fileinfo->pw_name) > sp->size_pname)
-		sp->size_pname = ft_strlen(fileinfo->pw_name);
-	if (ft_strlen(fileinfo->gr_name) > sp->size_gname)
-		sp->size_gname = ft_strlen(fileinfo->gr_name);
-	if (ft_size_nb(fileinfo->st.st_size) > sp->size_stsize)
-		sp->size_stsize = ft_size_nb(fileinfo->st.st_size);
-	if (ft_size_nb(fileinfo->maj) > sp->size_madev)
-		sp->size_madev = ft_size_nb(fileinfo->maj);
-	if (ft_size_nb(fileinfo->min) > sp->size_midev)
-		sp->size_midev = ft_size_nb(fileinfo->min);
+	ft_file_display(file, fileinfo, sp);
 	return (0);
 }

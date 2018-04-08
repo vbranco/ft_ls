@@ -38,7 +38,7 @@ static void		ft_add_file_back(t_fileinfo **fileinfo, t_fileinfo *new)
 	}
 }
 
-static void		ft_work(char *directory, char *name, t_fileinfo **fileinfo, t_space *sp)
+static void		ft_work(char *directory, char *name, t_fileinfo **fileinfo, t_space *sp, t_flag *flag)
 {
 	t_fileinfo	*new;
 	char		*path;
@@ -48,9 +48,10 @@ static void		ft_work(char *directory, char *name, t_fileinfo **fileinfo, t_space
 	ft_strcat(path, "/");
 	ft_strcat(path, name);
 	new = ft_init_fileinfo();
+//	nom(new, name);
 	if (ft_stat(path, new, sp) == 1)
 		return ;
-	ft_add_file_back(fileinfo, new);
+	ft_fileinfo_sort(fileinfo, new, flag);
 	free(path);
 }
 
@@ -66,13 +67,14 @@ t_fileinfo		*ft_add_dir_front(t_fileinfo **file, t_fileinfo *current, t_flag *fl
 		perror("opendir() error\n");
 	while ((pdir = readdir(dir)) != NULL)
 	{
+//		printf("%s\n", current->name);
 		if (flag->a == 0)
 		{
 			if (pdir->d_name[0] != '.')
-				ft_work(current->name, pdir->d_name, &new, sp);
+				ft_work(current->name, pdir->d_name, &new, sp, flag);
 		}
 		else
-			ft_work(current->name, pdir->d_name, &new, sp);
+			ft_work(current->name, pdir->d_name, &new, sp, flag);
 	}
 	closedir(dir);
 	return (new);
@@ -86,8 +88,7 @@ static void		ft_job(char	*name, t_flag *flag, t_fileinfo **fileinfo, t_space *sp
 	ft_stat(name, new, sp);
 	if ((new->st.st_mode & S_IFMT) == S_IFDIR)
 	{
-		new->next = *fileinfo;
-		*fileinfo = new;
+		ft_add_file_back(fileinfo, new);
 		new->other = ft_add_dir_front(fileinfo, new, flag, sp);
 	}
 	else

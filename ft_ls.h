@@ -91,6 +91,7 @@ void					ft_init_space(t_space *sp);
  */
 
 void					ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp);
+void					ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *novo, t_flag *flag);
 void					ft_init_node(t_node	*node);
 void					ft_nodedell(t_node *node);
 void					ft_node_back_add(t_node **node, void *content, size_t content_size);

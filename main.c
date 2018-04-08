@@ -60,7 +60,7 @@ int		main(int ac, char **av)
 	file = NULL;
 	ft_flag(ac, av, &flag);
 	ft_args(av, &flag, &args);
-	argsprint(args);
+//	argsprint(args);
 	ft_ls(&flag, &file, &args, &sp);
 //	argsprint(args);
 	ft_nodedell(args);
