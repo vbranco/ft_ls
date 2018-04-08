@@ -15,7 +15,7 @@
 
 static void	printl(t_fileinfo *file, t_space *sp)
 {
-	printf("%c%s  %*i %-*s  %-*s  ", file->amode, file->mode, sp->size_nlink,
+	printf("%c%s %*i %-*s  %-*s  ", file->amode, file->mode, sp->size_nlink,
 	file->st.st_nlink, sp->size_pname, file->pw_name, sp->size_gname, file->gr_name);
 	if (file->amode == 'b' || file->amode == 'c')
 		printf(" %*i, %*i ", sp->size_madev, file->maj, sp->size_midev, file->min);

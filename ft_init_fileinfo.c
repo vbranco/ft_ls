@@ -22,7 +22,8 @@ t_fileinfo	*ft_init_fileinfo(void)
 	fileinfo->amode = 0;
 	fileinfo->name = NULL;
 	ft_memset(fileinfo->mode, '-', 10);
-	fileinfo->mode[9] = '\0';
+	fileinfo->mode[9] = ' ';
+	fileinfo->mode[10] = '\0';
 	fileinfo->pw_name = NULL;
 	fileinfo->gr_name = NULL;
 	fileinfo->time = NULL;

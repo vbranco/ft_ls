@@ -23,6 +23,7 @@
 # include <uuid/uuid.h>
 # include <grp.h>
 # include <sys/xattr.h>
+# include <sys/acl.h>
 # include <time.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -46,7 +47,7 @@ typedef struct			s_fileinfo
 	struct stat			st;
 	char				*name;
 	char				amode;
-	char				mode[10];
+	char				mode[11];
 	char				*pw_name;
 	char				*gr_name;
 	char				link[PATH_MAX];

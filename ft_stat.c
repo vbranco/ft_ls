@@ -29,7 +29,30 @@ static void	ft_amode(t_fileinfo *fileinfo)
 		fileinfo->amode =  's';
 	else if (S_ISDIR(fileinfo->st.st_mode))
 		fileinfo->amode =  'd';
-	fileinfo->total = fileinfo->st.st_blocks;
+	fileinfo->total = fileinfo->st.st_blocks;//pas encore au point
+}
+
+static void ft_acl(t_fileinfo *fileinfo)
+{
+	acl_t		acl;
+	acl_entry_t	dummy;
+	ssize_t		xatrr;
+
+	xatrr = 0;
+	acl = NULL;
+	acl = acl_get_link_np(fileinfo->name, ACL_TYPE_EXTENDED);
+	if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1)
+	{
+		acl_free(acl);
+		acl = NULL;
+	}
+	xatrr = listxattr(fileinfo->name, NULL, 0, XATTR_NOFOLLOW);
+	if (xatrr < 0)
+		xatrr = 0;
+	if (xatrr > 0)
+		fileinfo->mode[9] = '@';
+	else if (acl != NULL)
+		fileinfo->mode[9] = '+';
 }
 
 static void	ft_rmode(t_fileinfo *fileinfo)
@@ -107,5 +130,6 @@ int		ft_stat(char *file, t_fileinfo *fileinfo, t_space *sp)
 	fileinfo->pw_name = ft_strdup(pwd->pw_name);
 	fileinfo->gr_name = ft_strdup(grp->gr_name);
 	ft_file_display(file, fileinfo, sp);
+	ft_acl(fileinfo);
 	return (0);
 }
