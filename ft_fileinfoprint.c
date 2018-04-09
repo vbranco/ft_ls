@@ -13,6 +13,17 @@
 
 #include "ft_ls.h"
 
+static void	color(t_fileinfo *file)
+{
+	printf("%s ", file->time);
+	if (file->amode == 'd')
+		printf("%s%s%s", TBLUE, file->name, TSTOP);
+	else if (file->mode[2] == 'x' || file->mode[5] == 'x' || file->mode[8] == 'x')
+		printf("%s%s%s", TRED, file->name, TSTOP);
+	else
+		printf("%s", file->name);
+}
+
 static void	printl(t_fileinfo *file, t_space *sp)
 {
 	printf("%c%s %*i %-*s  %-*s  ", file->amode, file->mode, sp->size_nlink,
@@ -27,7 +38,8 @@ static void	printl(t_fileinfo *file, t_space *sp)
 		else
 			printf("%*lli ", (sp->size_stsize), file->st.st_size);
 	}
-	printf("%s %s", file->time, file->name);
+//	printf("%s %s", file->time, file->name);
+	color(file);
 	if (file->amode == 'l')
 	{
 		printf(" -> %s\n", file->link);

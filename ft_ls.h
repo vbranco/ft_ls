@@ -30,19 +30,19 @@
 # include <string.h>
 # include <errno.h>
 
-# define PATH_MAX 1024
-# define TBLACK     "\033[30m"
-# define TBLUE      "\033[36m"
-# define TRED       "\033[31m"
-# define TMAGENTA   "\033[35m"
-# define TGREEN     "\033[32m"
-# define TYELLOW    "\033[33m"
-# define BBLACK     "\033[40m"
-# define BCYAN      "\033[46m"
-# define BYELLOW    "\033[42m"
-# define BRED       "\033[41m"
-# define BGREEN     "\033[43m"
-# define TSTOP      "\033[0m"
+# define PATH_MAX	 1024
+# define TBLACK		"\e[30m"
+# define TBLUE		"\e[96m"
+# define TRED		"\e[31m"
+# define TMAGENTA	"\e[35m"
+# define TGREEN		"\e[32m"
+# define TYELLOW	"\e[33m"
+# define BBLACK		"\e[40m"
+# define BCYAN		"\e[46m"
+# define BYELLOW	"\e[42m"
+# define BRED		"\e[41m"
+# define BGREEN		"\e[43m"
+# define TSTOP		"\e[0m"
 
 typedef struct			s_flag
 {
