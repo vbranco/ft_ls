@@ -33,12 +33,16 @@ void            ft_args(char **av, t_flag *flag, t_node **node)
 		else
 		{
 			i = ft_count_args(flag->ac, av);
-			while (i < flag->ac)
+			if (flag->ac == 2)
+				ft_node_sort_add(node, ".", 1);
+			else
 			{
-				ft_node_sort_add(node, av[i], ft_strlen(av[i]));
-				i++;
+				while (i < flag->ac)
+				{
+					ft_node_sort_add(node, av[i], ft_strlen(av[i]));
+					i++;
+				}
 			}
-
 		}
 	}
 }
