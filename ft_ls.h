@@ -32,17 +32,20 @@
 
 # define PATH_MAX	 1024
 # define TBLACK		"\e[30m"
-# define TBLUE		"\e[96m"
+# define TBLUE		"\e[34m"
+# define TCYAN		"\e[1m\e[96m"
 # define TRED		"\e[31m"
 # define TMAGENTA	"\e[35m"
 # define TGREEN		"\e[32m"
 # define TYELLOW	"\e[33m"
 # define BBLACK		"\e[40m"
 # define BCYAN		"\e[46m"
-# define BYELLOW	"\e[42m"
+# define BYELLOW	"\e[43m"
 # define BRED		"\e[41m"
-# define BGREEN		"\e[43m"
+# define BGREEN		"\e[42m"
 # define TSTOP		"\e[0m"
+
+# define FLAGS		"lGRrat\0"
 
 typedef struct			s_flag
 {
@@ -53,6 +56,9 @@ typedef struct			s_flag
 	int					t;
 	int					ac;
 }						t_flag;
+/*
+**flag l == -1 c'est G //flag l == 2 c'est l //flag l == 1 c'est lG
+*/
 
 typedef struct			s_fileinfo
 {
@@ -90,7 +96,7 @@ typedef struct			s_node
 
 void					ft_init_flag(t_flag *flag);
 t_fileinfo				*ft_init_fileinfo();
-void					ft_flag(int ac, char **av, t_flag *flag);
+int						ft_flag(int ac, char **av, t_flag *flag);
 int						ft_stat(char *file, t_fileinfo *fileinfo, t_space *sp);
 int						ft_flag_status(t_flag *flag);
 void					ft_dir(char *str, t_flag *flag, t_fileinfo *fileinfo);

@@ -58,7 +58,8 @@ int		main(int ac, char **av)
 	ft_init_flag(&flag);
 	file = ft_init_fileinfo();
 	file = NULL;
-	ft_flag(ac, av, &flag);
+	if (ft_flag(ac, av, &flag) != 0)
+		return (1);
 	ft_args(av, &flag, &args);
 //	argsprint(args);
 	ft_ls(&flag, &file, &args, &sp);

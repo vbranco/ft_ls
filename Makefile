@@ -18,7 +18,8 @@ HEADER      =   ft_ls.h
 FILENAMES   =   main.c ft_init_flag.c ft_flag.c ft_stat.c ft_flag_status.c \
 	ft_fileinfoprint.c ft_init_fileinfo.c ft_init_node.c ft_node_back_add.c \
 	ft_node_front_add.c ft_node_sort_add.c ft_nodedell.c ft_ls.c \
-	ft_dir.c ft_count_args.c ft_args.c ft_init_space.c ft_fileinfo_sort.c
+	ft_dir.c ft_count_args.c ft_args.c ft_init_space.c ft_fileinfo_sort.c\
+
 
 SOURCES     =   $(addprefix ./, $(FILENAMES))
 
