@@ -31,19 +31,25 @@ void	argsprint(t_node *node)
 	}
 }
 
-void	ft_fileinfodell(t_fileinfo *file)
+void	ft_fileinfodell(t_fileinfo **file)
 {
-	while (file->next)
+	t_fileinfo	*tmp;
+
+	while (*file)
 	{
-		file->amode = 0;
-		free(file->name);
-		free(file->pw_name);
-		free(file->gr_name);
-		free(file->time);
-		free(file);
-		file = file->next;
+		tmp = *file;
+		if ((*file)->other)
+			ft_fileinfodell(&(*file)->other);
+		(*file)->amode = 0;
+		free((*file)->name);
+		free((*file)->path);
+		free((*file)->pw_name);
+		free((*file)->gr_name);
+		free((*file)->time);
+		free(*file);
+		*file = tmp->next;
 	}
-	file = NULL;
+	*file = NULL;
 }
 
 int		main(int ac, char **av)
@@ -64,9 +70,9 @@ int		main(int ac, char **av)
 //	argsprint(args);
 	ft_ls(&flag, &file, &args, &sp);
 //	argsprint(args);
-	ft_nodedell(args);
+	ft_nodedell(&args);
 	ft_fileinfoprint(file, flag, &sp);
-	ft_fileinfodell(file);
+	ft_fileinfodell(&file);
 //	sleep(1500);
 //	ft_etat_flag(&flag);
 	return (0);

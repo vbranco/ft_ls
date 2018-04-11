@@ -64,6 +64,7 @@ typedef struct			s_fileinfo
 {
 	struct stat			st;
 	char				*name;
+	char				*path;
 	char				amode;
 	char				mode[11];
 	char				*pw_name;
@@ -97,7 +98,7 @@ typedef struct			s_node
 void					ft_init_flag(t_flag *flag);
 t_fileinfo				*ft_init_fileinfo();
 int						ft_flag(int ac, char **av, t_flag *flag);
-int						ft_stat(char *file, t_fileinfo *fileinfo, t_space *sp);
+int						ft_stat(t_fileinfo *fileinfo, t_space *sp);
 int						ft_flag_status(t_flag *flag);
 void					ft_dir(char *str, t_flag *flag, t_fileinfo *fileinfo);
 void					ft_ls(t_flag *flag, t_fileinfo **file, t_node **arg, t_space *sp);
@@ -112,7 +113,7 @@ void					ft_init_space(t_space *sp);
 void					ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp);
 void					ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *novo, t_flag *flag);
 void					ft_init_node(t_node	*node);
-void					ft_nodedell(t_node *node);
+void					ft_nodedell(t_node **node);
 void					ft_node_back_add(t_node **node, void *content, size_t content_size);
 void					ft_node_front_add(t_node **node, void *content, size_t content_size);
 void					ft_node_sort_add(t_node **node, void *content, size_t content_size);

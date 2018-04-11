@@ -22,7 +22,7 @@ static int	ft_sort_r(t_flag *flag)
 	return (1);
 }
 
-static int	ft_s(char *s1, char *s2, t_flag *flag)
+static int	ft_sort_name(char *s1, char *s2, t_flag *flag)
 {
 	int		i;
 
@@ -40,14 +40,18 @@ static int	ft_s(char *s1, char *s2, t_flag *flag)
 	return (0);
 }
 
-static int	ft_t(unsigned long long file1, unsigned long long file2, t_flag *flag)
+static int		ft_sort_time(t_fileinfo *file, t_fileinfo *novo, t_flag *flag)
 {
-	if (file1 < file2)
+	if (file->st.st_mtime < novo->st.st_mtime)
 	{
 		if (flag->r == 0)
 			return (0);
 		else if (flag->r == 1)
 			return (1);
+	}
+	else if (file->st.st_mtime == novo->st.st_mtime)
+	{
+		return (ft_sort_name(file->name, novo->name, flag));
 	}
 	else
 	{
@@ -62,9 +66,9 @@ static int	ft_t(unsigned long long file1, unsigned long long file2, t_flag *flag
 static int	ft_sort(t_fileinfo *file, t_fileinfo *novo, t_flag *flag)
 {
 	if (flag->t == 0)
-		return (ft_s(file->name, novo->name, flag));
+		return (ft_sort_name(file->name, novo->name, flag));
 	else
-		return (ft_t(file->st.st_mtime, novo->st.st_mtime, flag));
+		return (ft_sort_time(file, novo, flag));
 }
 
 void	ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *novo, t_flag *flag)

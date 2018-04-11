@@ -38,17 +38,19 @@ static void		ft_add_file_back(t_fileinfo **fileinfo, t_fileinfo *new)
 	}
 }
 
-static void		ft_work(char *directory, char *name, t_fileinfo **fileinfo, t_space *sp, t_flag *flag)
+static void		ft_work(t_fileinfo *current, char *name, t_fileinfo **fileinfo, t_space *sp, t_flag *flag)
 {
 	t_fileinfo	*new;
 	char		*path;
 
-	path = ft_memalloc(ft_strlen(directory) + ft_strlen(name) + 2);
-	ft_strcat(path, directory);
+	path = ft_memalloc(ft_strlen(current->path) + ft_strlen(name) + 2);
+	ft_strcat(path, current->path);
 	ft_strcat(path, "/");
 	ft_strcat(path, name);
+//	printf("%s", path);
 	new = ft_init_fileinfo();
-	if (ft_stat(path, new, sp) == 1)
+	new->path = ft_strdup(path);
+	if (ft_stat(new, sp) == 1)
 		return ;
 	ft_fileinfo_sort(fileinfo, new, flag);
 	free(path);
@@ -64,24 +66,25 @@ char	*err = "permission denied";
 
 	errno = 0;
 	new = ft_init_fileinfo();
-	if ((dir = opendir(current->name)) == NULL)
+	if ((dir = opendir(current->path)) == NULL)
 	{
-		new->name = ft_strdup(ft_strjoin(current->name, err));
-		return (new);
+		perror("ls: t");
+//		perror(current->path);
+//		new->name = ft_strdup(ft_strjoin(current->path, err));
+//		return (new);
+		return (NULL);
 	}
-		//		perror("opendir() error\n");
 	else
 	{
 		while ((pdir = readdir(dir)) != NULL)
 		{
-			//		printf("%s\n", current->name);
 			if (flag->a == 0)
 			{
 				if (pdir->d_name[0] != '.')
-					ft_work(current->name, pdir->d_name, &new, sp, flag);
+					ft_work(current, pdir->d_name, &new, sp, flag);
 			}
 			else
-				ft_work(current->name, pdir->d_name, &new, sp, flag);
+				ft_work(current, pdir->d_name, &new, sp, flag);
 		}
 		closedir(dir);
 		return (new);
@@ -93,7 +96,15 @@ static void		ft_job(char	*name, t_flag *flag, t_fileinfo **fileinfo, t_space *sp
 	t_fileinfo	*new;
 
 	new = ft_init_fileinfo();
-	ft_stat(name, new, sp);
+	if (lstat(name, &(new->st)) != 0)
+	{
+		write(1, "ls: ", 4);
+		perror(name);
+	//	printf("erreur ft_mode in ft_ls\n");
+		return ;
+	}
+	else
+		new->path = ft_strdup(name);
 	if ((new->st.st_mode & S_IFMT) == S_IFDIR)
 	{
 		ft_add_file_back(fileinfo, new);
@@ -101,8 +112,10 @@ static void		ft_job(char	*name, t_flag *flag, t_fileinfo **fileinfo, t_space *sp
 	}
 	else
 	{
+		ft_stat(new, sp);
 		ft_add_file_back(fileinfo, new);
 	}
+	//penser a free new!!
 }
 
 void			ft_ls(t_flag *flag, t_fileinfo **file, t_node **arg, t_space *sp)

@@ -1,13 +1,16 @@
 #include "ft_ls.h"
 
-void	ft_nodedell(t_node *node)
+void	ft_nodedell(t_node **node)
 {
-	while (node->next)
+	t_node	*tmp;
+
+	while (*node)
 	{
-		free(node->content);
-		node->content_size = 0;
-		free(node);
-		node = node->next;
+		tmp = *node;
+		free((*node)->content);
+		(*node)->content_size = 0;
+		free(*node);
+		(*node) = tmp->next;
 	}
-	node = NULL;
+	*node = NULL;
 }

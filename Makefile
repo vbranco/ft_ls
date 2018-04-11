@@ -27,7 +27,7 @@ OBJECTS     =   $(addprefix build/, $(FILENAMES:.c=.o))
 
 L_FT        =   ./libft
 
-LIB	    =   ./libft/libft.a
+LIB	  	 	=   ./libft/libft.a
 
 LIB_LNK     =   -L $(L_FT) -l ft
 
@@ -41,12 +41,12 @@ all: $(NAME)
 
 clean:
 		rm -rf build/
-	#	@$(MAKE) -C $(L_FT) clean
+#		@$(MAKE) -C $(L_FT) clean
 
 fclean: clean
 	    @echo "\033[31m"
 		rm -f $(NAME)
-	#	@$(MAKE) -C $(L_FT) fclean
+#		@$(MAKE) -C $(L_FT) fclean
 
 re:	fclean all
 	#   @$(MAKE) fclean

@@ -76,7 +76,7 @@ static void	printl(t_fileinfo *file, t_space *sp, t_flag flag)
 	else
 	{
 		if (sp->size_midev != 0 || sp->size_madev != 0)
-			printf("%*lli ", (sp->size_madev + sp->size_midev + sp->size_stsize-1),
+			printf("%*lli ", (sp->size_madev + sp->size_midev + sp->size_stsize+2),
 			file->st.st_size);
 		else
 			printf("%*lli ", (sp->size_stsize), file->st.st_size);
@@ -94,29 +94,43 @@ static void	printl(t_fileinfo *file, t_space *sp, t_flag flag)
 		printf("\n");
 }
 
-void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
+static int	ft_total(t_fileinfo *file)
 {
-	unsigned int	total;
+	int		total;
 
 	total = 0;
 	while (file)
 	{
-		if (file->other)
-		{
-			ft_fileinfoprint(file->other, flag, sp);
-		}
-		if (!file)
-			return ;
-		if (flag.l > 0)
-			printl(file, sp, flag);
-		else
-		{
-			if (flag.l == -1)
-				color(file);
-			else
-				printf("%s", file->name);
-			printf("\n");
-		}
+		total += file->total;
 		file = file->next;
 	}
+	return (total);
+}
+
+void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
+{
+	if (!file)
+		return ;
+	if (file->other)
+	{
+		if (flag.l > 0)
+		{
+			printf("%s:\n", file->path);//pas encore au point
+			printf("total %i\n", ft_total(file->other));
+		}
+		ft_fileinfoprint(file->other, flag, sp);
+		printf("\n");//pas encore au point
+	}
+	if (flag.l > 0)
+		printl(file, sp, flag);
+	else
+	{
+		if (flag.l == -1)
+			color(file);
+		else
+			printf("%s", file->name);
+		printf("\n");
+	}
+	if (file->next)
+		ft_fileinfoprint(file->next, flag, sp);
 }

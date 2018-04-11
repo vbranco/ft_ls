@@ -40,13 +40,13 @@ static void ft_acl(t_fileinfo *fileinfo)
 
 	xatrr = 0;
 	acl = NULL;
-	acl = acl_get_link_np(fileinfo->name, ACL_TYPE_EXTENDED);
+	acl = acl_get_link_np(fileinfo->path, ACL_TYPE_EXTENDED);
 	if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1)
 	{
 		acl_free(acl);
 		acl = NULL;
 	}
-	xatrr = listxattr(fileinfo->name, NULL, 0, XATTR_NOFOLLOW);
+	xatrr = listxattr(fileinfo->path, NULL, 0, XATTR_NOFOLLOW);
 	if (xatrr < 0)
 		xatrr = 0;
 	if (xatrr > 0)
@@ -78,9 +78,36 @@ static void	ft_rmode(t_fileinfo *fileinfo)
 		fileinfo->mode[8] = 'x';
 }
 
+static char	*ft_name(char *str)
+{
+	int		i;
+	int		s;
+	char	*ret;
+
+	if (!str)
+		return (NULL);
+	i = 0;
+	s = 0;
+	while (str[i])
+	{
+		if (str[i] == '/')
+			s = i + 1;
+		i++;
+	}
+	ret = ft_memalloc(i);
+	i = 0;
+	while (str[s])
+	{
+		ret[i] = str[s];
+		i++;
+		s++;
+	}
+	return (ret);
+}
+
 static void	ft_file_display(char *str, t_fileinfo *tmp, t_space *sp)
 {
-	tmp->name = ft_strdup(str);
+	tmp->name = ft_name(str);
 	if (tmp->amode == 'b' || tmp->amode == 'c')
 	{
 		tmp->maj = major(tmp->st.st_rdev);
@@ -116,15 +143,15 @@ char	*ft_time(char *time)
 	return (ret);
 }
 
-int		ft_stat(char *file, t_fileinfo *fileinfo, t_space *sp)
+int		ft_stat(t_fileinfo *fileinfo, t_space *sp)
 {
 	struct passwd	*pwd;
 	struct group	*grp;
 
 	errno = 0;
-	if (lstat(file, &(fileinfo->st)) != 0)
+	if (lstat(fileinfo->path, &(fileinfo->st)) != 0)
 	{
-		perror(file);
+		perror(fileinfo->path);
 		return (1);
 	}
 	pwd = getpwuid(fileinfo->st.st_uid);
@@ -136,10 +163,10 @@ int		ft_stat(char *file, t_fileinfo *fileinfo, t_space *sp)
 	ft_amode(fileinfo);
 	ft_rmode(fileinfo);
 	if (fileinfo->amode == 'l')
-		readlink(file, fileinfo->link, PATH_MAX);
+		readlink(fileinfo->path, fileinfo->link, PATH_MAX);
 	fileinfo->pw_name = ft_strdup(pwd->pw_name);
 	fileinfo->gr_name = ft_strdup(grp->gr_name);
-	ft_file_display(file, fileinfo, sp);
+	ft_file_display(fileinfo->path, fileinfo, sp);
 	ft_acl(fileinfo);
 	return (0);
 }

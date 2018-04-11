@@ -21,6 +21,7 @@ t_fileinfo	*ft_init_fileinfo(void)
 	fileinfo = malloc(sizeof(t_fileinfo));
 	fileinfo->amode = 0;
 	fileinfo->name = NULL;
+	fileinfo->path = NULL;
 	ft_memset(fileinfo->mode, '-', 10);
 	fileinfo->mode[9] = ' ';
 	fileinfo->mode[10] = '\0';
