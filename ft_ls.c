@@ -47,7 +47,6 @@ static void		ft_work(t_fileinfo *current, char *name, t_fileinfo **fileinfo, t_s
 	ft_strcat(path, current->path);
 	ft_strcat(path, "/");
 	ft_strcat(path, name);
-//	printf("%s", path);
 	new = ft_init_fileinfo();
 	new->path = ft_strdup(path);
 	if (ft_stat(new, sp) == 1)
@@ -56,28 +55,25 @@ static void		ft_work(t_fileinfo *current, char *name, t_fileinfo **fileinfo, t_s
 	free(path);
 }
 
-t_fileinfo		*ft_add_dir_front(t_fileinfo **file, t_fileinfo *current, t_flag *flag, t_space *sp)
+t_fileinfo		*ft_add_dir_front(t_fileinfo **base, t_fileinfo *current, t_flag *flag, t_space *sp)
 {
 	t_fileinfo		*new;
 	DIR				*dir;
 	struct dirent	*pdir;
-
-char	*err = "permission denied";
+	struct stat		ST;
 
 	errno = 0;
 	new = ft_init_fileinfo();
 	if ((dir = opendir(current->path)) == NULL)
 	{
 		perror("ls: t");
-//		perror(current->path);
-//		new->name = ft_strdup(ft_strjoin(current->path, err));
-//		return (new);
 		return (NULL);
 	}
 	else
 	{
 		while ((pdir = readdir(dir)) != NULL)
 		{
+//			printf("%s\n", pdir->d_name);
 			if (flag->a == 0)
 			{
 				if (pdir->d_name[0] != '.')
@@ -85,6 +81,19 @@ char	*err = "permission denied";
 			}
 			else
 				ft_work(current, pdir->d_name, &new, sp, flag);
+/*
+**essai pour la recursive---------------------------------------------
+*/
+//			if (new->amode == 'd' && flag->R == 1)
+//			{
+//				new->other
+//				printf("ici\n");
+//				new->other = ft_add_dir_front(base, new, flag, sp);
+//				ft_add_file_back(base, new);
+//			}
+/*
+**essai pour la recursive---------------------------------------------
+*/
 		}
 		closedir(dir);
 		return (new);
@@ -100,15 +109,16 @@ static void		ft_job(char	*name, t_flag *flag, t_fileinfo **fileinfo, t_space *sp
 	{
 		write(1, "ls: ", 4);
 		perror(name);
-	//	printf("erreur ft_mode in ft_ls\n");
 		return ;
 	}
 	else
 		new->path = ft_strdup(name);
+
+
 	if ((new->st.st_mode & S_IFMT) == S_IFDIR)
 	{
-		ft_add_file_back(fileinfo, new);
 		new->other = ft_add_dir_front(fileinfo, new, flag, sp);
+		ft_add_file_back(fileinfo, new);
 	}
 	else
 	{

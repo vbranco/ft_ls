@@ -113,9 +113,10 @@ void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
 		return ;
 	if (file->other)
 	{
+		printf("\n");//pas encore au point
+		printf("%s:\n", file->path);//pas encore au point
 		if (flag.l > 0)
 		{
-			printf("%s:\n", file->path);//pas encore au point
 			printf("total %i\n", ft_total(file->other));
 		}
 		ft_fileinfoprint(file->other, flag, sp);
