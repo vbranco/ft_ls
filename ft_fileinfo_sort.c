@@ -71,21 +71,21 @@ static int	ft_sort(t_fileinfo *file, t_fileinfo *novo, t_flag *flag)
 		return (ft_sort_time(file, novo, flag));
 }
 
-void	ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *novo, t_flag *flag)
+void	ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *next, t_flag *flag)
 {
 	t_fileinfo	*tmp;
 	t_fileinfo	*ll;
 
 	tmp = NULL;
 	ll = *file;
-	while (ll && ft_sort(ll, novo, flag))
+	while (ll && ft_sort(ll, next, flag))
 	{
 		tmp = ll;
 		ll = ll->next;
 	}
-	novo->next = ll;
+	next->next = ll;
 	if (tmp)
-		tmp->next = novo;
+		tmp->next = next;
 	else
-		*file = novo;
+		*file = next;
 }

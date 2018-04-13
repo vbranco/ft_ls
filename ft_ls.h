@@ -100,11 +100,16 @@ t_fileinfo				*ft_init_fileinfo();
 int						ft_flag(int ac, char **av, t_flag *flag);
 int						ft_stat(t_fileinfo *fileinfo, t_space *sp);
 int						ft_flag_status(t_flag *flag);
-void					ft_dir(char *str, t_flag *flag, t_fileinfo *fileinfo);
+//void					ft_dir(char *str, t_flag *flag, t_fileinfo *fileinfo);
 void					ft_ls(t_flag *flag, t_fileinfo **file, t_node **arg, t_space *sp);
 int						ft_count_args(int ac, char **av);
 void					ft_args(char **av, t_flag *flag, t_node **node);
 void					ft_init_space(t_space *sp);
+//-----------------------------
+
+void					f_ls();
+
+
 
 /*
  **Listes
@@ -112,6 +117,11 @@ void					ft_init_space(t_space *sp);
 
 void					ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp);
 void					ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *novo, t_flag *flag);
+void					ft_add_file_back(t_fileinfo **file, t_fileinfo *novo);
+void					ft_fileinfo_dell(t_fileinfo **file);
+
+
+
 void					ft_init_node(t_node	*node);
 void					ft_nodedell(t_node **node);
 void					ft_node_back_add(t_node **node, void *content, size_t content_size);

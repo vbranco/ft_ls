@@ -12,7 +12,7 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
+/*
 static void		ft_add_file_front(t_fileinfo **fileinfo, t_fileinfo *new)
 {
 	new->next = *fileinfo;
@@ -38,6 +38,10 @@ static void		ft_add_file_back(t_fileinfo **fileinfo, t_fileinfo *new)
 	}
 }
 
+static void		ft_path()
+{
+}
+
 static void		ft_work(t_fileinfo *current, char *name, t_fileinfo **fileinfo, t_space *sp, t_flag *flag)
 {
 	t_fileinfo	*new;
@@ -51,11 +55,21 @@ static void		ft_work(t_fileinfo *current, char *name, t_fileinfo **fileinfo, t_s
 	new->path = ft_strdup(path);
 	if (ft_stat(new, sp) == 1)
 		return ;
-	ft_fileinfo_sort(fileinfo, new, flag);
+//	ft_fileinfo_sort(fileinfo, new, flag);
 	free(path);
 }
 
-t_fileinfo		*ft_add_dir_front(t_fileinfo **base, t_fileinfo *current, t_flag *flag, t_space *sp)
+void		ft_recursive(t_fileinfo **base, t_fileinfo *current, t_flag *flag, t_space *sp)
+{
+	t_fileinfo		*new;
+	DIR				*dir;
+	struct dirent	*pdir;
+
+	ft_work(
+	if ((dir = opendir(
+}
+
+void		ft_add_dir_front(t_fileinfo **base, t_fileinfo *current, t_flag *flag, t_space *sp)
 {
 	t_fileinfo		*new;
 	DIR				*dir;
@@ -69,35 +83,30 @@ t_fileinfo		*ft_add_dir_front(t_fileinfo **base, t_fileinfo *current, t_flag *fl
 		perror("ls: t");
 		return (NULL);
 	}
-	else
+	while ((pdir = readdir(dir)) != NULL)
 	{
-		while ((pdir = readdir(dir)) != NULL)
+		if (flag->a == 0)
 		{
-//			printf("%s\n", pdir->d_name);
-			if (flag->a == 0)
-			{
-				if (pdir->d_name[0] != '.')
-					ft_work(current, pdir->d_name, &new, sp, flag);
-			}
-			else
+			if (pdir->d_name[0] != '.')
 				ft_work(current, pdir->d_name, &new, sp, flag);
-/*
-**essai pour la recursive---------------------------------------------
-*/
-//			if (new->amode == 'd' && flag->R == 1)
-//			{
-//				new->other
-//				printf("ici\n");
-//				new->other = ft_add_dir_front(base, new, flag, sp);
-//				ft_add_file_back(base, new);
-//			}
-/*
-**essai pour la recursive---------------------------------------------
-*/
 		}
-		closedir(dir);
-		return (new);
+		else
+			ft_work(current, pdir->d_name, &new, sp, flag);
+
+essai pour la recursive---------------------------------------------
+
+		if (new->amode == 'd' && flag->R == 1)
+		{
+			ft_recursive(&(new->other), current, flag, sp);
+//			ft_add_dir_front(base, new, flag, sp);
+		}
+		ft_add_file_back(base, new);
+
+essai pour la recursive---------------------------------------------
+
 	}
+	closedir(dir);
+	return (new);
 }
 
 static void		ft_job(char	*name, t_flag *flag, t_fileinfo **fileinfo, t_space *sp)
@@ -116,15 +125,10 @@ static void		ft_job(char	*name, t_flag *flag, t_fileinfo **fileinfo, t_space *sp
 
 
 	if ((new->st.st_mode & S_IFMT) == S_IFDIR)
-	{
-		new->other = ft_add_dir_front(fileinfo, new, flag, sp);
-		ft_add_file_back(fileinfo, new);
-	}
+		ft_add_dir_front(&(new->other), new, flag, sp);
 	else
-	{
 		ft_stat(new, sp);
-		ft_add_file_back(fileinfo, new);
-	}
+	ft_add_file_back(fileinfo, new);
 	//penser a free new!!
 }
 
@@ -138,4 +142,4 @@ void			ft_ls(t_flag *flag, t_fileinfo **file, t_node **arg, t_space *sp)
 		ft_job(args->content, flag, file, sp);
 		args = args->next;
 	}
-}
+}*/
