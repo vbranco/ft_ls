@@ -107,24 +107,11 @@ static int	ft_total(t_fileinfo *file)
 	return (total);
 }
 
-/*
+
 void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
 {
 	if (!file)
 		return ;
-	if (file->next)
-		ft_fileinfoprint(file->next, flag, sp);
-	if (file->other)
-	{
-//		printf("\n");//pas encore au point
-		printf("%s:\n", file->path);//pas encore au point
-		if (flag.l > 0)
-		{
-			printf("total %i\n", ft_total(file->other));
-		}
-		ft_fileinfoprint(file->other, flag, sp);
-//		printf("\n");//pas encore au point
-	}
 	if (flag.l > 0)
 		printl(file, sp, flag);
 	else
@@ -135,8 +122,21 @@ void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
 			printf("%s", file->name);
 		printf("\n");
 	}
-}*/
+	if (file->next)
+		ft_fileinfoprint(file->next, flag, sp);
+	if (file->other)
+	{
+		printf("%s:\n", file->path);//pas encore au point
+		if (flag.l > 0)
+		{
+			printf("total %i\n", ft_total(file->other));
+		}
+		ft_fileinfoprint(file->other, flag, sp);
+	}
 
+}
+
+/*
 static void	ft_display(t_fileinfo *file, t_flag flag, t_space *sp)
 {
 //	printf("total %i\n", ft_total(file));
@@ -156,14 +156,12 @@ static void	ft_display(t_fileinfo *file, t_flag flag, t_space *sp)
 
 static void	ft_printdir(t_fileinfo *file, t_flag flag, t_space *sp)
 {
-	printf("total %i\n", ft_total(file));
-	while (file)
-	{
-		ft_display(file, flag, sp);
-		if (file->other)
-			ft_printdir(file->other, flag, sp);
-		file = file->next;
-	}
+//	printf("total %i\n", ft_total(file));
+	if (!file)
+		return ;
+	ft_fileinfoprint(file, flag, sp);
+//	ft_display(file, flag, sp);
+//	ft_printdir(file->next, flag, sp);
 }
 
 void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
@@ -171,14 +169,14 @@ void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
 	t_fileinfo	*tmp;
 	t_fileinfo	*forfree;//peut-etre creer un autre variable qui ;e permettra de free toute ma liste
 
-	tmp = file;
+//	tmp = file;
 //	forfree = file; //garder le pointeur pour pouvoir le free a la fin;
-	while (file)
-	{
-		ft_display(file, flag, sp);
-		file = file->next;
-	}
-	file = tmp;
+	if (!file)
+		return ;
 	if (file->other)
-		ft_fileinfoprint(file->other, flag, sp);
+		ft_printdir(file->other, flag, sp);
+	if (file)
+		ft_display(file, flag, sp);
+	ft_fileinfoprint(file->next, flag, sp);
 }
+*/
