@@ -107,20 +107,22 @@ static int	ft_total(t_fileinfo *file)
 	return (total);
 }
 
-void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
+/*void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
 {
-	if (!file)
-		return ;
+//	if (!file)
+//		return ;
+	if (file->next)
+		ft_fileinfoprint(file->next, flag, sp);
 	if (file->other)
 	{
-		printf("\n");//pas encore au point
+//		printf("\n");//pas encore au point
 		printf("%s:\n", file->path);//pas encore au point
 		if (flag.l > 0)
 		{
 			printf("total %i\n", ft_total(file->other));
 		}
 		ft_fileinfoprint(file->other, flag, sp);
-		printf("\n");//pas encore au point
+//		printf("\n");//pas encore au point
 	}
 	if (flag.l > 0)
 		printl(file, sp, flag);
@@ -132,6 +134,52 @@ void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
 			printf("%s", file->name);
 		printf("\n");
 	}
-	if (file->next)
-		ft_fileinfoprint(file->next, flag, sp);
+}*/
+
+static void	ft_printdir(t_fileinfo *file, t_flag flag, t_space *sp)
+{
+	while (file)
+	{
+		if (flag.l > 0)
+			printl(file, sp, flag);
+		else
+		{
+			if (flag.l == -1)
+				color(file);
+			else
+				printf("%s", file->name);
+			printf("\n");
+		}
+		file = file->next;
+	}
+}
+
+void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
+{
+	t_fileinfo	*tmp;
+	t_fileinfo	*forfree;//peut-etre creer un autre variable qui ;e permettra de free toute ma liste
+
+//	tmp = file;
+//	forfree = file; //garder le pointeur pour pouvoir le free a la fin;
+	while (file)
+	{
+		tmp = file;
+		while (tmp)
+		{
+			if (tmp->other)
+				ft_printdir(tmp->other, flag, sp);
+			if (flag.l > 0)
+				printl(tmp, sp, flag);
+			else
+			{
+				if (flag.l == -1)
+					color(tmp);
+				else
+					printf("%s", tmp->name);
+				printf("\n");
+			}
+			tmp = tmp->next;
+		}
+		file = file->next;
+	}
 }

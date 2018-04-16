@@ -1,83 +1,145 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_ls.c                                          .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/03/20 16:39:39 by vbranco      #+#   ##    ##    #+#       */
+/*   Updated: 2018/04/07 18:31:33 by vbranco     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
-
-static int	ft_file(t_fileinfo *new, char *name, t_flag *flag, t_space *sp)
+/*
+static void		ft_add_file_front(t_fileinfo **fileinfo, t_fileinfo *new)
 {
-	new->path = ft_strdup(name);
-	if (ft_stat(new, sp))
-		return (1);
-	return (0);
+	new->next = *fileinfo;
+	*fileinfo = new;
 }
 
-static char	*ft_path(char *dir, char *file)
+static void		ft_add_file_back(t_fileinfo **fileinfo, t_fileinfo *new)
 {
-	char	*ret;
+	t_fileinfo	*tmp;
 
-	ret = ft_memalloc(ft_strlen(dir) + ft_strlen(file) + 2);
-	ft_strcat(ret, dir);
-	ft_strcat(ret, "/");
-	ft_strcat(ret, file);
-	return (ret);
+	tmp = *fileinfo;
+	if (!tmp)
+	{
+		new->next = *fileinfo;
+		*fileinfo = new;
+	}
+	else
+	{
+		new->next = NULL;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
 }
-static int	ft_is_dir(t_fileinfo **current, char *name, t_flag *flag, t_space *sp)
+
+static void		ft_path()
+{
+}
+
+static void		ft_work(t_fileinfo *current, char *name, t_fileinfo **fileinfo, t_space *sp, t_flag *flag)
+{
+	t_fileinfo	*new;
+	char		*path;
+
+	path = ft_memalloc(ft_strlen(current->path) + ft_strlen(name) + 2);
+	ft_strcat(path, current->path);
+	ft_strcat(path, "/");
+	ft_strcat(path, name);
+	new = ft_init_fileinfo();
+	new->path = ft_strdup(path);
+	if (ft_stat(new, sp) == 1)
+		return ;
+//	ft_fileinfo_sort(fileinfo, new, flag);
+	free(path);
+}
+
+void		ft_recursive(t_fileinfo **base, t_fileinfo *current, t_flag *flag, t_space *sp)
 {
 	t_fileinfo		*new;
 	DIR				*dir;
 	struct dirent	*pdir;
 
-	if ((dir = opendir(name)) == NULL )
+	ft_work(
+	if ((dir = opendir(
+}
+
+void		ft_add_dir_front(t_fileinfo **base, t_fileinfo *current, t_flag *flag, t_space *sp)
+{
+	t_fileinfo		*new;
+	DIR				*dir;
+	struct dirent	*pdir;
+	struct stat		ST;
+
+	errno = 0;
+	new = ft_init_fileinfo();
+	if ((dir = opendir(current->path)) == NULL)
 	{
-		perror("ls: error sur ft_is_dir");
-		return (1);
+		perror("ls: t");
+		return (NULL);
 	}
-//	write(1, "ici\n", 4);
-	printf("ici\n");
 	while ((pdir = readdir(dir)) != NULL)
 	{
-//		if (pdir->d_name[0] == '.' && !flag->a)
-//			continue ;
-//		new->path = ft_path(name, pdir->d_name);
-//		ft_stat(new, sp);
-		printf("%s\n", pdir->d_name);
-		ft_fileinfo_sort(current, new, flag);
+		if (flag->a == 0)
+		{
+			if (pdir->d_name[0] != '.')
+				ft_work(current, pdir->d_name, &new, sp, flag);
+		}
+		else
+			ft_work(current, pdir->d_name, &new, sp, flag);
+
+essai pour la recursive---------------------------------------------
+
+		if (new->amode == 'd' && flag->R == 1)
+		{
+			ft_recursive(&(new->other), current, flag, sp);
+//			ft_add_dir_front(base, new, flag, sp);
+		}
+		ft_add_file_back(base, new);
+
+essai pour la recursive---------------------------------------------
+
 	}
 	closedir(dir);
-	return (0);
+	return (new);
 }
 
-static int	ft_dir(char *name)
+static void		ft_job(char	*name, t_flag *flag, t_fileinfo **fileinfo, t_space *sp)
 {
-	struct stat	st;
-
-	if (stat(name, &st) != 0)
-	{
-		perror(name);
-		return (-1);
-	}
-	if ((st.st_mode & S_IFMT) == S_IFDIR)
-		return (1);
-	return (0);
-}
-
-void		f_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
-{
-	t_node		*arg;
 	t_fileinfo	*new;
 
-	arg = *args;
 	new = ft_init_fileinfo();
-	while (arg)
+	if (lstat(name, &(new->st)) != 0)
 	{
-		if (ft_dir(arg->content) == 1)
-		{
-			if (ft_is_dir(&(new->other), arg->content, flag, sp))
-				return ;
-		}
-		else if ((ft_dir(arg->content)) == -1)
-			return ;
-		else
-			if (ft_file(new, arg->content, flag, sp))
-				return ;
-		ft_add_file_back(start, new);
-		arg = arg->next;
+		write(1, "ls: ", 4);
+		perror(name);
+		return ;
 	}
+	else
+		new->path = ft_strdup(name);
+
+
+	if ((new->st.st_mode & S_IFMT) == S_IFDIR)
+		ft_add_dir_front(&(new->other), new, flag, sp);
+	else
+		ft_stat(new, sp);
+	ft_add_file_back(fileinfo, new);
+	//penser a free new!!
 }
+
+void			ft_ls(t_flag *flag, t_fileinfo **file, t_node **arg, t_space *sp)
+{
+	t_node		*args;
+
+	args = *arg;
+	while (args)
+	{
+		ft_job(args->content, flag, file, sp);
+		args = args->next;
+	}
+}*/

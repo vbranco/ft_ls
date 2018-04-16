@@ -29,7 +29,7 @@ static void	ft_amode(t_fileinfo *fileinfo)
 		fileinfo->amode =  's';
 	else if (S_ISDIR(fileinfo->st.st_mode))
 		fileinfo->amode =  'd';
-	fileinfo->total = fileinfo->st.st_blocks;//pas encore au point
+	fileinfo->total = fileinfo->st.st_blocks;
 }
 
 static void ft_acl(t_fileinfo *fileinfo)
@@ -52,7 +52,10 @@ static void ft_acl(t_fileinfo *fileinfo)
 	if (xatrr > 0)
 		fileinfo->mode[9] = '@';
 	else if (acl != NULL)
+	{
 		fileinfo->mode[9] = '+';
+		acl_free(acl);
+	}
 }
 
 static void	ft_rmode(t_fileinfo *fileinfo)

@@ -101,13 +101,12 @@ int						ft_flag(int ac, char **av, t_flag *flag);
 int						ft_stat(t_fileinfo *fileinfo, t_space *sp);
 int						ft_flag_status(t_flag *flag);
 //void					ft_dir(char *str, t_flag *flag, t_fileinfo *fileinfo);
-void					ft_ls(t_flag *flag, t_fileinfo **file, t_node **arg, t_space *sp);
+void					ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp);
 int						ft_count_args(int ac, char **av);
 void					ft_args(char **av, t_flag *flag, t_node **node);
 void					ft_init_space(t_space *sp);
 //-----------------------------
 
-void					f_ls();
 
 
 
