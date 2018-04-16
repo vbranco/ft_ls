@@ -107,10 +107,11 @@ static int	ft_total(t_fileinfo *file)
 	return (total);
 }
 
-/*void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
+/*
+void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
 {
-//	if (!file)
-//		return ;
+	if (!file)
+		return ;
 	if (file->next)
 		ft_fileinfoprint(file->next, flag, sp);
 	if (file->other)
@@ -136,20 +137,31 @@ static int	ft_total(t_fileinfo *file)
 	}
 }*/
 
+static void	ft_display(t_fileinfo *file, t_flag flag, t_space *sp)
+{
+//	printf("total %i\n", ft_total(file));
+	if (flag.l > 0)
+	{
+		printl(file, sp, flag);
+	}
+	else
+	{
+		if (flag.l == -1)
+			color(file);
+		else
+			printf("%s", file->name);
+		printf("\n");
+	}
+}
+
 static void	ft_printdir(t_fileinfo *file, t_flag flag, t_space *sp)
 {
+	printf("total %i\n", ft_total(file));
 	while (file)
 	{
-		if (flag.l > 0)
-			printl(file, sp, flag);
-		else
-		{
-			if (flag.l == -1)
-				color(file);
-			else
-				printf("%s", file->name);
-			printf("\n");
-		}
+		ft_display(file, flag, sp);
+		if (file->other)
+			ft_printdir(file->other, flag, sp);
 		file = file->next;
 	}
 }
@@ -159,27 +171,14 @@ void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
 	t_fileinfo	*tmp;
 	t_fileinfo	*forfree;//peut-etre creer un autre variable qui ;e permettra de free toute ma liste
 
-//	tmp = file;
+	tmp = file;
 //	forfree = file; //garder le pointeur pour pouvoir le free a la fin;
 	while (file)
 	{
-		tmp = file;
-		while (tmp)
-		{
-			if (tmp->other)
-				ft_printdir(tmp->other, flag, sp);
-			if (flag.l > 0)
-				printl(tmp, sp, flag);
-			else
-			{
-				if (flag.l == -1)
-					color(tmp);
-				else
-					printf("%s", tmp->name);
-				printf("\n");
-			}
-			tmp = tmp->next;
-		}
+		ft_display(file, flag, sp);
 		file = file->next;
 	}
+	file = tmp;
+	if (file->other)
+		ft_fileinfoprint(file->other, flag, sp);
 }
