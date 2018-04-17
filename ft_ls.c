@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 18:57:40 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/17 20:01:21 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,12 +63,11 @@ static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 		if (ft_dir(new) && flag->R)
 			ft_recursive(new, flag, sp);
 		ft_fileinfo_sort(&(current->other), new, flag);
-//		ft_add_file_back(&(current->other), new);
 	}
 	closedir(dir);
 }
 
-static void	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp)
+static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp)
 {
 	DIR				*dir;
 	struct dirent	*pdir;
@@ -77,20 +76,19 @@ static void	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *
 	if ((dir = opendir(direct)) == NULL)
 	{
 		perror("ls problem sur ft_is_dir");
-		return ;
+		return (0);
 	}
 	while ((pdir = readdir(dir)) != NULL)
 	{
 		if (pdir->d_name[0] == '.' && !flag->a)
 			continue ;
 		new = ft_info(direct, pdir->d_name, sp);
-//		printf("path : %s\n", new->path);
 		if (ft_dir(new) && flag->R)
 			ft_recursive(new, flag, sp);
 		ft_fileinfo_sort(&(current->other), new, flag);
-//		ft_add_file_back(&(current->other), new);
 	}
 	closedir(dir);
+	return (1);
 }
 
 void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
@@ -103,14 +101,10 @@ void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
 	{
 		new = ft_info(NULL, arg->content, sp);
 		if (ft_dir(new) == 1)
-			ft_is_dir(new, arg->content, flag, sp);
-//		else
-			ft_fileinfo_sort(start, new, flag);
+		{
+			if (ft_is_dir(new, arg->content, flag, sp))
+				ft_fileinfo_sort(start, new, flag);
+		}
 		arg = arg->next;
-//		ft_fileinfo_sort(&go, new, flag);
-//		go = go->next;
-//		ft_add_file_back(start, new);
 	}
-//	go->next = *start;
-//	*start = go;
 }

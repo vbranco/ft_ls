@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:30 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 18:57:43 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/17 20:01:25 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,6 +56,7 @@ typedef struct			s_flag
 	short int			t;
 	short int			ac;
 	short int			total;
+	short int			out;
 }						t_flag;
 /*
 **flag l == -1 c'est G //flag l == 2 c'est l //flag l == 1 c'est lG
@@ -81,12 +82,12 @@ typedef struct			s_fileinfo
 
 typedef struct			s_space
 {
-	int					size_nlink;
-	int					size_pname;
-	int					size_gname;
-	int					size_stsize;
-	int					size_madev;
-	int					size_midev;
+	short int			size_nlink;
+	short int			size_pname;
+	short int			size_gname;
+	short int			size_stsize;
+	short int			size_madev;
+	short int			size_midev;
 }						t_space;
 
 typedef struct			s_node
@@ -106,8 +107,8 @@ int						ft_count_args(int ac, char **av);
 void					ft_args(char **av, t_flag *flag, t_node **node);
 void					ft_init_space(t_space *sp);
 //-----------------------------
-void					ft_display_dir(t_fileinfo *file, t_flag flag, t_space *sp);
-void					ft_pdir(t_fileinfo *file, t_flag flag, t_space *sp);
+void					ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp);
+void					ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp);
 
 
 
@@ -115,7 +116,7 @@ void					ft_pdir(t_fileinfo *file, t_flag flag, t_space *sp);
  **Listes
  */
 
-void					ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp);
+void					ft_fileinfoprint(t_fileinfo *file, t_flag *flag, t_space *sp);
 void					ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *novo, t_flag *flag);
 void					ft_add_file_back(t_fileinfo **file, t_fileinfo *novo);
 void					ft_fileinfo_dell(t_fileinfo **file);
