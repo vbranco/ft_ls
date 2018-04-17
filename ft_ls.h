@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:30 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/07 18:31:30 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/17 18:57:43 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,12 +49,13 @@
 
 typedef struct			s_flag
 {
-	int					l;
-	int					R;
-	int					r;
-	int					a;
-	int					t;
-	int					ac;
+	short int			l;
+	short int			R;
+	short int			r;
+	short int			a;
+	short int			t;
+	short int			ac;
+	short int			total;
 }						t_flag;
 /*
 **flag l == -1 c'est G //flag l == 2 c'est l //flag l == 1 c'est lG
@@ -100,13 +101,13 @@ t_fileinfo				*ft_init_fileinfo();
 int						ft_flag(int ac, char **av, t_flag *flag);
 int						ft_stat(t_fileinfo *fileinfo, t_space *sp);
 int						ft_flag_status(t_flag *flag);
-//void					ft_dir(char *str, t_flag *flag, t_fileinfo *fileinfo);
 void					ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp);
 int						ft_count_args(int ac, char **av);
 void					ft_args(char **av, t_flag *flag, t_node **node);
 void					ft_init_space(t_space *sp);
 //-----------------------------
-
+void					ft_display_dir(t_fileinfo *file, t_flag flag, t_space *sp);
+void					ft_pdir(t_fileinfo *file, t_flag flag, t_space *sp);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 18:01:34 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/07 18:31:27 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/17 18:31:17 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,6 +33,7 @@ void            ft_args(char **av, t_flag *flag, t_node **node)
 		else
 		{
 			i = ft_count_args(flag->ac, av);
+			flag->total = i;
 			if (flag->ac == i)
 				ft_node_sort_add(node, ".", 1);
 			else

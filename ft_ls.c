@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_ls.c                                          .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
+/*   Updated: 2018/04/17 18:57:40 by vbranco     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 static int	ft_dir(t_fileinfo *new)
@@ -91,8 +104,13 @@ void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
 		new = ft_info(NULL, arg->content, sp);
 		if (ft_dir(new) == 1)
 			ft_is_dir(new, arg->content, flag, sp);
+//		else
+			ft_fileinfo_sort(start, new, flag);
 		arg = arg->next;
-		ft_fileinfo_sort(start, new, flag);
+//		ft_fileinfo_sort(&go, new, flag);
+//		go = go->next;
 //		ft_add_file_back(start, new);
 	}
+//	go->next = *start;
+//	*start = go;
 }

@@ -6,14 +6,14 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/05 16:12:27 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/07 18:31:39 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/17 18:57:39 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int	test(t_fileinfo *file)
+int	test(t_fileinfo *file)
 {
 	if (file->amode == 'd')
 	{
@@ -39,7 +39,7 @@ static int	test(t_fileinfo *file)
 	return (0);
 }
 
-static void	color(t_fileinfo *file)
+void	color(t_fileinfo *file)
 {
 	if (test(file) == 1)
 		printf("%s%s%s", TCYAN, file->name, TSTOP);
@@ -67,7 +67,7 @@ static void	color(t_fileinfo *file)
 		printf("%s", file->name);
 }
 
-static void	printl(t_fileinfo *file, t_space *sp, t_flag flag)
+void	printl(t_fileinfo *file, t_space *sp, t_flag flag)
 {
 	printf("%c%s %*i %-*s  %-*s  ", file->amode, file->mode, sp->size_nlink,
 	file->st.st_nlink, sp->size_pname, file->pw_name, sp->size_gname, file->gr_name);
@@ -94,7 +94,7 @@ static void	printl(t_fileinfo *file, t_space *sp, t_flag flag)
 		printf("\n");
 }
 
-static int	ft_total(t_fileinfo *file)
+int	ft_total(t_fileinfo *file)
 {
 	int		total;
 
@@ -107,7 +107,7 @@ static int	ft_total(t_fileinfo *file)
 	return (total);
 }
 
-
+/*
 void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
 {
 	if (!file)
@@ -135,9 +135,9 @@ void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
 	}
 
 }
+*/
 
-/*
-static void	ft_display(t_fileinfo *file, t_flag flag, t_space *sp)
+void	ft_display(t_fileinfo *file, t_flag flag, t_space *sp)
 {
 //	printf("total %i\n", ft_total(file));
 	if (flag.l > 0)
@@ -154,29 +154,56 @@ static void	ft_display(t_fileinfo *file, t_flag flag, t_space *sp)
 	}
 }
 
-static void	ft_printdir(t_fileinfo *file, t_flag flag, t_space *sp)
+void		ft_display_files(t_fileinfo *tmp, t_flag flag, t_space *sp)
 {
-//	printf("total %i\n", ft_total(file));
-	if (!file)
-		return ;
-	ft_fileinfoprint(file, flag, sp);
-//	ft_display(file, flag, sp);
-//	ft_printdir(file->next, flag, sp);
+	while (tmp)
+	{
+		if (tmp->amode != 'd')
+		{
+			ft_display(tmp, flag, sp);
+		}
+		tmp = tmp->next;
+	}
+}
+
+void		ft_pdir(t_fileinfo *file, t_flag flag, t_space *sp)
+{
+	t_fileinfo	*tmp;
+
+	tmp = file;
+	if (flag.l > 0)
+		printf("total %i\n", ft_total(file));
+	while (file)
+	{
+		ft_display(file, flag, sp);
+		file = file->next;
+	}
+	file = tmp;
+	if (flag.R)
+		ft_display_dir(file, flag, sp);
+
+}
+
+void	ft_display_dir(t_fileinfo *file, t_flag flag, t_space *sp)
+{
+	while (file)
+	{
+		if (file->other)
+		{
+			if (flag.R || (flag.l > 0 && (flag.total != flag.ac && flag.ac-1 > flag.total)))
+				printf("%s:\n", file->path);
+			ft_pdir(file->other, flag, sp);
+			if (flag.R || (flag.l > 0 && (flag.total != flag.ac && flag.ac-1 > flag.total)))
+				printf("\n");
+		}
+		file = file->next;
+	}
 }
 
 void		ft_fileinfoprint(t_fileinfo *file, t_flag flag, t_space *sp)
 {
-	t_fileinfo	*tmp;
-	t_fileinfo	*forfree;//peut-etre creer un autre variable qui ;e permettra de free toute ma liste
-
-//	tmp = file;
-//	forfree = file; //garder le pointeur pour pouvoir le free a la fin;
-	if (!file)
-		return ;
-	if (file->other)
-		ft_printdir(file->other, flag, sp);
-	if (file)
-		ft_display(file, flag, sp);
-	ft_fileinfoprint(file->next, flag, sp);
+	ft_display_files(file, flag, sp);
+	ft_display_dir(file, flag, sp);
 }
-*/
+
+
