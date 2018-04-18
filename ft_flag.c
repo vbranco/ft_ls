@@ -16,7 +16,7 @@
 static void	ft_usage(char c)
 {
 	printf("ft_ls: illegal option -- %c\n", c);
-	printf("usage: ./ft_ls [-GRalrt] [file ...]\n");
+	printf("usage: ./ft_ls [-GRalrt1] [file ...]\n");
 }
 
 static void	ft_rec(char *str, t_flag *flag)
@@ -38,6 +38,8 @@ static void	ft_rec(char *str, t_flag *flag)
 			flag->a = 1;
 		else if (str[i] == 't')
 			flag->t = 1;
+		else if (str[i] == '1')
+			flag->un = 1;
 		i++;
 	}
 }

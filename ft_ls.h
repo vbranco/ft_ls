@@ -45,7 +45,7 @@
 # define BGREEN		"\e[42m"
 # define TSTOP		"\e[0m"
 
-# define FLAGS		"lGRrat\0"
+# define FLAGS		"lGRrat1\0"
 
 typedef struct			s_flag
 {
@@ -54,6 +54,7 @@ typedef struct			s_flag
 	short int			r;
 	short int			a;
 	short int			t;
+	short int			un;
 	short int			ac;
 	short int			total;
 	short int			out;

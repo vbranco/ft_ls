@@ -20,6 +20,7 @@ void	ft_init_flag(t_flag *flag)
 	flag->r = 0;
 	flag->a = 0;
 	flag->t = 0;
+	flag->un = 0;
 	flag->ac = 0;
 	flag->total = 0;
 	flag->out = 0;

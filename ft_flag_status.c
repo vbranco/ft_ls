@@ -25,5 +25,7 @@ int	ft_flag_status(t_flag *flag)
 		return (1);
 	if (flag->t == 1)
 		return (1);
+	if (flag->un == 1)
+		return (1);
 	return (0);
 }
