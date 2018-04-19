@@ -50,15 +50,15 @@ fclean: clean
 #		@$(MAKE) -C $(L_FT) fclean
 
 re:	fclean all
-	#   @$(MAKE) fclean
-	#	@$(MAKE) all
+#	   @$(MAKE) fclean
+#		@$(MAKE) all
 
 build:
 	    @echo "\033[35m"
 		mkdir build/
 
 $(NAME): $(OBJECTS)
-	#   @$(MAKE) -C $(L_FT)
+#	   @$(MAKE) -C $(L_FT)
 		@echo "\033[32m"
 		gcc $(FLAGS) -I  $(HEADER) $(SOURCES) $(LIB) -o $@ -g
 

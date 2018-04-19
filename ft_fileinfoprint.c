@@ -171,20 +171,24 @@ void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
 void		ft_fileinfoprint(t_fileinfo *file, t_flag *flag, t_space *sp)
 {
 	t_fileinfo	*tmp;
-	int			i;
+	short int	i;
+	short int	d;
 
 	i = 0;
+	d = 0;
 	tmp = file;
 	while (tmp)
 	{
 		if (tmp->amode != 'd')
 		{
 			ft_display(tmp, flag, sp);
+			i++;
 		}
+		if (tmp->amode == 'd')
+			d++;
 		tmp = tmp->next;
-		i++;
 	}
-	if (i > 0 && !flag->R)
+	if (i > 0 && d > 0 && !flag->R)
 		write(1, "\n", 1);
 	ft_display_dir(file, flag, sp);
 }
