@@ -184,7 +184,7 @@ void		ft_fileinfoprint(t_fileinfo *file, t_flag *flag, t_space *sp)
 		tmp = tmp->next;
 		i++;
 	}
-	if (i > 0)
+	if (i > 0 && !flag->R)
 		write(1, "\n", 1);
 	ft_display_dir(file, flag, sp);
 }
