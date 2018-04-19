@@ -15,6 +15,8 @@ void	ft_fileinfo_dell(t_fileinfo **file)
 		free((*file)->pw_name);
 		free((*file)->gr_name);
 		free((*file)->time);
+		if ((*file)->error != NULL)
+			free((*file)->error);
 		free(*file);
 		*file = tmp->next;
 	}

@@ -65,10 +65,27 @@ static int		ft_sort_time(t_fileinfo *file, t_fileinfo *novo, t_flag *flag)
 
 static int	ft_sort(t_fileinfo *file, t_fileinfo *novo, t_flag *flag)
 {
-	if (flag->t == 0)
-		return (ft_sort_name(file->name, novo->name, flag));
+	t_flag	fl;
+
+	ft_init_flag(&fl);
+	if (file->name == NULL || novo->name == NULL)
+		return (0);
+	if (file->error != NULL || novo->error != NULL)
+	{
+		if (file->error == NULL)
+			return (0);
+		else if (novo->error == NULL)
+			return (1);
+		else
+			return (ft_sort_name(file->name, novo->name, &fl));
+	}
 	else
-		return (ft_sort_time(file, novo, flag));
+	{
+		if (flag->t == 0)
+			return (ft_sort_name(file->name, novo->name, flag));
+		else
+			return (ft_sort_time(file, novo, flag));
+	}
 }
 
 void	ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *next, t_flag *flag)

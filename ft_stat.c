@@ -154,7 +154,7 @@ int		ft_stat(t_fileinfo *fileinfo, t_space *sp)
 	errno = 0;
 	if (lstat(fileinfo->path, &(fileinfo->st)) != 0)
 	{
-		perror(fileinfo->path);
+		ft_error(&fileinfo, fileinfo->path, strerror(errno));
 		return (1);
 	}
 	pwd = getpwuid(fileinfo->st.st_uid);

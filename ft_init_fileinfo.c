@@ -32,6 +32,7 @@ t_fileinfo	*ft_init_fileinfo(void)
 	fileinfo->min = 0;
 	fileinfo->maj = 0;
 	fileinfo->total = 0;
+	fileinfo->error = NULL;
 	fileinfo->next = NULL;
 	fileinfo->other = NULL;
 	return (fileinfo);

@@ -13,6 +13,19 @@
 
 #include "ft_ls.h"
 
+void	ft_error(t_fileinfo **novo, char *file, char *error)
+{
+	char		err[PATH_MAX];
+
+	ft_bzero(err, PATH_MAX);
+	ft_strcat(err, "ls: ");
+	ft_strcat(err, file);
+	ft_strcat(err, ": ");
+	ft_strcat(err, error);
+	(*novo)->error = ft_strdup(err);
+	(*novo)->name = ft_strdup(file);
+}
+
 static int	ft_dir(t_fileinfo *new)
 {
 	if ((new->st.st_mode & S_IFMT) == S_IFDIR)
@@ -48,11 +61,12 @@ static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 	struct dirent	*pdir;
 	t_fileinfo		*new;
 
-//	printf("ls prb sur ft_recursive || dir >> %s\n", current->path);
+	errno = 0;
 	if ((dir = opendir(current->path)) == NULL)
 	{
-		printf("ls prb sur ft_recursive || dir >> %s\n", current->path);
-//		perror("ls problem in ft_recursive");
+		new = ft_info(current->path, pdir->d_name, sp);
+		ft_error(&new, current->path, strerror(errno));
+		ft_fileinfo_sort(&(current->other), new, flag);
 		return ;
 	}
 	while ((pdir = readdir(dir)) != NULL)
@@ -73,9 +87,12 @@ static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *s
 	struct dirent	*pdir;
 	t_fileinfo		*new;
 
+	errno = 0;
 	if ((dir = opendir(direct)) == NULL)
 	{
-		perror("ls problem sur ft_is_dir");
+		new = ft_info(NULL, direct, sp);
+		ft_error(&new, direct, strerror(errno));
+		ft_fileinfo_sort(&(current->other), new, flag);
 		return (0);
 	}
 	while ((pdir = readdir(dir)) != NULL)
@@ -102,9 +119,9 @@ void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
 		new = ft_info(NULL, arg->content, sp);
 		if (ft_dir(new) == 1)
 		{
-			if (ft_is_dir(new, arg->content, flag, sp))
-				ft_fileinfo_sort(start, new, flag);
+			ft_is_dir(new, arg->content, flag, sp);
 		}
+		ft_fileinfo_sort(start, new, flag);
 		arg = arg->next;
 	}
 }

@@ -77,6 +77,7 @@ typedef struct			s_fileinfo
 	int					maj;
 	int					min;
 	unsigned int		total;
+	char				*error;
 	struct s_fileinfo	*next;
 	struct s_fileinfo	*other;
 }						t_fileinfo;
@@ -110,6 +111,7 @@ void					ft_init_space(t_space *sp);
 //-----------------------------
 void					ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp);
 void					ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp);
+void					ft_error(t_fileinfo **novo, char *file, char *error);
 
 
 
