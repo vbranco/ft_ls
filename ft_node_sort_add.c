@@ -32,6 +32,8 @@ static int	ft_sort(char *s1, char *s2)
 	struct stat st1;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (0);
 	stat(s1, &st1);
 	stat(s2, &st2);
 	if (((st2.st_mode & S_IFMT) == S_IFDIR) && ((st1.st_mode & S_IFMT) != S_IFDIR))
@@ -54,9 +56,10 @@ static int	ft_sort(char *s1, char *s2)
 void	ft_node_sort_add(t_node **node, void *content, size_t content_size)
 {
 	t_node  *new;
-	t_node  *tmp = NULL;
+	t_node  *tmp;
 	t_node  *ll;
 
+	tmp = NULL;
 	ll = *node;
 	if (!(new = (t_node*)malloc(sizeof(t_node))))
 		return ;

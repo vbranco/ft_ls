@@ -68,7 +68,7 @@ static int	ft_sort(t_fileinfo *file, t_fileinfo *novo, t_flag *flag)
 	t_flag	fl;
 
 	ft_init_flag(&fl);
-	if (file->name == NULL || novo->name == NULL)
+	if ((file->name == NULL) || (novo->name == NULL))
 		return (0);
 	if (file->error != NULL || novo->error != NULL)
 	{

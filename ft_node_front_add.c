@@ -19,10 +19,18 @@ void	ft_node_front_add(t_node **node, void *content, size_t content_size)
 
 	if (!(new = (t_node*)malloc(sizeof(t_node))))
 		return ;
-	if (!(new->content = ft_memalloc(content_size)))
-		return ;
-	ft_memcpy(new->content, content, content_size);
-	new->content_size = content_size;
+	if (!content)
+	{
+		new->content = NULL;
+		new->content_size = 0;
+	}
+	else
+	{
+		if (!(new->content = ft_memalloc(content_size)))
+			return ;
+		ft_memcpy(new->content, content, content_size);
+		new->content_size = content_size;
+	}
 	new->next = *node;
 	*node = new;
 }

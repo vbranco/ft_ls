@@ -76,7 +76,7 @@ void	printl(t_fileinfo *file, t_space *sp, t_flag *flag)
 	else
 	{
 		if (sp->size_midev != 0 || sp->size_madev != 0)
-			printf("%*lli ", (sp->size_madev + sp->size_midev + sp->size_stsize+2),
+			printf("%*lli ", (sp->size_madev + sp->size_midev + sp->size_stsize-1),
 			file->st.st_size);
 		else
 			printf("%*lli ", (sp->size_stsize), file->st.st_size);
@@ -110,7 +110,11 @@ int	ft_total(t_fileinfo *file)
 void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 {
 	if (file->error != NULL)
+	{
 		printf("%s\n", file->error);
+		if (file->amode != 'd')
+			flag->out--;
+	}
 	else
 	{
 		if (flag->l > 0)
@@ -125,6 +129,7 @@ void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 				printf("%s", file->name);
 			printf("\n");
 		}
+		flag->out++;
 	}
 }
 
@@ -157,7 +162,7 @@ void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
 				printf("\n");
 			if ((flag->total != flag->ac && flag->ac-1 > flag->total))
 			{
-				if (!(ft_flag_status(flag) == 0 && flag->ac == 2))
+				if (!(ft_flag_status(flag) == 0 && flag->ac == 2) && !flag->R)
 					printf("%s:\n", file->path);
 			}
 			if (flag->R && flag->out)
@@ -188,7 +193,7 @@ void		ft_fileinfoprint(t_fileinfo *file, t_flag *flag, t_space *sp)
 			d++;
 		tmp = tmp->next;
 	}
-	if (i > 0 && d > 0 && !flag->R)
-		write(1, "\n", 1);
+	if (i > 0 && d > 0)
+		flag->out++;
 	ft_display_dir(file, flag, sp);
 }

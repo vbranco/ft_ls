@@ -48,7 +48,6 @@ int		main(int ac, char **av)
 	ft_args(av, &flag, &args);
 //	argsprint(args);
 	ft_ls(&file, &args, &flag, &sp);
-//	argsprint(args);
 	ft_nodedell(&args);
 	ft_fileinfoprint(file, &flag, &sp);
 	ft_fileinfo_dell(&file);

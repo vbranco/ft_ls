@@ -22,7 +22,7 @@ void            ft_args(char **av, t_flag *flag, t_node **node)
 		ft_node_front_add(node, ".", 1);
 	else
 	{
-		if (ft_flag_status(flag) == 0)
+		if (ft_flag_status(flag) == 0 && av[i][1] != '-')
 		{
 			while (i < flag->ac)
 			{

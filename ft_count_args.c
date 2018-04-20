@@ -10,7 +10,10 @@ int     ft_count_args(int ac, char **av)
 	while (i < ac)
 	{
 		if (av[i][0] == '-')
-			z++;
+		{
+//			if (av[i][1] == '-')
+				z++;
+		}
 		i++;
 	}
 	return (z + 1);
