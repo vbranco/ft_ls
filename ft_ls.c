@@ -51,7 +51,8 @@ t_fileinfo	*ft_info(char *dir, char *name, t_space *sp)
 		new->path = ft_strdup(path);
 		free(path);
 	}
-	ft_stat(new, sp);
+	if (name[0] != '\0')
+		ft_stat(new, sp);
 	return (new);
 }
 
@@ -62,6 +63,7 @@ static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 	t_fileinfo		*new;
 
 	errno = 0;
+	new = NULL;
 	if ((dir = opendir(current->path)) == NULL)
 	{
 		new = ft_info(current->path, pdir->d_name, sp);
@@ -78,6 +80,11 @@ static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 			ft_recursive(new, flag, sp);
 		ft_fileinfo_sort(&(current->other), new, flag);
 	}
+	if (new == NULL)
+	{
+		new = ft_info(current->path, "", sp);
+		ft_fileinfo_sort(&(current->other), new, flag);
+	}
 	closedir(dir);
 }
 
@@ -88,6 +95,7 @@ static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *s
 	t_fileinfo		*new;
 
 	errno = 0;
+	new = NULL;
 	if ((dir = opendir(direct)) == NULL)
 	{
 		new = ft_info(NULL, direct, sp);
@@ -102,6 +110,11 @@ static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *s
 		new = ft_info(direct, pdir->d_name, sp);
 		if (ft_dir(new) && flag->R)
 			ft_recursive(new, flag, sp);
+		ft_fileinfo_sort(&(current->other), new, flag);
+	}
+	if (new == NULL)
+	{
+		new = ft_info(direct, "", sp);
 		ft_fileinfo_sort(&(current->other), new, flag);
 	}
 	closedir(dir);
