@@ -117,8 +117,7 @@ void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 	}
 	else
 	{
-		if (file->name != NULL)//ca me cause un prob quand le dossier precedent
-							  //a une error, il n'affiche pas le PATH
+		if (file->name != NULL)
 		{
 			if (flag->l > 0)
 			{
@@ -164,13 +163,14 @@ void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
 	{
 		if (file->other)
 		{
-			if (flag->out && !flag->R)
+/*			if (flag->out && !flag->R)
 				printf("\n");
 			if ((flag->total != flag->ac && flag->ac-1 > flag->total))
 			{
 				if (!(ft_flag_status(flag) == 0 && flag->ac == 2))
 				{
-					printf("%s:\n", file->path);
+					if (!flag->R)
+						printf("%s:\n", file->path);
 					if (flag->R)
 						flag->ac = 2;
 				}
@@ -178,6 +178,18 @@ void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
 			if (flag->R && flag->out)
 			{
 				printf("\n%s:\n", file->path);
+			}
+*/			if (flag->out)
+				printf("\n%s:\n", file->path);
+			else
+			{
+				if (ft_flag_status(flag) == 0 && flag->ac > 2)
+					printf("%s:\n", file->path);
+				if (ft_flag_status(flag) != 0)
+				{
+					if (flag->total != flag->ac)
+						printf("%s:\n", file->path);
+				}
 			}
 			ft_pdir(file->other, flag, sp);
 		}
@@ -201,11 +213,11 @@ void		ft_fileinfoprint(t_fileinfo *file, t_flag *flag, t_space *sp)
 			ft_display(tmp, flag, sp);
 			i++;
 		}
-		if (tmp->amode == 'd')
+		if (tmp->amode == 'd')// && tmp->error == NULL)
 			d++;
 		tmp = tmp->next;
 	}
-	if (i > 0 && d > 0)
+	if (i > 0 && d > 0)// && !flag->R)
 		flag->out++;
 	ft_display_dir(file, flag, sp);
 }
