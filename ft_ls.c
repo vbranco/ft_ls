@@ -75,9 +75,21 @@ static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 	{
 		if (pdir->d_name[0] == '.' && !flag->a)
 			continue ;
+		if (flag->a)
+		{
+			if (pdir->d_name[0] == '.' && (pdir->d_name[1] == '.' || pdir->d_name[1] == '\0'))
+				continue ;
+		}
 		new = ft_info(current->path, pdir->d_name, sp);
 		if (ft_dir(new) && flag->R)
 			ft_recursive(new, flag, sp);
+		ft_fileinfo_sort(&(current->other), new, flag);
+	}
+	if (flag->a)
+	{
+		new = ft_info(current->path, ".", sp);
+		ft_fileinfo_sort(&(current->other), new, flag);
+		new = ft_info(current->path, "..", sp);
 		ft_fileinfo_sort(&(current->other), new, flag);
 	}
 	if (new == NULL)
@@ -107,9 +119,21 @@ static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *s
 	{
 		if (pdir->d_name[0] == '.' && !flag->a)
 			continue ;
+		if (flag->a)
+		{
+			if (pdir->d_name[0] == '.' && (pdir->d_name[1] == '.' || pdir->d_name[1] == '\0'))
+				continue ;
+		}
 		new = ft_info(direct, pdir->d_name, sp);
 		if (ft_dir(new) && flag->R)
 			ft_recursive(new, flag, sp);
+		ft_fileinfo_sort(&(current->other), new, flag);
+	}
+	if (flag->a)
+	{
+		new = ft_info(direct, ".", sp);
+		ft_fileinfo_sort(&(current->other), new, flag);
+		new = ft_info(direct, "..", sp);
 		ft_fileinfo_sort(&(current->other), new, flag);
 	}
 	if (new == NULL)
