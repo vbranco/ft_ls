@@ -112,8 +112,8 @@ void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 	if (file->error != NULL)
 	{
 		printf("%s\n", file->error);
-//		if (file->amode != 'd')
-//			flag->out--;
+		if (file->amode != 'd')
+			flag->out--;
 	}
 	else
 	{
@@ -168,7 +168,7 @@ void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
 				printf("\n");
 			if ((flag->total != flag->ac && flag->ac-1 > flag->total))
 			{
-				if (!(ft_flag_status(flag) == 0 && flag->ac == 2)) //&& !flag->R)
+				if (!(ft_flag_status(flag) == 0 && flag->ac == 2))
 				{
 					printf("%s:\n", file->path);
 					if (flag->R)
