@@ -112,24 +112,30 @@ void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 	if (file->error != NULL)
 	{
 		printf("%s\n", file->error);
-		if (file->amode != 'd')
-			flag->out--;
+//		if (file->amode != 'd')
+//			flag->out--;
 	}
 	else
 	{
-		if (flag->l > 0)
+		if (file->name != NULL)//ca me cause un prob quand le dossier precedent
+							  //a une error, il n'affiche pas le PATH
 		{
-			printl(file, sp, flag);
-		}
-		else
-		{
-			if (flag->l == -1)
-				color(file);
+			if (flag->l > 0)
+			{
+				printl(file, sp, flag);
+			}
 			else
-				printf("%s", file->name);
-			printf("\n");
+			{
+				if (flag->l == -1)
+					color(file);
+				else
+					printf("%s", file->name);
+				printf("\n");
+			}
 		}
 		flag->out++;
+		if (flag->R)
+			flag->ac = 2;
 	}
 }
 
@@ -139,7 +145,7 @@ void		ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp)
 
 	tmp = file;
 	flag->out = 1;
-	if (flag->l > 0 && file->error == NULL)
+	if (flag->l > 0 && file->error == NULL && file->name != NULL)
 		printf("total %i\n", ft_total(file));
 	while (file)
 	{
@@ -162,11 +168,17 @@ void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
 				printf("\n");
 			if ((flag->total != flag->ac && flag->ac-1 > flag->total))
 			{
-				if (!(ft_flag_status(flag) == 0 && flag->ac == 2) && !flag->R)
+				if (!(ft_flag_status(flag) == 0 && flag->ac == 2)) //&& !flag->R)
+				{
 					printf("%s:\n", file->path);
+					if (flag->R)
+						flag->ac = 2;
+				}
 			}
 			if (flag->R && flag->out)
+			{
 				printf("\n%s:\n", file->path);
+			}
 			ft_pdir(file->other, flag, sp);
 		}
 		file = file->next;

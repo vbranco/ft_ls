@@ -146,19 +146,32 @@ char	*ft_time(char *time)
 	return (ret);
 }
 
-int		ft_stat(t_fileinfo *fileinfo, t_space *sp)
+void	ft_ugid(t_fileinfo *file)
 {
 	struct passwd	*pwd;
 	struct group	*grp;
 
+	pwd = NULL;
+	grp = NULL;
+	if (!(pwd = getpwuid(file->st.st_uid)))
+		file->pw_name = ft_strdup("owner");
+	else
+		file->pw_name = ft_strdup(pwd->pw_name);
+	if (!(grp = getgrgid(file->st.st_gid)))
+		file->gr_name = ft_strdup("group");
+	else
+		file->gr_name = ft_strdup(grp->gr_name);
+}
+
+int		ft_stat(t_fileinfo *fileinfo, t_space *sp)
+{
 	errno = 0;
 	if (lstat(fileinfo->path, &(fileinfo->st)) != 0)
 	{
 		ft_error(&fileinfo, fileinfo->path, strerror(errno));
 		return (1);
 	}
-	pwd = getpwuid(fileinfo->st.st_uid);
-	grp = getgrgid(fileinfo->st.st_gid);
+	ft_ugid(fileinfo);
 	if (time(NULL) - fileinfo->st.st_mtime > 15778800 || time(NULL) < fileinfo->st.st_mtime)
 		fileinfo->time = ft_time(ctime(&fileinfo->st.st_mtime));
 	else
@@ -167,8 +180,6 @@ int		ft_stat(t_fileinfo *fileinfo, t_space *sp)
 	ft_rmode(fileinfo);
 	if (fileinfo->amode == 'l')
 		readlink(fileinfo->path, fileinfo->link, PATH_MAX);
-	fileinfo->pw_name = ft_strdup(pwd->pw_name);
-	fileinfo->gr_name = ft_strdup(grp->gr_name);
 	ft_file_display(fileinfo->path, fileinfo, sp);
 	ft_acl(fileinfo);
 	return (0);
