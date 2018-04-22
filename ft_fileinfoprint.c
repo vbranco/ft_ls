@@ -132,9 +132,7 @@ void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 				printf("\n");
 			}
 		}
-		flag->out++;
-		if (flag->R)
-			flag->ac = 2;
+		flag->out = 1;
 	}
 }
 
@@ -163,23 +161,7 @@ void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
 	{
 		if (file->other)
 		{
-/*			if (flag->out && !flag->R)
-				printf("\n");
-			if ((flag->total != flag->ac && flag->ac-1 > flag->total))
-			{
-				if (!(ft_flag_status(flag) == 0 && flag->ac == 2))
-				{
-					if (!flag->R)
-						printf("%s:\n", file->path);
-					if (flag->R)
-						flag->ac = 2;
-				}
-			}
-			if (flag->R && flag->out)
-			{
-				printf("\n%s:\n", file->path);
-			}
-*/			if (flag->out)
+			if (flag->out > 0)
 				printf("\n%s:\n", file->path);
 			else
 			{
@@ -187,7 +169,7 @@ void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
 					printf("%s:\n", file->path);
 				if (ft_flag_status(flag) != 0)
 				{
-					if (flag->total != flag->ac)
+					if (flag->ac - flag->total > 1)
 						printf("%s:\n", file->path);
 				}
 			}
@@ -213,11 +195,11 @@ void		ft_fileinfoprint(t_fileinfo *file, t_flag *flag, t_space *sp)
 			ft_display(tmp, flag, sp);
 			i++;
 		}
-		if (tmp->amode == 'd')// && tmp->error == NULL)
+		if (tmp->amode == 'd')
 			d++;
 		tmp = tmp->next;
 	}
-	if (i > 0 && d > 0)// && !flag->R)
+	if (i > 0 && d > 0)
 		flag->out++;
 	ft_display_dir(file, flag, sp);
 }
