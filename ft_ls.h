@@ -90,6 +90,7 @@ typedef struct			s_space
 	short int			size_stsize;
 	short int			size_madev;
 	short int			size_midev;
+	short int			size_time;
 }						t_space;
 
 typedef struct			s_node
@@ -112,6 +113,7 @@ void					ft_init_space(t_space *sp);
 void					ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp);
 void					ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp);
 void					ft_error(t_fileinfo **novo, char *file, char *error);
+char					*ft_name(char *str);
 
 
 

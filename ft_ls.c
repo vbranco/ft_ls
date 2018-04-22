@@ -16,14 +16,19 @@
 void	ft_error(t_fileinfo **novo, char *file, char *error)
 {
 	char		err[PATH_MAX];
+	char		*name;
 
+	name = NULL;
+	name = ft_name(file);
 	ft_bzero(err, PATH_MAX);
 	ft_strcat(err, "ls: ");
-	ft_strcat(err, file);
+	ft_strcat(err, name);
 	ft_strcat(err, ": ");
 	ft_strcat(err, error);
 	(*novo)->error = ft_strdup(err);
 	(*novo)->name = ft_strdup(file);
+	if (name != NULL)
+		free(name);
 }
 
 static int	ft_dir(t_fileinfo *new)

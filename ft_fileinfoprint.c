@@ -111,8 +111,9 @@ void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 {
 	if (file->error != NULL)
 	{
-		printf("%s\n", file->error);
-		if (file->amode != 'd')
+		ft_putendl_fd(file->error, 2);
+//		printf("%s\n", file->error);
+		if (file->amode != 'd' && !flag->R)
 			flag->out--;
 	}
 	else
@@ -161,6 +162,7 @@ void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
 	{
 		if (file->other)
 		{
+//			printf("out >> %i\n", flag->out);
 			if (flag->out > 0)
 				printf("\n%s:\n", file->path);
 			else

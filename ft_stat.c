@@ -81,7 +81,7 @@ static void	ft_rmode(t_fileinfo *fileinfo)
 		fileinfo->mode[8] = 'x';
 }
 
-static char	*ft_name(char *str)
+char		*ft_name(char *str)
 {
 	int		i;
 	int		s;
@@ -130,14 +130,22 @@ static void	ft_file_display(char *str, t_fileinfo *tmp, t_space *sp)
 		sp->size_stsize = ft_size_nb(tmp->st.st_size);
 }
 
-char	*ft_time(char *time)
+char	*ft_time(char *time, t_space *sp)
 {
-	char	*tmp;
-	char	*year;
-	char	*ret;
+	char		*tmp;
+	char		*year;
+	char		*ret;
+	int			len;
+	short int	stop;
 
+	len = ft_strlen(time)-1;
+	while (time[len] != ' ')
+		len--;
+	stop = len;
+	while (time[stop] != '\n')
+		stop++;
 	tmp = ft_strsub(time, 4, 7);
-	year = ft_strsub(time, 19, 5);
+	year = ft_strsub(time, len + 1, (stop - len - 1));
 	ret = ft_memalloc(ft_strlen(tmp) + ft_strlen(year) + 1);
 	ft_strcat(ret, tmp);
 	ft_strcat(ret, year);
@@ -173,9 +181,13 @@ int		ft_stat(t_fileinfo *fileinfo, t_space *sp)
 	}
 	ft_ugid(fileinfo);
 	if (time(NULL) - fileinfo->st.st_mtime > 15778800 || time(NULL) < fileinfo->st.st_mtime)
-		fileinfo->time = ft_time(ctime(&fileinfo->st.st_mtime));
+	{
+		fileinfo->time = ft_time(ctime(&fileinfo->st.st_mtime), sp);
+	}
 	else
+	{
 		fileinfo->time = ft_strsub(ctime(&fileinfo->st.st_mtime), 4, 12);
+	}
 	ft_amode(fileinfo);
 	ft_rmode(fileinfo);
 	if (fileinfo->amode == 'l')

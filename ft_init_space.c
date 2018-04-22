@@ -21,4 +21,5 @@ void	ft_init_space(t_space *sp)
 	sp->size_stsize = 0;
 	sp->size_madev = 0;
 	sp->size_midev = 0;
+	sp->size_time = 0;
 }
