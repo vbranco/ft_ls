@@ -6,17 +6,27 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/28 18:01:34 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 18:31:17 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/23 15:06:12 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void            ft_args(char **av, t_flag *flag, t_node **node)
+int            ft_args(char **av, t_flag *flag, t_node **node)
 {
 	int     i;
 
+	i = 1;
+	while (i < flag->ac)
+	{
+		if (av[i][0] == '\0')
+		{
+			ft_putendl_fd("ls: fts_open: No such file or directory", 2);
+			return (1);
+		}
+		i++;
+	}
 	i = 1;
 	if (flag->ac == 1)
 		ft_node_front_add(node, ".", 1);
@@ -46,4 +56,5 @@ void            ft_args(char **av, t_flag *flag, t_node **node)
 			}
 		}
 	}
+	return (0);
 }

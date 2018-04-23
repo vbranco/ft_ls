@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/07 17:18:26 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/07 18:31:28 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/23 09:56:53 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,5 +21,4 @@ void	ft_init_space(t_space *sp)
 	sp->size_stsize = 0;
 	sp->size_madev = 0;
 	sp->size_midev = 0;
-	sp->size_time = 0;
 }

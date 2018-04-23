@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/05 16:12:27 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 20:01:20 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/23 11:54:43 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -112,7 +112,6 @@ void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 	if (file->error != NULL)
 	{
 		ft_putendl_fd(file->error, 2);
-//		printf("%s\n", file->error);
 		if (file->amode != 'd' && !flag->R)
 			flag->out--;
 	}

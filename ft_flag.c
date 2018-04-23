@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:57 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/20 19:46:04 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/23 13:33:50 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,10 +68,18 @@ int			ft_flag(int ac, char **av, t_flag *flag)
 
 	c = '\0';
 	i = 1;
+	flag->ac = ac;
 	while (i < ac)
 	{
 		if (av[i][0] == '-')
 		{
+			if (ft_strcmp(av[i], "--") == 0)
+				return (0);
+			if (ft_strcmp(av[i], "---") == 0)
+			{
+				ft_usage('-');
+				return (1);
+			}
 			c = test_flag(av[i]);
 			if (c != 0)
 			{
@@ -83,6 +91,5 @@ int			ft_flag(int ac, char **av, t_flag *flag)
 		}
 		i++;
 	}
-	flag->ac = ac;
 	return (0);
 }

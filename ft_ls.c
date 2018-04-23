@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 20:01:21 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/23 15:06:51 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ void	ft_error(t_fileinfo **novo, char *file, char *error)
 	char		*name;
 
 	name = NULL;
-	name = ft_name(file);
+	name = ft_strdup(file);
 	ft_bzero(err, PATH_MAX);
 	ft_strcat(err, "ls: ");
 	ft_strcat(err, name);
@@ -58,6 +58,8 @@ t_fileinfo	*ft_info(char *dir, char *name, t_space *sp)
 	}
 	if (name[0] != '\0')
 		ft_stat(new, sp);
+	if (name[0] == '\0' && dir[0] == '\0')
+		ft_error(&new, "fts_open", "No such file or directory");
 	return (new);
 }
 
@@ -160,9 +162,7 @@ void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
 	{
 		new = ft_info(NULL, arg->content, sp);
 		if (ft_dir(new) == 1)
-		{
 			ft_is_dir(new, arg->content, flag, sp);
-		}
 		ft_fileinfo_sort(start, new, flag);
 		arg = arg->next;
 	}

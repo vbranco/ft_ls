@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:30 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 20:01:25 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/23 15:06:06 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,7 +45,8 @@
 # define BGREEN		"\e[42m"
 # define TSTOP		"\e[0m"
 
-# define FLAGS		"lGRrat1-\0"
+# define FLAGS		"lGRrat1\0"
+# define SIX_MONTHS ((365/2) * 86400)
 
 typedef struct			s_flag
 {
@@ -90,7 +91,6 @@ typedef struct			s_space
 	short int			size_stsize;
 	short int			size_madev;
 	short int			size_midev;
-	short int			size_time;
 }						t_space;
 
 typedef struct			s_node
@@ -107,7 +107,7 @@ int						ft_stat(t_fileinfo *fileinfo, t_space *sp);
 int						ft_flag_status(t_flag *flag);
 void					ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp);
 int						ft_count_args(int ac, char **av);
-void					ft_args(char **av, t_flag *flag, t_node **node);
+int						ft_args(char **av, t_flag *flag, t_node **node);
 void					ft_init_space(t_space *sp);
 //-----------------------------
 void					ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp);

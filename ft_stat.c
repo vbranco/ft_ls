@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 18:40:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/07 18:31:31 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/23 13:22:16 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -180,7 +180,7 @@ int		ft_stat(t_fileinfo *fileinfo, t_space *sp)
 		return (1);
 	}
 	ft_ugid(fileinfo);
-	if (time(NULL) - fileinfo->st.st_mtime > 15778800 || time(NULL) < fileinfo->st.st_mtime)
+	if (time(NULL) - fileinfo->st.st_mtime > SIX_MONTHS || time(NULL) < fileinfo->st.st_mtime)
 	{
 		fileinfo->time = ft_time(ctime(&fileinfo->st.st_mtime), sp);
 	}
