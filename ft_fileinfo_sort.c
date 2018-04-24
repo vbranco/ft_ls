@@ -6,12 +6,12 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/05 19:38:39 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/24 18:45:47 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/24 18:49:48 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-//------------  GROS PROB sur le ./ft_ls -a  --------------//
+//------------  GROS PROB sur le ./ft_ls ./ .  --------------//
 
 
 
@@ -35,8 +35,8 @@ static int	ft_sort_name(char *s1, char *s2, t_flag *flag)
 		return (0);
 	while (s1[i] == s2[i] && s1[i] && s2[i])
 		i++;
-	if (!s1[i] || !s2[i])
-//	if (!s1[i])
+//	if (!s1[i] || !s2[i])
+	if (!s1[i])
 	{
 //		printf("dans if (!s1[i])\n");
 		return (ft_sort_r(flag));
