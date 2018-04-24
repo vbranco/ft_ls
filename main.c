@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:23 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/24 14:18:48 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/24 18:29:41 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,7 +45,6 @@ int		main(int ac, char **av)
 	file = NULL;
 	if (ft_flag(ac, av, &flag) != 0)
 		return (1);
-//	printf("%i\n", flag.ac);
 	if (ft_args(av, &flag, &args))
 	{
 		ft_nodedell(&args);

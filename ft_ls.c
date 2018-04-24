@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/24 14:18:43 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/24 18:41:31 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,10 @@ void	ft_error(t_fileinfo **novo, char *file, char *error)
 	char		*name;
 
 	name = NULL;
-	name = ft_strdup(file);
+	if (ft_strchr(file, '/'))
+		name = ft_name(file);
+	else
+		name = ft_strdup(file);
 	ft_bzero(err, PATH_MAX);
 	ft_strcat(err, "ls: ");
 	ft_strcat(err, name);
@@ -51,6 +54,7 @@ t_fileinfo	*ft_info(char *dir, char *name, t_space *sp)
 	{
 		path = ft_memalloc(ft_strlen(dir) + ft_strlen(name) + 2);
 		ft_strcat(path, dir);
+//		if (path[ft_strlen(path)-1] != '/')
 		ft_strcat(path, "/");
 		ft_strcat(path, name);
 		new->path = ft_strdup(path);
@@ -74,7 +78,7 @@ static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 	if ((dir = opendir(current->path)) == NULL)
 	{
 		new = ft_info(current->path, pdir->d_name, sp);
-		ft_error(&new, current->path, strerror(errno));
+		ft_error(&new, current->name, strerror(errno));
 		ft_fileinfo_sort(&(current->other), new, flag);
 		return ;
 	}

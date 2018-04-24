@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 18:40:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/24 14:17:34 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/24 18:41:32 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,7 +70,12 @@ void		ft_rmode(t_fileinfo *fileinfo)
 		fileinfo->mode[2] = 'x';
 	((fileinfo->st.st_mode & S_IRGRP) ? fileinfo->mode[3] = 'r' : 0);
 	((fileinfo->st.st_mode & S_IWGRP) ? fileinfo->mode[4] = 'w' : 0);
-	((fileinfo->st.st_mode & S_IXGRP) ? fileinfo->mode[5] = 'x' : 0);
+	if ((fileinfo->st.st_mode & S_ISGID) && !(fileinfo->st.st_mode & S_IXGRP))
+		fileinfo->mode[5] = 'S';
+	else if ((fileinfo->st.st_mode & S_ISGID) && (fileinfo->st.st_mode & S_IXGRP))
+		fileinfo->mode[5] = 's';
+	else if (fileinfo->st.st_mode & S_IXGRP)
+		fileinfo->mode[5] = 'x';
 	((fileinfo->st.st_mode & S_IROTH) ? fileinfo->mode[6] = 'r' : 0);
 	((fileinfo->st.st_mode & S_IWOTH) ? fileinfo->mode[7] = 'w' : 0);
 	if ((fileinfo->st.st_mode & S_ISVTX) && (fileinfo->st.st_mode & S_IXOTH))

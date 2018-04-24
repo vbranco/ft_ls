@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/05 16:12:27 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/23 11:54:43 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/24 17:15:08 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,12 +27,14 @@ int	test(t_fileinfo *file)
 		else
 			return (1);
 	}
-	else if (file->amode == '-')
+	else if (S_ISREG(file->st.st_mode))
 	{
 		if (file->mode[2] == 's')
 			return (8);
-		else if (file->mode[2] == 'S')
+		else if (file->mode[5] == 's')
 			return (9);
+		else if (file->mode[2] != 'x' && file->mode[5] != 'x' && file->mode[8] != 'x')
+			return (0);
 		else if (file->mode[2] != '-' || file->mode[5] != '-' || file->mode[8] != '-')
 			return (5);
 	}
