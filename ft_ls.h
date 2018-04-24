@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:30 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/23 15:06:06 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/24 13:19:12 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -114,6 +114,9 @@ void					ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp);
 void					ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp);
 void					ft_error(t_fileinfo **novo, char *file, char *error);
 char					*ft_name(char *str);
+void					ft_ugid(t_fileinfo *file);
+void					ft_amode(t_fileinfo *fileinfo);
+void					ft_rmode(t_fileinfo *fileinfo);
 
 
 

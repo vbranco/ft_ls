@@ -6,14 +6,14 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 18:40:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/23 13:22:16 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/24 14:17:34 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	ft_amode(t_fileinfo *fileinfo)
+void		ft_amode(t_fileinfo *fileinfo)
 {
 	if (S_ISLNK(fileinfo->st.st_mode))
 		fileinfo->amode =  'l';
@@ -58,7 +58,7 @@ static void ft_acl(t_fileinfo *fileinfo)
 	}
 }
 
-static void	ft_rmode(t_fileinfo *fileinfo)
+void		ft_rmode(t_fileinfo *fileinfo)
 {
 	((fileinfo->st.st_mode & S_IRUSR) ? fileinfo->mode[0] = 'r' : 0);
 	((fileinfo->st.st_mode & S_IWUSR) ? fileinfo->mode[1] = 'w' : 0);

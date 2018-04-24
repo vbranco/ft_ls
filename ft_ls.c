@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/23 15:06:51 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/24 14:18:43 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -152,6 +152,20 @@ static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *s
 	return (1);
 }
 
+t_fileinfo	*ft_is_link(char *file)
+{
+	t_fileinfo	*new;
+
+	new = ft_init_fileinfo();
+	new->path = ft_strdup(file);
+	stat(new->path, &(new->st));
+	new->name = ft_strdup(file);
+	ft_ugid(new);
+	ft_amode(new);
+	ft_rmode(new);
+	return (new);
+}
+
 void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
 {
 	t_node		*arg;
@@ -161,6 +175,11 @@ void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
 	while (arg)
 	{
 		new = ft_info(NULL, arg->content, sp);
+		if (S_ISLNK(new->st.st_mode) && !flag->l)
+		{
+			ft_fileinfo_dell(&new);
+			new = ft_is_link(arg->content);
+		}
 		if (ft_dir(new) == 1)
 			ft_is_dir(new, arg->content, flag, sp);
 		ft_fileinfo_sort(start, new, flag);
