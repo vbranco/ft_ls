@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/05 19:38:39 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 16:31:29 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/25 20:04:03 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,8 +35,8 @@ static int	ft_sort_name(char *s1, char *s2, t_flag *flag)
 		return (0);
 	while (s1[i] == s2[i] && s1[i] && s2[i])
 		i++;
-	if (!s1[i] || (ft_strcmp(s2, "..") != 0 && ft_strcmp(s2, ".") != 0))
-//	if (!s1[i])
+//	if (!s1[i] || (ft_strcmp(s2, "..") != 0 && ft_strcmp(s2, ".") != 0))
+	if (!s1[i])
 	{
 //		printf("if et !s1 || s1 >> %s\n", s1);
 //		printf("if et !s1 || s2 >> %s\n", s2);

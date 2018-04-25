@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/24 18:41:31 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/25 20:05:04 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,9 +19,9 @@ void	ft_error(t_fileinfo **novo, char *file, char *error)
 	char		*name;
 
 	name = NULL;
-	if (ft_strchr(file, '/'))
-		name = ft_name(file);
-	else
+//	if (ft_strchr(file, '/'))
+//		name = ft_name(file);
+//	else
 		name = ft_strdup(file);
 	ft_bzero(err, PATH_MAX);
 	ft_strcat(err, "ls: ");
@@ -75,7 +75,7 @@ static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 
 	errno = 0;
 	new = NULL;
-	if ((dir = opendir(current->path)) == NULL)
+	if (!(dir = opendir(current->path)))
 	{
 		new = ft_info(current->path, pdir->d_name, sp);
 		ft_error(&new, current->name, strerror(errno));
@@ -92,7 +92,12 @@ static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 				continue ;
 		}
 		new = ft_info(current->path, pdir->d_name, sp);
-		if (ft_dir(new) && flag->R)
+/*		if (new->error != NULL)
+		{
+			ft_putendl_fd("dans recursive", 2);
+			return ;
+		}
+*/		if (ft_dir(new) && flag->R)
 			ft_recursive(new, flag, sp);
 		ft_fileinfo_sort(&(current->other), new, flag);
 	}
@@ -119,7 +124,7 @@ static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *s
 
 	errno = 0;
 	new = NULL;
-	if ((dir = opendir(direct)) == NULL)
+	if (!(dir = opendir(direct)))
 	{
 		new = ft_info(NULL, direct, sp);
 		ft_error(&new, direct, strerror(errno));

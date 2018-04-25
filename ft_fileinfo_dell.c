@@ -6,7 +6,7 @@ void	ft_fileinfo_dell(t_fileinfo **file)
 
 	while (*file)
 	{
-		tmp = *file;
+		tmp = (*file)->next;
 		if ((*file)->other)
 			ft_fileinfo_dell(&((*file)->other));
 		(*file)->amode = 0;
@@ -20,7 +20,7 @@ void	ft_fileinfo_dell(t_fileinfo **file)
 		if ((*file)->error != NULL)
 			free((*file)->error);
 		free(*file);
-		*file = tmp->next;
+		*file = tmp;
 	}
 	*file = NULL;
 }
