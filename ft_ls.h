@@ -117,6 +117,7 @@ char					*ft_name(char *str);
 void					ft_ugid(t_fileinfo *file);
 void					ft_amode(t_fileinfo *fileinfo);
 void					ft_rmode(t_fileinfo *fileinfo);
+void					ft_flag_a(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp);
 
 
 

@@ -92,28 +92,28 @@ static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 				continue ;
 		}
 		new = ft_info(current->path, pdir->d_name, sp);
-/*		if (new->error != NULL)
-		{
-			ft_putendl_fd("dans recursive", 2);
-			return ;
-		}
-*/		if (ft_dir(new) && flag->R)
+		if (ft_dir(new) && flag->R)
 			ft_recursive(new, flag, sp);
 		ft_fileinfo_sort(&(current->other), new, flag);
 	}
 	if (flag->a)
-	{
-		new = ft_info(current->path, ".", sp);
-		ft_fileinfo_sort(&(current->other), new, flag);
-		new = ft_info(current->path, "..", sp);
-		ft_fileinfo_sort(&(current->other), new, flag);
-	}
+		ft_flag_a(current, current->path, flag, sp);
 	if (new == NULL)
 	{
 		new = ft_info(current->path, "", sp);
 		ft_fileinfo_sort(&(current->other), new, flag);
 	}
 	closedir(dir);
+}
+
+void		ft_flag_a(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp)
+{
+	t_fileinfo	*new;
+
+	new = ft_info(direct, ".", sp);
+	ft_fileinfo_sort(&(current->other), new, flag);
+	new = ft_info(direct, "..", sp);
+	ft_fileinfo_sort(&(current->other), new, flag);
 }
 
 static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp)
@@ -146,12 +146,7 @@ static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *s
 		ft_fileinfo_sort(&(current->other), new, flag);
 	}
 	if (flag->a)
-	{
-		new = ft_info(direct, ".", sp);
-		ft_fileinfo_sort(&(current->other), new, flag);
-		new = ft_info(direct, "..", sp);
-		ft_fileinfo_sort(&(current->other), new, flag);
-	}
+		ft_flag_a(current, direct, flag, sp);
 	if (new == NULL)
 	{
 		new = ft_info(direct, "", sp);
