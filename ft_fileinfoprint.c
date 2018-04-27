@@ -163,7 +163,6 @@ void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
 	{
 		if (file->other)
 		{
-//			printf("out >> %i\n", flag->out);
 			if (flag->out > 0)
 				printf("\n%s:\n", file->path);
 			else
@@ -177,6 +176,25 @@ void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
 				}
 			}
 			ft_pdir(file->other, flag, sp);
+		}
+		else
+		{
+			if (file->amode == 'd' && file->mode[2] == '-' && file->mode[0] == 'r')
+			{
+				if (!flag->out)
+				{
+					if ((ft_flag_status(flag) != 0 && flag->ac - 1 > flag->total) || (ft_flag_status(flag) == 0 && flag->ac > flag->total + 2))
+					{
+						flag->out = 1;
+						printf("%s:\n", file->name);
+					}
+				}
+				else
+				{
+					flag->out = 1;
+					printf("\n%s:\n", file->name);
+				}
+			}
 		}
 		file = file->next;
 	}

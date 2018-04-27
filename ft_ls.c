@@ -36,6 +36,7 @@ void	ft_error(t_fileinfo **novo, char *file, char *error)
 
 static int	ft_dir(t_fileinfo *new)
 {
+//	if ((new->st.st_mode & S_IFMT) == S_IFDIR && new->mode[2] != '-')
 	if ((new->st.st_mode & S_IFMT) == S_IFDIR)
 		return (1);
 	return (0);
@@ -82,7 +83,13 @@ static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 		ft_fileinfo_sort(&(current->other), new, flag);
 		return ;
 	}
-	while ((pdir = readdir(dir)) != NULL)
+/*	new = ft_info(current->path, pdir->d_name, sp);
+	if (new->amode == 'd' && new->mode[0] != '-' && new->mode[2] != 'x')
+	{
+		closedir(dir);
+		return ;
+	}
+*/	while ((pdir = readdir(dir)) != NULL)
 	{
 		if (pdir->d_name[0] == '.' && !flag->a)
 			continue ;
@@ -92,7 +99,8 @@ static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 				continue ;
 		}
 		new = ft_info(current->path, pdir->d_name, sp);
-		if (ft_dir(new) && flag->R)
+//		if (ft_dir(new) && flag->R)
+		if (ft_dir(new) && flag->R && !(new->mode[0] == 'r' && new->mode[2] == '-'))
 			ft_recursive(new, flag, sp);
 		ft_fileinfo_sort(&(current->other), new, flag);
 	}
@@ -131,7 +139,13 @@ static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *s
 		ft_fileinfo_sort(&(current->other), new, flag);
 		return (0);
 	}
-	while ((pdir = readdir(dir)) != NULL)
+/*	new = ft_info(NULL, direct, sp);
+	if (new->amode == 'd' && new->mode[0] != '-' && new->mode[2] != 'x')
+	{
+		closedir(dir);
+		return (1);
+	}
+*/	while ((pdir = readdir(dir)) != NULL)
 	{
 		if (pdir->d_name[0] == '.' && !flag->a)
 			continue ;
@@ -141,7 +155,8 @@ static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *s
 				continue ;
 		}
 		new = ft_info(direct, pdir->d_name, sp);
-		if (ft_dir(new) && flag->R)
+//		if (ft_dir(new) && flag->R)
+		if (ft_dir(new) && flag->R && !(new->mode[0] == 'r' && new->mode[2] == '-'))
 			ft_recursive(new, flag, sp);
 		ft_fileinfo_sort(&(current->other), new, flag);
 	}
@@ -184,7 +199,7 @@ void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
 			ft_fileinfo_dell(&new);
 			new = ft_is_link(arg->content);
 		}
-		if (ft_dir(new) == 1)
+		if (ft_dir(new) == 1 && !(new->mode[0] == 'r' && new->mode[2] == '-'))
 			ft_is_dir(new, arg->content, flag, sp);
 		ft_fileinfo_sort(start, new, flag);
 		arg = arg->next;

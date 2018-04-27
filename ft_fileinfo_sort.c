@@ -25,7 +25,24 @@ static int	ft_sort_r(t_flag *flag)
 		return (0);
 	return (1);
 }
+/*
+static int	ft_same(char *s1, char *s2)
+{
+	int		len1;
+	int		len2;
 
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	while (*s1 == *s2 && *s1 && *s2)
+	{
+		s1++;
+		s2++;
+	}
+	if (*s1 == '\0' && *s2 == '/')
+		return (0);
+	return (1);
+}
+*/
 static int	ft_sort_name(char *s1, char *s2, t_flag *flag)
 {
 	int		i;
@@ -33,27 +50,16 @@ static int	ft_sort_name(char *s1, char *s2, t_flag *flag)
 	i = 0;
 	if (s1 == NULL || s2 == NULL)
 		return (0);
+//	if (ft_same(s1, s2))
+//		return (1);
 	while (s1[i] == s2[i] && s1[i] && s2[i])
 		i++;
-//	if (!s1[i] || (ft_strcmp(s2, "..") != 0 && ft_strcmp(s2, ".") != 0))
 	if (!s1[i])
-	{
-//		printf("if et !s1 || s1 >> %s\n", s1);
-//		printf("if et !s1 || s2 >> %s\n", s2);
 		return (ft_sort_r(flag));
-	}
 	if (s1[i] < s2[i] && s1[i] && s2[i])
-	{
-//		printf("if || s1 >> %s\n", s1);
-//		printf("if || s2 >> %s\n", s2);
 		return (ft_sort_r(flag));
-	}
 	else
-	{
-//		printf("else || s1 >> %s\n", s1);
-//		printf("else || s2 >> %s\n", s2);
 		return (!ft_sort_r(flag));
-	}
 	return (0);
 }
 
