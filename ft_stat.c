@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 18:40:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 15:36:17 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/28 17:31:48 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,7 +102,7 @@ char		*ft_name(char *str)
 			s = i + 1;
 		i++;
 	}
-	ret = ft_memalloc(i);
+	ret = ft_memalloc(i + 10);
 	i = 0;
 	while (str[s])
 	{

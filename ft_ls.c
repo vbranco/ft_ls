@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 15:36:20 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/28 17:32:23 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,15 +15,21 @@
 
 void	ft_error(t_fileinfo **novo, char *file, char *error)
 {
-	char		err[PATH_MAX];
+//	char		err[PATH_MAX];
+	char		err[10000];
 	char		*name;
 
 	name = NULL;
-//	if (ft_strchr(file, '/'))
-//		name = ft_name(file);
-//	else
+	if (ft_strcmp(error, "Permission denied") == 0)
+	{
+		if (*file == '/' && ft_strchr(++file, '/'))
+			file--;
 		name = ft_strdup(file);
-	ft_bzero(err, PATH_MAX);
+	}
+	else
+		name = ft_strdup(file);
+//	ft_bzero(err, PATH_MAX);
+	ft_bzero(err, 10000);
 	ft_strcat(err, "ls: ");
 	ft_strcat(err, name);
 	ft_strcat(err, ": ");
