@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 15:24:24 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/28 15:36:20 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,8 @@ void	ft_error(t_fileinfo **novo, char *file, char *error)
 	ft_strcat(err, ": ");
 	ft_strcat(err, error);
 	(*novo)->error = ft_strdup(err);
-	(*novo)->name = ft_strdup(file);
+	if ((*novo)->name == NULL)
+		(*novo)->name = ft_strdup(file);
 	if (name != NULL)
 		free(name);
 }
