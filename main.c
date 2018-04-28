@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:23 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 16:28:13 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/28 15:23:37 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,7 @@ int		main(int ac, char **av)
 	ft_init_space(&sp);
 	ft_init_node(args);
 	ft_init_flag(&flag);
-	file = ft_init_fileinfo();
+//	file = ft_init_fileinfo();
 	file = NULL;
 	if (ft_flag(ac, av, &flag) != 0)
 		return (1);

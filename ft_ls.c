@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 20:05:04 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/28 15:24:24 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,6 @@ void	ft_error(t_fileinfo **novo, char *file, char *error)
 
 static int	ft_dir(t_fileinfo *new)
 {
-//	if ((new->st.st_mode & S_IFMT) == S_IFDIR && new->mode[2] != '-')
 	if ((new->st.st_mode & S_IFMT) == S_IFDIR)
 		return (1);
 	return (0);
@@ -79,17 +78,12 @@ static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 	if (!(dir = opendir(current->path)))
 	{
 		new = ft_info(current->path, pdir->d_name, sp);
-		ft_error(&new, current->name, strerror(errno));
+		if (new->error == NULL)
+			ft_error(&new, current->name, strerror(errno));
 		ft_fileinfo_sort(&(current->other), new, flag);
 		return ;
 	}
-/*	new = ft_info(current->path, pdir->d_name, sp);
-	if (new->amode == 'd' && new->mode[0] != '-' && new->mode[2] != 'x')
-	{
-		closedir(dir);
-		return ;
-	}
-*/	while ((pdir = readdir(dir)) != NULL)
+	while ((pdir = readdir(dir)) != NULL)
 	{
 		if (pdir->d_name[0] == '.' && !flag->a)
 			continue ;
@@ -135,17 +129,12 @@ static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *s
 	if (!(dir = opendir(direct)))
 	{
 		new = ft_info(NULL, direct, sp);
-		ft_error(&new, direct, strerror(errno));
+		if (new->error == NULL)
+			ft_error(&new, direct, strerror(errno));
 		ft_fileinfo_sort(&(current->other), new, flag);
 		return (0);
 	}
-/*	new = ft_info(NULL, direct, sp);
-	if (new->amode == 'd' && new->mode[0] != '-' && new->mode[2] != 'x')
-	{
-		closedir(dir);
-		return (1);
-	}
-*/	while ((pdir = readdir(dir)) != NULL)
+	while ((pdir = readdir(dir)) != NULL)
 	{
 		if (pdir->d_name[0] == '.' && !flag->a)
 			continue ;
