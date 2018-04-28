@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 17:32:23 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/28 17:47:02 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -187,7 +187,8 @@ void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
 	t_fileinfo	*new;
 
 	arg = *args;
-	while (arg)
+//	while (arg)
+	while (arg->next)
 	{
 		new = ft_info(NULL, arg->content, sp);
 		if (S_ISLNK(new->st.st_mode) && !flag->l)

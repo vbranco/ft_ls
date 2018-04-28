@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:23 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 17:32:08 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/28 17:47:20 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ void	ft_etat_flag(t_flag *flag)
 
 void	argsprint(t_node *node)
 {
-	while (node)
+	while (node->next)
 	{
 		printf("%s\n", node->content);
 		node = node->next;
@@ -39,7 +39,8 @@ int		main(int ac, char **av)
 	t_space		sp;
 
 	ft_init_space(&sp);
-	ft_init_node(args);
+//	ft_init_node(args);
+	args = ft_init_node();
 	ft_init_flag(&flag);
 //	file = ft_init_fileinfo();
 	file = NULL;

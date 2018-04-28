@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:30 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 17:10:31 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/28 17:47:30 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -132,7 +132,8 @@ void					ft_fileinfo_dell(t_fileinfo **file);
 
 
 
-void					ft_init_node(t_node	*node);
+//void					ft_init_node(t_node	*node);
+t_node					*ft_init_node(void);
 void					ft_nodedell(t_node **node);
 void					ft_node_back_add(t_node **node, void *content, size_t content_size);
 void					ft_node_front_add(t_node **node, void *content, size_t content_size);
