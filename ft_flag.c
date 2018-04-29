@@ -61,25 +61,32 @@ static int	test_flag(char *str)
 	return (0);
 }
 
+static int	ft_test(char *s1, char *s2)
+{
+	if (ft_strcmp(s1, s2) == 0)
+	{
+		ft_usage('-');
+		return (1);
+	}
+	return (0);
+}
+
 int			ft_flag(int ac, char **av, t_flag *flag)
 {
 	int		i;
 	char	c;
 
 	c = '\0';
-	i = 1;
+	i = 0;
 	flag->ac = ac;
-	while (i < ac)
+	while (++i < ac)
 	{
 		if (av[i][0] == '-')
 		{
 			if (ft_strcmp(av[i], "--") == 0)
 				return (0);
-			if (ft_strcmp(av[i], "---") == 0)
-			{
-				ft_usage('-');
+			if (ft_test(av[i], "---"))
 				return (1);
-			}
 			c = test_flag(av[i]);
 			if (c != 0)
 			{
@@ -89,7 +96,6 @@ int			ft_flag(int ac, char **av, t_flag *flag)
 			else
 				ft_rec(av[i], flag);
 		}
-		i++;
 	}
 	return (0);
 }

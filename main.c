@@ -31,6 +31,23 @@ void	argsprint(t_node *node)
 	}
 }
 
+int ft_flag_status(t_flag *flag)
+{
+	if (flag->l != 0)
+		return (1);
+	if (flag->R == 1)
+		return (1);
+	if (flag->r == 1)
+		return (1);
+	if (flag->a == 1)
+		return (1);
+	if (flag->t == 1)
+		return (1);
+	if (flag->un == 1)
+		return (1);
+	return (0);
+}
+
 int		main(int ac, char **av)
 {
 	t_flag		flag;
@@ -39,10 +56,8 @@ int		main(int ac, char **av)
 	t_space		sp;
 
 	ft_init_space(&sp);
-//	ft_init_node(args);
 	args = ft_init_node();
 	ft_init_flag(&flag);
-//	file = ft_init_fileinfo();
 	file = NULL;
 	if (ft_flag(ac, av, &flag) != 0)
 		return (1);
@@ -51,12 +66,14 @@ int		main(int ac, char **av)
 		ft_nodedell(&args);
 		return (1);
 	}
-//	argsprint(args);
+	//	argsprint(args);
 	ft_ls(&file, &args, &flag, &sp);
 	ft_nodedell(&args);
 	ft_fileinfoprint(file, &flag, &sp);
+	//	printf("sizeof >> %lu\n", sizeof(t_fileinfo));
+	//	printf("sizeof >> %lu\n", sizeof(t_node));
 	ft_fileinfo_dell(&file);
-//	sleep(1500);
-//	ft_etat_flag(&flag);
+	//	sleep(1500);
+	//	ft_etat_flag(&flag);
 	return (0);
 }

@@ -100,15 +100,17 @@ typedef struct			s_node
 	struct s_node		*next;
 }						t_node;
 
-void					ft_init_flag(t_flag *flag);
-t_fileinfo				*ft_init_fileinfo();
+/*
+**	Flags >> ft_flag.c && main.c
+*/
 int						ft_flag(int ac, char **av, t_flag *flag);
-int						ft_stat(t_fileinfo *fileinfo, t_space *sp);
 int						ft_flag_status(t_flag *flag);
+
+
+int						ft_stat(t_fileinfo *fileinfo, t_space *sp);
 void					ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp);
 int						ft_count_args(int ac, char **av);
 int						ft_args(char **av, t_flag *flag, t_node **node);
-void					ft_init_space(t_space *sp);
 //-----------------------------
 void					ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp);
 void					ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp);
@@ -118,8 +120,32 @@ void					ft_ugid(t_fileinfo *file);
 void					ft_amode(t_fileinfo *fileinfo);
 void					ft_rmode(t_fileinfo *fileinfo);
 void					ft_flag_a(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp);
+void					ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp);
+void					ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp);
+void					ft_flag_a(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp);
+t_fileinfo				*ft_info(char *dir, char *name, t_space *sp);
+int						ft_dir(t_fileinfo *novo);
 
+/*
+**	Colors and long >> ft_color_and_long.c
+*/
+void					color(t_fileinfo *file);
+void					printl(t_fileinfo *file, t_space *sp, t_flag *flag);
+int						ft_total(t_fileinfo *file);
 
+/*
+**	Initialise structures >> ft_initialise.c
+*/
+t_node					*ft_init_node(void);
+t_fileinfo				*ft_init_fileinfo();
+void					ft_init_flag(t_flag *flag);
+void					ft_init_space(t_space *sp);
+
+/*
+**	Listes dellect >> ft_list_dell.c
+*/
+void					ft_nodedell(t_node **node);
+void					ft_fileinfo_dell(t_fileinfo **file);
 
 /*
  **Listes
@@ -128,13 +154,9 @@ void					ft_flag_a(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp)
 void					ft_fileinfoprint(t_fileinfo *file, t_flag *flag, t_space *sp);
 void					ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *novo, t_flag *flag);
 void					ft_add_file_back(t_fileinfo **file, t_fileinfo *novo);
-void					ft_fileinfo_dell(t_fileinfo **file);
 
 
 
-//void					ft_init_node(t_node	*node);
-t_node					*ft_init_node(void);
-void					ft_nodedell(t_node **node);
 void					ft_node_back_add(t_node **node, void *content, size_t content_size);
 void					ft_node_front_add(t_node **node, void *content, size_t content_size);
 void					ft_node_sort_add(t_node **node, void *content, size_t content_size);

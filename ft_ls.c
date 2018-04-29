@@ -15,8 +15,8 @@
 
 void	ft_error(t_fileinfo **novo, char *file, char *error)
 {
-//	char		err[PATH_MAX];
-	char		err[10000];
+	char		err[PATH_MAX];
+//	char		err[10000];
 	char		*name;
 
 	name = NULL;
@@ -25,11 +25,14 @@ void	ft_error(t_fileinfo **novo, char *file, char *error)
 		if (*file == '/' && ft_strchr(++file, '/'))
 			file--;
 		name = ft_strdup(file);
+//		ft_putstr_fd("file >> ", 2);
+//		ft_putendl_fd(file, 2);
+//		name = ft_name(file);
 	}
 	else
 		name = ft_strdup(file);
-//	ft_bzero(err, PATH_MAX);
-	ft_bzero(err, 10000);
+	ft_bzero(err, PATH_MAX);
+//	ft_bzero(err, 10000);
 	ft_strcat(err, "ls: ");
 	ft_strcat(err, name);
 	ft_strcat(err, ": ");
@@ -41,130 +44,65 @@ void	ft_error(t_fileinfo **novo, char *file, char *error)
 		free(name);
 }
 
-static int	ft_dir(t_fileinfo *new)
+int		ft_dir(t_fileinfo *new)
 {
-	if ((new->st.st_mode & S_IFMT) == S_IFDIR)
+	if (((new->st.st_mode & S_IFMT) == S_IFDIR) && !(new->mode[0] == 'r' && new->mode[2] == '-'))
 		return (1);
 	return (0);
+}
+
+static char	*ft_realloc(char *s1, char *s2)
+{
+	char	*tmp;
+
+	if (!s1 || !s2)
+		return (NULL);
+	tmp = ft_strjoin(s1, s2);
+	free(s1);
+	return (tmp);
 }
 
 t_fileinfo	*ft_info(char *dir, char *name, t_space *sp)
 {
 	t_fileinfo	*new;
-	char		*path;
+//	char		*path;
 
-	path = NULL;
-	new = ft_init_fileinfo();
+//	path = NULL;
+	if (!(new = ft_init_fileinfo()))
+		return (NULL);
+	if (dir == NULL)
+		new->path = ft_strdup(name);
+	else
+	{
+		new->path = ft_strdup(dir);
+		if (ft_strcmp(dir, "/"))
+			new->path = ft_realloc(new->path, "/");
+		new->path = ft_realloc(new->path, name);
+	}
+/*
 	if (dir == NULL)
 		new->path = ft_strdup(name);
 	else
 	{
 		path = ft_memalloc(ft_strlen(dir) + ft_strlen(name) + 2);
-		ft_strcat(path, dir);
+		if (dir != NULL)
+		{
+			ft_strcat(path, dir);
 //		if (path[ft_strlen(path)-1] != '/')
-		ft_strcat(path, "/");
-		ft_strcat(path, name);
+			if (ft_strcmp(dir, "/"))
+				ft_strcat(path, "/");
+		}
+		if (name != NULL)
+			ft_strcat(path, name);
+//		ft_putendl(path);
 		new->path = ft_strdup(path);
 		free(path);
 	}
-	if (name[0] != '\0')
+*/	if (name[0] != '\0')
 		ft_stat(new, sp);
 	if (name[0] == '\0' && dir[0] == '\0')
 		ft_error(&new, "fts_open", "No such file or directory");
 	return (new);
-}
-
-static void	ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
-{
-	DIR				*dir;
-	struct dirent	*pdir;
-	t_fileinfo		*new;
-
-	errno = 0;
-	new = NULL;
-	if (!(dir = opendir(current->path)))
-	{
-		new = ft_info(current->path, pdir->d_name, sp);
-		if (new->error == NULL)
-			ft_error(&new, current->name, strerror(errno));
-		ft_fileinfo_sort(&(current->other), new, flag);
-		return ;
-	}
-	while ((pdir = readdir(dir)) != NULL)
-	{
-		if (pdir->d_name[0] == '.' && !flag->a)
-			continue ;
-		if (flag->a)
-		{
-			if (pdir->d_name[0] == '.' && (pdir->d_name[1] == '.' || pdir->d_name[1] == '\0'))
-				continue ;
-		}
-		new = ft_info(current->path, pdir->d_name, sp);
-//		if (ft_dir(new) && flag->R)
-		if (ft_dir(new) && flag->R && !(new->mode[0] == 'r' && new->mode[2] == '-'))
-			ft_recursive(new, flag, sp);
-		ft_fileinfo_sort(&(current->other), new, flag);
-	}
-	if (flag->a)
-		ft_flag_a(current, current->path, flag, sp);
-	if (new == NULL)
-	{
-		new = ft_info(current->path, "", sp);
-		ft_fileinfo_sort(&(current->other), new, flag);
-	}
-	closedir(dir);
-}
-
-void		ft_flag_a(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp)
-{
-	t_fileinfo	*new;
-
-	new = ft_info(direct, ".", sp);
-	ft_fileinfo_sort(&(current->other), new, flag);
-	new = ft_info(direct, "..", sp);
-	ft_fileinfo_sort(&(current->other), new, flag);
-}
-
-static int	ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp)
-{
-	DIR				*dir;
-	struct dirent	*pdir;
-	t_fileinfo		*new;
-
-	errno = 0;
-	new = NULL;
-	if (!(dir = opendir(direct)))
-	{
-		new = ft_info(NULL, direct, sp);
-		if (new->error == NULL)
-			ft_error(&new, direct, strerror(errno));
-		ft_fileinfo_sort(&(current->other), new, flag);
-		return (0);
-	}
-	while ((pdir = readdir(dir)) != NULL)
-	{
-		if (pdir->d_name[0] == '.' && !flag->a)
-			continue ;
-		if (flag->a)
-		{
-			if (pdir->d_name[0] == '.' && (pdir->d_name[1] == '.' || pdir->d_name[1] == '\0'))
-				continue ;
-		}
-		new = ft_info(direct, pdir->d_name, sp);
-//		if (ft_dir(new) && flag->R)
-		if (ft_dir(new) && flag->R && !(new->mode[0] == 'r' && new->mode[2] == '-'))
-			ft_recursive(new, flag, sp);
-		ft_fileinfo_sort(&(current->other), new, flag);
-	}
-	if (flag->a)
-		ft_flag_a(current, direct, flag, sp);
-	if (new == NULL)
-	{
-		new = ft_info(direct, "", sp);
-		ft_fileinfo_sort(&(current->other), new, flag);
-	}
-	closedir(dir);
-	return (1);
 }
 
 t_fileinfo	*ft_is_link(char *file)
@@ -187,7 +125,6 @@ void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
 	t_fileinfo	*new;
 
 	arg = *args;
-//	while (arg)
 	while (arg->next)
 	{
 		new = ft_info(NULL, arg->content, sp);
@@ -196,7 +133,7 @@ void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
 			ft_fileinfo_dell(&new);
 			new = ft_is_link(arg->content);
 		}
-		if (ft_dir(new) == 1 && !(new->mode[0] == 'r' && new->mode[2] == '-'))
+		if (ft_dir(new))
 			ft_is_dir(new, arg->content, flag, sp);
 		ft_fileinfo_sort(start, new, flag);
 		arg = arg->next;

@@ -173,7 +173,13 @@ void	ft_ugid(t_fileinfo *file)
 	if (!(grp = getgrgid(file->st.st_gid)))
 		file->gr_name = ft_strdup("group");
 	else
-		file->gr_name = ft_strdup(grp->gr_name);
+	file->gr_name = ft_strdup(grp->gr_name);
+
+/*	if (!(file->pw_name = getpwuid(file->st.st_uid)))
+		file->pw_name = ft_strdup("owner");
+	if (!(file->gr_name = getgrgid(file->st.st_gid)))
+		file->gr_name = ft_strdup("group");
+*/
 }
 
 int		ft_stat(t_fileinfo *fileinfo, t_space *sp)
