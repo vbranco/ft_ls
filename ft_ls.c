@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 17:47:02 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/30 16:54:34 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,6 @@
 void	ft_error(t_fileinfo **novo, char *file, char *error)
 {
 	char		err[PATH_MAX];
-//	char		err[10000];
 	char		*name;
 
 	name = NULL;
@@ -25,14 +24,10 @@ void	ft_error(t_fileinfo **novo, char *file, char *error)
 		if (*file == '/' && ft_strchr(++file, '/'))
 			file--;
 		name = ft_strdup(file);
-//		ft_putstr_fd("file >> ", 2);
-//		ft_putendl_fd(file, 2);
-//		name = ft_name(file);
 	}
 	else
 		name = ft_strdup(file);
 	ft_bzero(err, PATH_MAX);
-//	ft_bzero(err, 10000);
 	ft_strcat(err, "ls: ");
 	ft_strcat(err, name);
 	ft_strcat(err, ": ");
@@ -65,9 +60,7 @@ static char	*ft_realloc(char *s1, char *s2)
 t_fileinfo	*ft_info(char *dir, char *name, t_space *sp)
 {
 	t_fileinfo	*new;
-//	char		*path;
 
-//	path = NULL;
 	if (!(new = ft_init_fileinfo()))
 		return (NULL);
 	if (dir == NULL)
@@ -79,26 +72,7 @@ t_fileinfo	*ft_info(char *dir, char *name, t_space *sp)
 			new->path = ft_realloc(new->path, "/");
 		new->path = ft_realloc(new->path, name);
 	}
-/*
-	if (dir == NULL)
-		new->path = ft_strdup(name);
-	else
-	{
-		path = ft_memalloc(ft_strlen(dir) + ft_strlen(name) + 2);
-		if (dir != NULL)
-		{
-			ft_strcat(path, dir);
-//		if (path[ft_strlen(path)-1] != '/')
-			if (ft_strcmp(dir, "/"))
-				ft_strcat(path, "/");
-		}
-		if (name != NULL)
-			ft_strcat(path, name);
-//		ft_putendl(path);
-		new->path = ft_strdup(path);
-		free(path);
-	}
-*/	if (name[0] != '\0')
+	if (name[0] != '\0')
 		ft_stat(new, sp);
 	if (name[0] == '\0' && dir[0] == '\0')
 		ft_error(&new, "fts_open", "No such file or directory");

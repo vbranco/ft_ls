@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:57 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/23 13:33:50 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/30 16:54:27 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,20 +30,16 @@ static void	ft_rec(char *str, t_flag *flag)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == 'l')
-			flag->l += 2;
-		else if (str[i] == 'G')
-			flag->l -= 1;
-		else if (str[i] == 'R')
-			flag->R = 1;
-		else if (str[i] == 'r')
-			flag->r = 1;
-		else if (str[i] == 'a')
-			flag->a = 1;
-		else if (str[i] == 't')
-			flag->t = 1;
-		else if (str[i] == '1')
-			flag->un = 1;
+		((str[i] == 'l')) ? flag->l += 2 : 0;
+		((str[i] == 'G')) ? flag->l -= 1 : 0;
+		((str[i] == 'R')) ? flag->R = 1 : 0;
+		((str[i] == 'r')) ? flag->r = 1 : 0;
+		((str[i] == 'a')) ? flag->a = 1 : 0;
+		((str[i] == 't')) ? flag->t = 1 : 0;
+		((str[i] == 'f')) ? flag->f = 1 : 0;
+		((str[i] == 'o')) ? flag->o = 1 : 0;
+		((str[i] == 'i')) ? flag->i = 1 : 0;
+		((str[i] == '1')) ? flag->un = 1 : 0;
 		i++;
 	}
 }

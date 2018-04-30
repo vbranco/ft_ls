@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:30 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 17:47:30 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/30 16:54:21 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,7 +45,7 @@
 # define BGREEN		"\e[42m"
 # define TSTOP		"\e[0m"
 
-# define FLAGS		"lGRrat1\0"
+# define FLAGS		"lGRratfoi1\0"
 # define SIX_MONTHS ((365/2) * 86400)
 
 typedef struct			s_flag
@@ -55,6 +55,9 @@ typedef struct			s_flag
 	short int			r;
 	short int			a;
 	short int			t;
+	short int			f;
+	short int			o;
+	short int			i;
 	short int			un;
 	short int			ac;
 	short int			total;
@@ -106,25 +109,29 @@ typedef struct			s_node
 int						ft_flag(int ac, char **av, t_flag *flag);
 int						ft_flag_status(t_flag *flag);
 
-
+/*
+**	Infos pour affichage Long + infos generales
+*/
 int						ft_stat(t_fileinfo *fileinfo, t_space *sp);
 void					ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp);
-int						ft_count_args(int ac, char **av);
-int						ft_args(char **av, t_flag *flag, t_node **node);
-//-----------------------------
-void					ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp);
-void					ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp);
-void					ft_error(t_fileinfo **novo, char *file, char *error);
-char					*ft_name(char *str);
 void					ft_ugid(t_fileinfo *file);
 void					ft_amode(t_fileinfo *fileinfo);
 void					ft_rmode(t_fileinfo *fileinfo);
+t_fileinfo				*ft_info(char *dir, char *name, t_space *sp);
+int						ft_dir(t_fileinfo *novo);
+
+/*
+**	Gestion arguments
+*/
+int						ft_count_args(int ac, char **av);
+int						ft_args(char **av, t_flag *flag, t_node **node);
+
+/*
+**	Recursive + quelques gestions particulieres
+*/
 void					ft_flag_a(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp);
 void					ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp);
 void					ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp);
-void					ft_flag_a(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp);
-t_fileinfo				*ft_info(char *dir, char *name, t_space *sp);
-int						ft_dir(t_fileinfo *novo);
 
 /*
 **	Colors and long >> ft_color_and_long.c
@@ -148,15 +155,23 @@ void					ft_nodedell(t_node **node);
 void					ft_fileinfo_dell(t_fileinfo **file);
 
 /*
- **Listes
- */
-
+**	Listes affichage
+*/
 void					ft_fileinfoprint(t_fileinfo *file, t_flag *flag, t_space *sp);
+void					ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp);
+void					ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp);
+
+/*
+**	Gestion des affichages en generale
+*/
+char					*ft_name(char *str);
+void					ft_error(t_fileinfo **novo, char *file, char *error);
+
+/*
+**	Ajout element dans la liste
+*/
 void					ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *novo, t_flag *flag);
 void					ft_add_file_back(t_fileinfo **file, t_fileinfo *novo);
-
-
-
 void					ft_node_back_add(t_node **node, void *content, size_t content_size);
 void					ft_node_front_add(t_node **node, void *content, size_t content_size);
 void					ft_node_sort_add(t_node **node, void *content, size_t content_size);

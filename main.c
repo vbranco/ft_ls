@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:23 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/30 15:57:54 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/30 16:54:31 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,10 @@ void	ft_etat_flag(t_flag *flag)
 	printf("r : %d\n", flag->r);
 	printf("a : %d\n", flag->a);
 	printf("t : %d\n", flag->t);
+	printf("f : %d\n", flag->f);
+	printf("i : %d\n", flag->i);
+	printf("o : %d\n", flag->o);
+	printf("un : %d\n", flag->un);
 }
 
 void	argsprint(t_node *node)
@@ -42,6 +46,12 @@ int ft_flag_status(t_flag *flag)
 	if (flag->a == 1)
 		return (1);
 	if (flag->t == 1)
+		return (1);
+	if (flag->f == 1)
+		return (1);
+	if (flag->o == 1)
+		return (1);
+	if (flag->i == 1)
 		return (1);
 	if (flag->un == 1)
 		return (1);
@@ -66,14 +76,14 @@ int		main(int ac, char **av)
 		ft_nodedell(&args);
 		return (1);
 	}
-//	argsprint(args);
-	ft_ls(&file, &args, &flag, &sp);
+	argsprint(args);
+//	ft_ls(&file, &args, &flag, &sp);
 	ft_nodedell(&args);
-	ft_fileinfoprint(file, &flag, &sp);
+//	ft_fileinfoprint(file, &flag, &sp);
 	//	printf("sizeof >> %lu\n", sizeof(t_fileinfo));
 	//	printf("sizeof >> %lu\n", sizeof(t_node));
-	ft_fileinfo_dell(&file);
+//	ft_fileinfo_dell(&file);
 //	sleep(1500);
-//	ft_etat_flag(&flag);
+	ft_etat_flag(&flag);
 	return (0);
 }

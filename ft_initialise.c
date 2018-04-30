@@ -32,6 +32,9 @@ void    ft_init_flag(t_flag *flag)
 	flag->r = 0;
 	flag->a = 0;
 	flag->t = 0;
+	flag->f = 0;
+	flag->o = 0;
+	flag->i = 0;
 	flag->un = 0;
 	flag->ac = 0;
 	flag->total = 0;
