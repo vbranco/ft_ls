@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 18:40:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 17:31:48 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/30 15:58:19 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +50,10 @@ static void ft_acl(t_fileinfo *fileinfo)
 	if (xatrr < 0)
 		xatrr = 0;
 	if (xatrr > 0)
+	{
 		fileinfo->mode[9] = '@';
+		acl_free(acl);
+	}
 	else if (acl != NULL)
 	{
 		fileinfo->mode[9] = '+';

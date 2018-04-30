@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:23 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 17:47:20 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/30 15:57:54 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,14 +66,14 @@ int		main(int ac, char **av)
 		ft_nodedell(&args);
 		return (1);
 	}
-	//	argsprint(args);
+//	argsprint(args);
 	ft_ls(&file, &args, &flag, &sp);
 	ft_nodedell(&args);
 	ft_fileinfoprint(file, &flag, &sp);
 	//	printf("sizeof >> %lu\n", sizeof(t_fileinfo));
 	//	printf("sizeof >> %lu\n", sizeof(t_node));
 	ft_fileinfo_dell(&file);
-	//	sleep(1500);
-	//	ft_etat_flag(&flag);
+//	sleep(1500);
+//	ft_etat_flag(&flag);
 	return (0);
 }
