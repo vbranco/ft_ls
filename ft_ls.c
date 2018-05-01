@@ -109,7 +109,10 @@ void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
 		}
 		if (ft_dir(new))
 			ft_is_dir(new, arg->content, flag, sp);
-		ft_fileinfo_sort(start, new, flag);
+		if (flag->t)
+			ft_fileinfo_sort(start, new, flag);
+		else
+			ft_add_file_back(start, new);
 		arg = arg->next;
 	}
 }

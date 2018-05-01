@@ -76,14 +76,12 @@ int		main(int ac, char **av)
 		ft_nodedell(&args);
 		return (1);
 	}
-	argsprint(args);
-//	ft_ls(&file, &args, &flag, &sp);
+//	argsprint(args);
+	ft_ls(&file, &args, &flag, &sp);
 	ft_nodedell(&args);
-//	ft_fileinfoprint(file, &flag, &sp);
-	//	printf("sizeof >> %lu\n", sizeof(t_fileinfo));
-	//	printf("sizeof >> %lu\n", sizeof(t_node));
-//	ft_fileinfo_dell(&file);
+	ft_fileinfoprint(file, &flag, &sp);
+	ft_fileinfo_dell(&file);
 //	sleep(1500);
-	ft_etat_flag(&flag);
+//	ft_etat_flag(&flag);
 	return (0);
 }
