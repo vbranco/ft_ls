@@ -73,6 +73,8 @@ void	flag_o_g(t_fileinfo *file, t_space *sp, t_flag *flag)
 
 void    printl(t_fileinfo *file, t_space *sp, t_flag *flag)
 {
+	if (flag->i)
+		printf("%llu ", file->st.st_ino);
 	printf("%c%s %*i ", file->amode, file->mode, sp->size_nlink,
 			file->st.st_nlink);
 	flag_o_g(file, sp, flag);
