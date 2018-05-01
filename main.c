@@ -17,6 +17,8 @@ void	ft_etat_flag(t_flag *flag)
 {
 	printf("l : %d\n", flag->l);
 	printf("R : %d\n", flag->R);
+	printf("G : %d\n", flag->G);
+	printf("g : %d\n", flag->g);
 	printf("r : %d\n", flag->r);
 	printf("a : %d\n", flag->a);
 	printf("t : %d\n", flag->t);
@@ -37,9 +39,13 @@ void	argsprint(t_node *node)
 
 int ft_flag_status(t_flag *flag)
 {
-	if (flag->l != 0)
+	if (flag->l == 1)
 		return (1);
 	if (flag->R == 1)
+		return (1);
+	if (flag->G == 1)
+		return (1);
+	if (flag->g == 1)
 		return (1);
 	if (flag->r == 1)
 		return (1);

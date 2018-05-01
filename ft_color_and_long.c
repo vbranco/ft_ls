@@ -56,10 +56,26 @@ void    color(t_fileinfo *file)
 		printf("%s", file->name);
 }
 
+void	flag_o_g(t_fileinfo *file, t_space *sp, t_flag *flag)
+{
+	if (flag->l && !flag->o && !flag->g)
+		printf("%-*s  %-*s  ", sp->size_pname, file->pw_name, sp->size_gname, file->gr_name);
+	else
+	{
+		if (flag->o && !flag->g)
+			printf("%-*s  ", sp->size_pname, file->pw_name);
+		else if (!flag->o && flag->g)
+			printf("%-*s  ", sp->size_gname, file->gr_name);
+		else
+			printf("  ");
+	}
+}
+
 void    printl(t_fileinfo *file, t_space *sp, t_flag *flag)
 {
-	printf("%c%s %*i %-*s  %-*s  ", file->amode, file->mode, sp->size_nlink,
-			file->st.st_nlink, sp->size_pname, file->pw_name, sp->size_gname, file->gr_name);
+	printf("%c%s %*i ", file->amode, file->mode, sp->size_nlink,
+			file->st.st_nlink);
+	flag_o_g(file, sp, flag);
 	if (file->amode == 'b' || file->amode == 'c')
 		printf(" %*i, %*i ", sp->size_madev, file->maj, sp->size_midev, file->min);
 	else
@@ -71,7 +87,7 @@ void    printl(t_fileinfo *file, t_space *sp, t_flag *flag)
 			printf("%*lli ", (sp->size_stsize), file->st.st_size);
 	}
 	printf("%s ", file->time);
-	if (flag->l == 1)
+	if (flag->G == 1)
 		color(file);
 	else
 		printf("%s", file->name);

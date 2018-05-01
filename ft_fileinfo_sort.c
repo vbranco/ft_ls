@@ -11,10 +11,6 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-//------------  GROS PROB sur le ./ft_ls ./ .  --------------//
-
-
-
 #include "ft_ls.h"
 
 static int	ft_sort_r(t_flag *flag)
@@ -25,24 +21,7 @@ static int	ft_sort_r(t_flag *flag)
 		return (0);
 	return (1);
 }
-/*
-static int	ft_same(char *s1, char *s2)
-{
-	int		len1;
-	int		len2;
 
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	while (*s1 == *s2 && *s1 && *s2)
-	{
-		s1++;
-		s2++;
-	}
-	if (*s1 == '\0' && *s2 == '/')
-		return (0);
-	return (1);
-}
-*/
 static int	ft_sort_name(char *s1, char *s2, t_flag *flag)
 {
 	int		i;
@@ -50,8 +29,6 @@ static int	ft_sort_name(char *s1, char *s2, t_flag *flag)
 	i = 0;
 	if (s1 == NULL || s2 == NULL)
 		return (0);
-//	if (ft_same(s1, s2))
-//		return (1);
 	while (s1[i] == s2[i] && s1[i] && s2[i])
 		i++;
 	if (!s1[i])

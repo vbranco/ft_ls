@@ -25,13 +25,13 @@ void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 	{
 		if (file->name != NULL)
 		{
-			if (flag->l > 0)
+			if (flag->l || flag->o || flag->g)
 			{
 				printl(file, sp, flag);
 			}
 			else
 			{
-				if (flag->l == -1)
+				if (flag->G == 1)
 					color(file);
 				else
 					printf("%s", file->name);
@@ -48,7 +48,7 @@ void		ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp)
 
 	tmp = file;
 	flag->out = 1;
-	if (flag->l > 0 && file->error == NULL && file->name != NULL)
+	if ((flag->l || flag->o || flag->g) && file->error == NULL && file->name != NULL)
 		printf("total %i\n", ft_total(file));
 	while (file)
 	{

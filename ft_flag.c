@@ -30,16 +30,21 @@ static void	ft_rec(char *str, t_flag *flag)
 	i = 0;
 	while (str[i])
 	{
-		((str[i] == 'l')) ? flag->l += 2 : 0;
-		((str[i] == 'G')) ? flag->l -= 1 : 0;
+		((str[i] == 'l')) ? flag->l = 1 : 0;
+		((str[i] == 'G')) ? flag->G = 1 : 0;
 		((str[i] == 'R')) ? flag->R = 1 : 0;
+		((str[i] == 'g')) ? flag->g = 1 : 0;
 		((str[i] == 'r')) ? flag->r = 1 : 0;
 		((str[i] == 'a')) ? flag->a = 1 : 0;
 		((str[i] == 't')) ? flag->t = 1 : 0;
-		((str[i] == 'f')) ? flag->f = 1 : 0;
 		((str[i] == 'o')) ? flag->o = 1 : 0;
 		((str[i] == 'i')) ? flag->i = 1 : 0;
 		((str[i] == '1')) ? flag->un = 1 : 0;
+		if (str[i] == 'f')
+		{
+			 flag->f = 1;
+			 flag->a = 1;
+		}
 		i++;
 	}
 }

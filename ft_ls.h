@@ -45,13 +45,15 @@
 # define BGREEN		"\e[42m"
 # define TSTOP		"\e[0m"
 
-# define FLAGS		"lGRratfoi1\0"
+# define FLAGS		"lGRgratfoi1\0"
 # define SIX_MONTHS ((365/2) * 86400)
 
 typedef struct			s_flag
 {
 	short int			l;
 	short int			R;
+	short int			G;
+	short int			g;
 	short int			r;
 	short int			a;
 	short int			t;
