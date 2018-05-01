@@ -46,17 +46,6 @@ int		ft_dir(t_fileinfo *new)
 	return (0);
 }
 
-static char	*ft_realloc(char *s1, char *s2)
-{
-	char	*tmp;
-
-	if (!s1 || !s2)
-		return (NULL);
-	tmp = ft_strjoin(s1, s2);
-	free(s1);
-	return (tmp);
-}
-
 t_fileinfo	*ft_info(char *dir, char *name, t_space *sp)
 {
 	t_fileinfo	*new;
@@ -109,7 +98,7 @@ void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
 		}
 		if (ft_dir(new))
 			ft_is_dir(new, arg->content, flag, sp);
-		if (flag->t)
+		if (flag->t || new->error != NULL)
 			ft_fileinfo_sort(start, new, flag);
 		else
 			ft_add_file_back(start, new);

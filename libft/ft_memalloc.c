@@ -28,3 +28,19 @@ void	*ft_memalloc(size_t size)
 	}
 	return (a);
 }
+/*
+**int	main(void)
+**{
+**	int	*a;
+**	int	i;
+**
+**	i = 0;
+**	a = ft_memalloc(10);
+**	while (i < 10)
+**	{
+**		ft_putnbr(a[i]);
+**		i++;
+**	}
+**	return (0);
+**}
+*/

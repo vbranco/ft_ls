@@ -20,3 +20,15 @@ int		ft_isdigit(int c)
 	else
 		return (0);
 }
+/*
+**int	main(void)
+**{
+**	int	a = 140;
+**
+**	if (ft_isdigit(a) > 0)
+**		ft_putstr("IS DIGIT");
+**	else
+**		ft_putstr("NOT DIGIT");
+**	return (0);
+**}
+*/

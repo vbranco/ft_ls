@@ -31,3 +31,14 @@ char	*ft_strcat(char *s1, const char *s2)
 	s1[i] = '\0';
 	return (s1);
 }
+/*
+**#include <stdio.h>
+**int	main(void)
+**{
+**	char	a[100] = "bonjour";
+**	char	b[] = " monde";
+**
+**	printf("%s", ft_strcat(a, b));
+**	return (0);
+**}
+*/

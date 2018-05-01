@@ -6,14 +6,14 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/28 19:02:57 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/14 16:57:46 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/11/28 19:08:02 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_size_nb(intmax_t n)
+int		ft_size_nb(int n)
 {
 	int		size;
 
