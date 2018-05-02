@@ -57,7 +57,7 @@ void		ft_push_arg(t_node **node, t_flag *flag, char **av, int i)
 	}
 }
 
-int			ft_args(char **av, t_flag *flag, t_node **node)
+int			ft_arg(char **av, t_flag *flag, t_node **node)
 {
 	int		i;
 

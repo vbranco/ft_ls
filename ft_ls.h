@@ -126,7 +126,7 @@ int						ft_dir(t_fileinfo *novo);
 **	Gestion arguments
 */
 int						ft_count_args(int ac, char **av);
-int						ft_args(char **av, t_flag *flag, t_node **node);
+int						ft_arg(char **av, t_flag *flag, t_node **node);
 
 /*
 **	Recursive + quelques gestions particulieres

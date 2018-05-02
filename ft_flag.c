@@ -19,8 +19,6 @@ static void	ft_usage(char c)
 	ft_putchar_fd(c, 2);
 	ft_putchar_fd('\n', 2);
 	ft_putendl_fd("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]", 2);
-//	printf("ls: illegal option -- %c\n", c);
-//	printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
 }
 
 static void	ft_rec(char *str, t_flag *flag)

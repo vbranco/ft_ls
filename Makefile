@@ -42,26 +42,27 @@ LIB_INC     =   -I $(L_FT)/libft.h
 all: $(NAME)
 
 clean:
-		rm -rf build/
-#		@$(MAKE) -C $(L_FT) clean
+		@echo "\033[31m Cleanning ft_ls"
+		@rm -rf build/
+		@$(MAKE) -C $(L_FT) clean
 
 fclean: clean
-	    @echo "\033[31m"
-		rm -f $(NAME)
-#		@$(MAKE) -C $(L_FT) fclean
+	    @echo "\033[31m FCleanninf ft_ls"
+		@rm -f $(NAME)
+		@$(MAKE) -C $(L_FT) fclean
 
-re:	fclean all
-#	   @$(MAKE) fclean
-#		@$(MAKE) all
+re:
+		@echo "\033[32m RE ft_ls"
+		@$(MAKE) fclean
+		@$(MAKE) all
 
 build:
-	    @echo "\033[35m"
-		mkdir build/
+	    @echo "\033[32m Making ft_ls"
+		@mkdir build/
 
 $(NAME): $(OBJECTS)
-#	   @$(MAKE) -C $(L_FT)
-		@echo "\033[32m"
-		gcc $(FLAGS) -I  $(HEADER) $(SOURCES) $(LIB) -o $@ #-g
+		@$(MAKE) -C $(L_FT)
+		@gcc $(FLAGS) -I  $(HEADER) $(SOURCES) $(LIB) -o $@ #-g
 
 build/%.o: ./%.c | build
-	    gcc $(FLAGS) $(LIB_INC) -I $(HEADER) -c $< -o $@
+	    @gcc $(FLAGS) $(LIB_INC) -I $(HEADER) -c $< -o $@

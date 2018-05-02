@@ -15,24 +15,24 @@
 
 void	ft_etat_flag(t_flag *flag)
 {
-	printf("l : %d\n", flag->l);
-	printf("R : %d\n", flag->R);
-	printf("G : %d\n", flag->G);
-	printf("g : %d\n", flag->g);
-	printf("r : %d\n", flag->r);
-	printf("a : %d\n", flag->a);
-	printf("t : %d\n", flag->t);
-	printf("f : %d\n", flag->f);
-	printf("i : %d\n", flag->i);
-	printf("o : %d\n", flag->o);
-	printf("un : %d\n", flag->un);
+	ft_printf("l : %d\n", flag->l);
+	ft_printf("R : %d\n", flag->R);
+	ft_printf("G : %d\n", flag->G);
+	ft_printf("g : %d\n", flag->g);
+	ft_printf("r : %d\n", flag->r);
+	ft_printf("a : %d\n", flag->a);
+	ft_printf("t : %d\n", flag->t);
+	ft_printf("f : %d\n", flag->f);
+	ft_printf("i : %d\n", flag->i);
+	ft_printf("o : %d\n", flag->o);
+	ft_printf("un : %d\n", flag->un);
 }
 
 void	argsprint(t_node *node)
 {
 	while (node->next)
 	{
-		printf("%s\n", node->content);
+		ft_printf("%s\n", node->content);
 		node = node->next;
 	}
 }
@@ -77,7 +77,7 @@ int		main(int ac, char **av)
 	file = NULL;
 	if (ft_flag(ac, av, &flag) != 0)
 		return (1);
-	if (ft_args(av, &flag, &args))
+	if (ft_arg(av, &flag, &args))
 	{
 		ft_nodedell(&args);
 		return (1);
