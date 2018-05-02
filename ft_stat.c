@@ -6,33 +6,33 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 18:40:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/30 15:58:19 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/02 12:16:16 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		ft_amode(t_fileinfo *fileinfo)
+void			ft_amode(t_fileinfo *fileinfo)
 {
 	if (S_ISLNK(fileinfo->st.st_mode))
-		fileinfo->amode =  'l';
+		fileinfo->amode = 'l';
 	else if (S_ISREG(fileinfo->st.st_mode))
-		fileinfo->amode =  '-';
+		fileinfo->amode = '-';
 	else if (S_ISCHR(fileinfo->st.st_mode))
-		fileinfo->amode =  'c';
+		fileinfo->amode = 'c';
 	else if (S_ISBLK(fileinfo->st.st_mode))
-		fileinfo->amode =  'b';
+		fileinfo->amode = 'b';
 	else if (S_ISFIFO(fileinfo->st.st_mode))
-		fileinfo->amode =  'p';
+		fileinfo->amode = 'p';
 	else if (S_ISSOCK(fileinfo->st.st_mode))
-		fileinfo->amode =  's';
+		fileinfo->amode = 's';
 	else if (S_ISDIR(fileinfo->st.st_mode))
-		fileinfo->amode =  'd';
+		fileinfo->amode = 'd';
 	fileinfo->total = fileinfo->st.st_blocks;
 }
 
-static void ft_acl(t_fileinfo *fileinfo)
+static void		ft_acl(t_fileinfo *fileinfo)
 {
 	acl_t		acl;
 	acl_entry_t	dummy;
@@ -61,7 +61,7 @@ static void ft_acl(t_fileinfo *fileinfo)
 	}
 }
 
-void		ft_rmode(t_fileinfo *fileinfo)
+void			ft_rmode(t_fileinfo *fileinfo)
 {
 	((fileinfo->st.st_mode & S_IRUSR) ? fileinfo->mode[0] = 'r' : 0);
 	((fileinfo->st.st_mode & S_IWUSR) ? fileinfo->mode[1] = 'w' : 0);
@@ -89,7 +89,7 @@ void		ft_rmode(t_fileinfo *fileinfo)
 		fileinfo->mode[8] = 'x';
 }
 
-char		*ft_name(char *str)
+char			*ft_name(char *str)
 {
 	int		i;
 	int		s;
@@ -116,7 +116,7 @@ char		*ft_name(char *str)
 	return (ret);
 }
 
-static void	ft_file_display(char *str, t_fileinfo *tmp, t_space *sp)
+static void		ft_file_display(char *str, t_fileinfo *tmp, t_space *sp)
 {
 	tmp->name = ft_name(str);
 	if (tmp->amode == 'b' || tmp->amode == 'c')
@@ -138,7 +138,7 @@ static void	ft_file_display(char *str, t_fileinfo *tmp, t_space *sp)
 		sp->size_stsize = ft_size_nb(tmp->st.st_size);
 }
 
-char	*ft_time(char *time, t_space *sp)
+char		*ft_time(char *time, t_space *sp)
 {
 	char		*tmp;
 	char		*year;
@@ -146,7 +146,7 @@ char	*ft_time(char *time, t_space *sp)
 	int			len;
 	short int	stop;
 
-	len = ft_strlen(time)-1;
+	len = ft_strlen(time) - 1;
 	while (time[len] != ' ')
 		len--;
 	stop = len;
@@ -162,7 +162,7 @@ char	*ft_time(char *time, t_space *sp)
 	return (ret);
 }
 
-void	ft_ugid(t_fileinfo *file)
+void		ft_ugid(t_fileinfo *file)
 {
 	struct passwd	*pwd;
 	struct group	*grp;
@@ -176,8 +176,7 @@ void	ft_ugid(t_fileinfo *file)
 	if (!(grp = getgrgid(file->st.st_gid)))
 		file->gr_name = ft_strdup("group");
 	else
-	file->gr_name = ft_strdup(grp->gr_name);
-
+		file->gr_name = ft_strdup(grp->gr_name);
 /*	if (!(file->pw_name = getpwuid(file->st.st_uid)))
 		file->pw_name = ft_strdup("owner");
 	if (!(file->gr_name = getgrgid(file->st.st_gid)))
@@ -185,7 +184,7 @@ void	ft_ugid(t_fileinfo *file)
 */
 }
 
-int		ft_stat(t_fileinfo *fileinfo, t_space *sp)
+int			ft_stat(t_fileinfo *fileinfo, t_space *sp)
 {
 	errno = 0;
 	if (lstat(fileinfo->path, &(fileinfo->st)) != 0)
@@ -195,14 +194,11 @@ int		ft_stat(t_fileinfo *fileinfo, t_space *sp)
 		return (1);
 	}
 	ft_ugid(fileinfo);
-	if (time(NULL) - fileinfo->st.st_mtime > SIX_MONTHS || time(NULL) < fileinfo->st.st_mtime)
-	{
+	if (time(NULL) - fileinfo->st.st_mtime > SIX_MONTHS ||
+			time(NULL) < fileinfo->st.st_mtime)
 		fileinfo->time = ft_time(ctime(&fileinfo->st.st_mtime), sp);
-	}
 	else
-	{
 		fileinfo->time = ft_strsub(ctime(&fileinfo->st.st_mtime), 4, 12);
-	}
 	ft_amode(fileinfo);
 	ft_rmode(fileinfo);
 	if (fileinfo->amode == 'l')

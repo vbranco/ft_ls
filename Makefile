@@ -6,7 +6,7 @@
 #    By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/03/07 17:08:49 by vbranco      #+#   ##    ##    #+#        #
-#    Updated: 2018/04/17 18:41:16 by vbranco     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/05/02 09:43:08 by vbranco     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -61,7 +61,7 @@ build:
 $(NAME): $(OBJECTS)
 #	   @$(MAKE) -C $(L_FT)
 		@echo "\033[32m"
-		gcc $(FLAGS) -I  $(HEADER) $(SOURCES) $(LIB) -o $@ -g
+		gcc $(FLAGS) -I  $(HEADER) $(SOURCES) $(LIB) -o $@ #-g
 
 build/%.o: ./%.c | build
 	    gcc $(FLAGS) $(LIB_INC) -I $(HEADER) -c $< -o $@

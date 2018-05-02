@@ -6,17 +6,17 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/23 10:16:27 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/30 16:54:28 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/02 11:47:12 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int     ft_count_args(int ac, char **av)
+int		ft_count_args(int ac, char **av)
 {
-	int             i;
-	int             z;
+	int		i;
+	int		z;
 
 	i = 1;
 	z = 0;
