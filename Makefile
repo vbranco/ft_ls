@@ -63,6 +63,7 @@ build:
 $(NAME): $(OBJECTS)
 		@$(MAKE) -C $(L_FT)
 		@gcc $(FLAGS) -I  $(HEADER) $(SOURCES) $(LIB) -o $@ #-g
+		@echo " Ready to play"
 
 build/%.o: ./%.c | build
 	    @gcc $(FLAGS) $(LIB_INC) -I $(HEADER) -c $< -o $@
