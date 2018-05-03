@@ -24,6 +24,8 @@ int		ft_count_args(int ac, char **av)
 	{
 		if (av[i][0] == '-' && av[i][1] == '\0')
 			return (z + 1);
+		if (av[i][0] != '-')
+			return (z + 1);
 		if (av[i][0] == '-' && av[i][1] != '\0')
 		{
 			if (ft_strcmp(av[i], "--") == 0)

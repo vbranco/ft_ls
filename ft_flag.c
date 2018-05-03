@@ -95,6 +95,8 @@ int			ft_flag(int ac, char **av, t_flag *flag)
 			else
 				ft_rec(av[i], flag);
 		}
+		if (av[i][0] != '-')
+			break;
 	}
 	return (0);
 }
