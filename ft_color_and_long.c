@@ -94,9 +94,7 @@ void    printl(t_fileinfo *file, t_space *sp, t_flag *flag)
 	else
 		printf("%s", file->name);
 	if (file->amode == 'l')
-	{
 		printf(" -> %s\n", file->link);
-	}
 	else
 		printf("\n");
 }

@@ -13,12 +13,13 @@
 
 #include "ft_ls.h"
 
-static void	ft_usage(char c)
+static int	ft_usage(char c)
 {
 	ft_putstr_fd("ls: illegal option -- ", 2);
 	ft_putchar_fd(c, 2);
 	ft_putchar_fd('\n', 2);
 	ft_putendl_fd("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]", 2);
+	return (1);
 }
 
 static void	ft_rec(char *str, t_flag *flag)
@@ -88,10 +89,7 @@ int			ft_flag(int ac, char **av, t_flag *flag)
 				return (1);
 			c = test_flag(av[i]);
 			if (c != 0)
-			{
-				ft_usage(c);
-				return (1);
-			}
+				return(ft_usage(c));
 			else
 				ft_rec(av[i], flag);
 		}

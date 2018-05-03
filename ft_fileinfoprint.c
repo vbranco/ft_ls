@@ -32,7 +32,7 @@ void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 			else
 			{
 				if (flag->i)
-					printf("%*llu ", 7, file->st.st_ino);
+					printf("%*llu ", 8, file->st.st_ino);
 				if (flag->G == 1)
 					color(file);
 				else

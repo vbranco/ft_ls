@@ -129,11 +129,15 @@ int						ft_count_args(int ac, char **av);
 int						ft_arg(char **av, t_flag *flag, t_node **node);
 
 /*
-**	Recursive + quelques gestions particulieres
+**	Recursive + quelques gestions particulieres >> ft_dir.c
 */
-void					ft_flag_a(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp);
 void					ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp);
 void					ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp);
+
+/*
+**	Gestion flag->a >> ft_flag_a.c
+*/
+void					ft_flag_a(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp);
 
 /*
 **	Colors and long >> ft_color_and_long.c

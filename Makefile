@@ -20,7 +20,7 @@ FILENAMES   =   main.c ft_flag.c ft_stat.c \
 	ft_node_front_add.c ft_node_sort_add.c ft_ls.c \
 	ft_count_args.c ft_args.c ft_fileinfo_sort.c\
 	ft_add_file_back.c ft_dir.c ft_color_and_long.c\
-	ft_initialise.c ft_list_dell.c\
+	ft_initialise.c ft_list_dell.c ft_flag_a.c\
 
 
 SOURCES     =   $(addprefix ./, $(FILENAMES))
