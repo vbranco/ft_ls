@@ -13,7 +13,7 @@
 
 #include "ft_ls.h"
 
-void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
+static void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 {
 	if (file->error != NULL)
 	{
@@ -26,9 +26,7 @@ void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 		if (file->name != NULL)
 		{
 			if (flag->l || flag->o || flag->g)
-			{
 				printl(file, sp, flag);
-			}
 			else
 			{
 				if (flag->i)
