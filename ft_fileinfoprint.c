@@ -13,7 +13,7 @@
 
 #include "ft_ls.h"
 
-static void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
+static void		ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 {
 	if (file->error != NULL)
 	{
@@ -42,7 +42,7 @@ static void	ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 	}
 }
 
-void		ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp)
+void			ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp)
 {
 	t_fileinfo	*tmp;
 
@@ -61,50 +61,45 @@ void		ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp)
 
 }
 
-void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
+void			ft_file_other(t_fileinfo *file, t_flag *flag, t_space *sp)
 {
-	while (file)
+	if (flag->out > 0)
+		printf("\n%s:\n", file->path);
+	else
 	{
-		if (file->other)
+		if (ft_flag_status(flag) == 0 && flag->ac > 2)
+			printf("%s:\n", file->path);
+		if (ft_flag_status(flag) != 0)
 		{
-			if (flag->out > 0)
-				printf("\n%s:\n", file->path);
-			else
+			if (flag->ac - flag->total > 1)
+				printf("%s:\n", file->path);
+		}
+	}
+	ft_pdir(file->other, flag, sp);
+}
+
+void			ft_file_no_other(t_fileinfo *file, t_flag *flag, t_space *sp)
+{
+	if (file->amode == 'd' && file->mode[2] == '-' && file->mode[0] == 'r')
+	{
+		if (!flag->out)
+		{
+			if ((ft_flag_status(flag) != 0 && flag->ac - 1 > flag->total) ||
+				(ft_flag_status(flag) == 0 && flag->ac > flag->total + 2))
 			{
-				if (ft_flag_status(flag) == 0 && flag->ac > 2)
-					printf("%s:\n", file->path);
-				if (ft_flag_status(flag) != 0)
-				{
-					if (flag->ac - flag->total > 1)
-						printf("%s:\n", file->path);
-				}
+				flag->out = 1;
+				printf("%s:\n", file->name);
 			}
-			ft_pdir(file->other, flag, sp);
 		}
 		else
 		{
-			if (file->amode == 'd' && file->mode[2] == '-' && file->mode[0] == 'r')
-			{
-				if (!flag->out)
-				{
-					if ((ft_flag_status(flag) != 0 && flag->ac - 1 > flag->total) || (ft_flag_status(flag) == 0 && flag->ac > flag->total + 2))
-					{
-						flag->out = 1;
-						printf("%s:\n", file->name);
-					}
-				}
-				else
-				{
-					flag->out = 1;
-					printf("\n%s:\n", file->name);
-				}
-			}
+			flag->out = 1;
+			printf("\n%s:\n", file->name);
 		}
-		file = file->next;
 	}
 }
 
-void		ft_fileinfoprint(t_fileinfo *file, t_flag *flag, t_space *sp)
+void			ft_fileinfoprint(t_fileinfo *file, t_flag *flag, t_space *sp)
 {
 	t_fileinfo	*tmp;
 	short int	i;

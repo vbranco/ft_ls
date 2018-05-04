@@ -112,13 +112,23 @@ int						ft_flag(int ac, char **av, t_flag *flag);
 int						ft_flag_status(t_flag *flag);
 
 /*
-**	Infos pour affichage Long + infos generales
+**	Infos stat >> ft_stat.c + ft_stat2.c
 */
 int						ft_stat(t_fileinfo *fileinfo, t_space *sp);
-void					ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp);
-void					ft_ugid(t_fileinfo *file);
+
+/*
+**	Infos stat >> ft_stat.c + ft_stat2.c
+*/
 void					ft_amode(t_fileinfo *fileinfo);
 void					ft_rmode(t_fileinfo *fileinfo);
+char					*ft_time(char *time, t_space *sp);
+
+
+/*
+**	Infos pour affichage Long + infos generales
+*/
+void					ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp);
+void					ft_ugid(t_fileinfo *file);
 t_fileinfo				*ft_info(char *dir, char *name, t_space *sp);
 int						ft_dir(t_fileinfo *novo);
 
@@ -161,11 +171,17 @@ void					ft_nodedell(t_node **node);
 void					ft_fileinfo_dell(t_fileinfo **file);
 
 /*
-**	Listes affichage
+**	Listes affichage >> ft_fileinfoprint.c
 */
 void					ft_fileinfoprint(t_fileinfo *file, t_flag *flag, t_space *sp);
-void					ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp);
 void					ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp);
+void					ft_file_other(t_fileinfo *file, t_flag *flag, t_space *sp);
+void					ft_file_no_other(t_fileinfo *file, t_flag *flag, t_space *sp);
+
+/*
+**	Decoupage affichage >> ft_display_dir.c
+*/
+void					ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp);
 
 /*
 **	Gestion des affichages en generale
@@ -178,6 +194,10 @@ void					ft_error(t_fileinfo **novo, char *file, char *error);
 */
 void					ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *novo, t_flag *flag);
 void					ft_add_file_back(t_fileinfo **file, t_fileinfo *novo);
+
+/*
+**	Gestion param recus >> ft_add_node.c
+*/
 void					ft_node_back_add(t_node **node, void *content, size_t content_size);
 void					ft_node_front_add(t_node **node, void *content, size_t content_size);
 void					ft_node_sort_add(t_node **node, void *content, size_t content_size);

@@ -36,20 +36,17 @@ static int	ft_sort(char *s1, char *s2)
 		return (0);
 	stat(s1, &st1);
 	stat(s2, &st2);
-	if (((st2.st_mode & S_IFMT) == S_IFDIR) && ((st1.st_mode & S_IFMT) != S_IFDIR))
+	if (((st2.st_mode & S_IFMT) == S_IFDIR) && ((st1.st_mode & S_IFMT) !=
+		S_IFDIR))
 		return (1);
-	else if (((st2.st_mode & S_IFMT) == S_IFDIR) && ((st1.st_mode & S_IFMT) == S_IFDIR))
-	{
+	else if (((st2.st_mode & S_IFMT) == S_IFDIR) && ((st1.st_mode & S_IFMT) ==
+		S_IFDIR))
 		return (ft_test(s1, s2));
-	}
-	else if (((st2.st_mode & S_IFMT) != S_IFDIR) && ((st1.st_mode & S_IFMT) == S_IFDIR))
-	{
+	else if (((st2.st_mode & S_IFMT) != S_IFDIR) && ((st1.st_mode & S_IFMT) ==
+		S_IFDIR))
 		return (0);
-	}
 	else
-	{
 		return (ft_test(s1, s2));
-	}
 	return (0);
 }
 
@@ -77,4 +74,53 @@ void	ft_node_sort_add(t_node **node, void *content, size_t content_size)
 		tmp->next = new;
 	else
 		*node = new;
+}
+
+void    ft_node_back_add(t_node **node, void *content, size_t content_size)
+{
+	t_node  *tmp;
+	t_node  *new;
+
+	tmp = NULL;
+	if (!(new = (t_node*)malloc(sizeof(t_node))))
+		return ;
+	if (!(new->content = ft_memalloc(content_size)))
+		return ;
+	tmp = *node;
+	if (!tmp)
+	{
+		new->next = *node;
+		*node = new;
+	}
+	else
+	{
+		new->next = NULL;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	ft_memcpy(new->content, content, content_size);
+	new->content_size = content_size;
+}
+
+void    ft_node_front_add(t_node **node, void *content, size_t content_size)
+{
+	t_node  *new;
+
+	if (!(new = (t_node*)malloc(sizeof(t_node))))
+		return ;
+	if (!content)
+	{
+		new->content = NULL;
+		new->content_size = 0;
+	}
+	else
+	{
+		if (!(new->content = ft_memalloc(content_size)))
+			return ;
+		ft_memcpy(new->content, content, content_size);
+		new->content_size = content_size;
+	}
+	new->next = *node;
+	*node = new;
 }
