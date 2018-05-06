@@ -30,12 +30,12 @@ static void		ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 			else
 			{
 				if (flag->i)
-					printf("%*llu ", 8, file->st.st_ino);
+					ft_printf("%*llu ", 8, file->st.st_ino);
 				if (flag->G == 1)
 					color(file);
 				else
-					printf("%s", file->name);
-				printf("\n");
+					ft_printf("%s", file->name);
+				ft_printf("\n");
 			}
 		}
 		flag->out = 1;
@@ -49,7 +49,7 @@ void			ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp)
 	tmp = file;
 	flag->out = 1;
 	if ((flag->l || flag->o || flag->g) && file->error == NULL && file->name != NULL)
-		printf("total %i\n", ft_total(file));
+		ft_printf("total %i\n", ft_total(file));
 	while (file)
 	{
 		ft_display(file, flag, sp);
@@ -64,15 +64,15 @@ void			ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp)
 void			ft_file_other(t_fileinfo *file, t_flag *flag, t_space *sp)
 {
 	if (flag->out > 0)
-		printf("\n%s:\n", file->path);
+		ft_printf("\n%s:\n", file->path);
 	else
 	{
 		if (ft_flag_status(flag) == 0 && flag->ac > 2)
-			printf("%s:\n", file->path);
+			ft_printf("%s:\n", file->path);
 		if (ft_flag_status(flag) != 0)
 		{
 			if (flag->ac - flag->total > 1)
-				printf("%s:\n", file->path);
+				ft_printf("%s:\n", file->path);
 		}
 	}
 	ft_pdir(file->other, flag, sp);
@@ -88,13 +88,13 @@ void			ft_file_no_other(t_fileinfo *file, t_flag *flag, t_space *sp)
 				(ft_flag_status(flag) == 0 && flag->ac > flag->total + 2))
 			{
 				flag->out = 1;
-				printf("%s:\n", file->name);
+				ft_printf("%s:\n", file->name);
 			}
 		}
 		else
 		{
 			flag->out = 1;
-			printf("\n%s:\n", file->name);
+			ft_printf("\n%s:\n", file->name);
 		}
 	}
 }

@@ -31,72 +31,72 @@ static int test(t_fileinfo *file)
 void    color(t_fileinfo *file)
 {
 	if (test(file) == 1)
-		printf("%s%s%s", TCYAN, file->name, TSTOP);
+		ft_printf("%s%s%s", TCYAN, file->name, TSTOP);
 	else if (file->amode == 'l')
-		printf("%s%s%s", TMAGENTA, file->name, TSTOP);
+		ft_printf("%s%s%s", TMAGENTA, file->name, TSTOP);
 	else if (file->amode == 's')
-		printf("%s%s%s", TGREEN, file->name, TSTOP);
+		ft_printf("%s%s%s", TGREEN, file->name, TSTOP);
 	else if (file->amode == 'p')
-		printf("%s%s%s", TYELLOW, file->name, TSTOP);
+		ft_printf("%s%s%s", TYELLOW, file->name, TSTOP);
 	else if (file->amode == 'b')
-		printf("%s%s%s%s", TBLUE, BCYAN, file->name, TSTOP);
+		ft_printf("%s%s%s%s", TBLUE, BCYAN, file->name, TSTOP);
 	else if (file->amode == 'c')
-		printf("%s%s%s%s", TBLUE, BYELLOW, file->name, TSTOP);
+		ft_printf("%s%s%s%s", TBLUE, BYELLOW, file->name, TSTOP);
 	else if (test(file) == 5)
-		printf("%s%s%s", TRED, file->name, TSTOP);
+		ft_printf("%s%s%s", TRED, file->name, TSTOP);
 	else if (test(file) == 8)
-		printf("%s%s%s%s", TBLACK, BRED, file->name, TSTOP);
+		ft_printf("%s%s%s%s", TBLACK, BRED, file->name, TSTOP);
 	else if (test(file) == 9)
-		printf("%s%s%s%s", TBLACK, BCYAN, file->name, TSTOP);
+		ft_printf("%s%s%s%s", TBLACK, BCYAN, file->name, TSTOP);
 	else if (test(file) == 10)
-		printf("%s%s%s%s", TBLACK, BGREEN, file->name, TSTOP);
+		ft_printf("%s%s%s%s", TBLACK, BGREEN, file->name, TSTOP);
 	else if (test(file) == 11)
-		printf("%s%s%s%s", TBLACK, BYELLOW, file->name, TSTOP);
+		ft_printf("%s%s%s%s", TBLACK, BYELLOW, file->name, TSTOP);
 	else
-		printf("%s", file->name);
+		ft_printf("%s", file->name);
 }
 
 void	flag_o_g(t_fileinfo *file, t_space *sp, t_flag *flag)
 {
 	if (flag->l && !flag->o && !flag->g)
-		printf("%-*s  %-*s  ", sp->size_pname, file->pw_name, sp->size_gname, file->gr_name);
+		ft_printf("%-*s  %-*s  ", sp->size_pname, file->pw_name, sp->size_gname, file->gr_name);
 	else
 	{
 		if (flag->o && !flag->g)
-			printf("%-*s  ", sp->size_pname, file->pw_name);
+			ft_printf("%-*s  ", sp->size_pname, file->pw_name);
 		else if (!flag->o && flag->g)
-			printf("%-*s  ", sp->size_gname, file->gr_name);
+			ft_printf("%-*s  ", sp->size_gname, file->gr_name);
 		else
-			printf("  ");
+			ft_printf("  ");
 	}
 }
 
 void    printl(t_fileinfo *file, t_space *sp, t_flag *flag)
 {
 	if (flag->i)
-		printf("%llu ", file->st.st_ino);
-	printf("%c%s %*i ", file->amode, file->mode, sp->size_nlink,
+		ft_printf("%llu ", file->st.st_ino);
+	ft_printf("%c%s %*i ", file->amode, file->mode, sp->size_nlink,
 			file->st.st_nlink);
 	flag_o_g(file, sp, flag);
 	if (file->amode == 'b' || file->amode == 'c')
-		printf(" %*i, %*i ", sp->size_madev, file->maj, sp->size_midev, file->min);
+		ft_printf(" %*i, %*i ", sp->size_madev, file->maj, sp->size_midev, file->min);
 	else
 	{
 		if (sp->size_midev != 0 || sp->size_madev != 0)
-			printf("%*lli ", (sp->size_madev + sp->size_midev + sp->size_stsize-1),
+			ft_printf("%*lli ", (sp->size_madev + sp->size_midev + sp->size_stsize-1),
 					file->st.st_size);
 		else
-			printf("%*lli ", (sp->size_stsize), file->st.st_size);
+			ft_printf("%*lli ", (sp->size_stsize), file->st.st_size);
 	}
-	printf("%s ", file->time);
+	ft_printf("%s ", file->time);
 	if (flag->G == 1)
 		color(file);
 	else
-		printf("%s", file->name);
+		ft_printf("%s", file->name);
 	if (file->amode == 'l')
-		printf(" -> %s\n", file->link);
+		ft_printf(" -> %s\n", file->link);
 	else
-		printf("\n");
+		ft_printf("\n");
 }
 
 int ft_total(t_fileinfo *file)
