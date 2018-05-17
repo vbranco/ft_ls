@@ -121,7 +121,7 @@ int						ft_stat(t_fileinfo *fileinfo, t_space *sp);
 */
 void					ft_amode(t_fileinfo *fileinfo);
 void					ft_rmode(t_fileinfo *fileinfo);
-char					*ft_time(char *time, t_space *sp);
+char					*ft_time(char *time);
 
 /*
 **	Infos pour affichage Long + infos generales
@@ -181,8 +181,7 @@ void					ft_fileinfoprint(t_fileinfo *file, t_flag *flag,
 void					ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp);
 void					ft_file_other(t_fileinfo *file, t_flag *flag,
 		t_space *sp);
-void					ft_file_no_other(t_fileinfo *file, t_flag *flag,
-		t_space *sp);
+void					ft_file_no_other(t_fileinfo *file, t_flag *flag);
 
 /*
 **	Decoupage affichage >> ft_display_dir.c

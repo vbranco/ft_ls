@@ -78,7 +78,7 @@ void			ft_file_other(t_fileinfo *file, t_flag *flag, t_space *sp)
 	ft_pdir(file->other, flag, sp);
 }
 
-void			ft_file_no_other(t_fileinfo *file, t_flag *flag, t_space *sp)
+void			ft_file_no_other(t_fileinfo *file, t_flag *flag)
 {
 	if (file->amode == 'd' && file->mode[2] == '-' && file->mode[0] == 'r')
 	{

@@ -62,10 +62,13 @@ t_fileinfo		*ft_info(char *dir, char *name, t_space *sp)
 			new->path = ft_realloc(new->path, "/");
 		new->path = ft_realloc(new->path, name);
 	}
-	if (name[0] != '\0')
-		ft_stat(new, sp);
-	if (name[0] == '\0' && dir[0] == '\0')
-		ft_error(&new, "fts_open", "No such file or directory");
+	if (name)
+	{
+		if (name[0] != '\0')
+			ft_stat(new, sp);
+		if (name[0] == '\0' && dir[0] == '\0')
+			ft_error(&new, "fts_open", "No such file or directory");
+	}
 	return (new);
 }
 

@@ -68,7 +68,7 @@ void			ft_rmode(t_fileinfo *fileinfo)
 		fileinfo->mode[8] = 'x';
 }
 
-char			*ft_time(char *time, t_space *sp)
+char			*ft_time(char *time)
 {
 	char		*tmp;
 	char		*year;

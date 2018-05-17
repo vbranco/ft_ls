@@ -83,9 +83,9 @@ static void			ft_file_display(char *str, t_fileinfo *tmp, t_space *sp)
 	}
 	if (ft_size_nb(tmp->st.st_nlink) > sp->size_nlink)
 		sp->size_nlink = ft_size_nb(tmp->st.st_nlink);
-	if (ft_strlen(tmp->pw_name) > sp->size_pname)
+	if (ft_strlen(tmp->pw_name) > (size_t)sp->size_pname)
 		sp->size_pname = ft_strlen(tmp->pw_name);
-	if (ft_strlen(tmp->gr_name) > sp->size_gname)
+	if (ft_strlen(tmp->gr_name) > (size_t)sp->size_gname)
 		sp->size_gname = ft_strlen(tmp->gr_name);
 	if (ft_size_nb(tmp->st.st_size) > sp->size_stsize)
 		sp->size_stsize = ft_size_nb(tmp->st.st_size);
@@ -120,7 +120,7 @@ int					ft_stat(t_fileinfo *fileinfo, t_space *sp)
 	ft_ugid(fileinfo);
 	if (time(NULL) - fileinfo->st.st_mtime > SIX_MONTHS ||
 			time(NULL) < fileinfo->st.st_mtime)
-		fileinfo->time = ft_time(ctime(&fileinfo->st.st_mtime), sp);
+		fileinfo->time = ft_time(ctime(&fileinfo->st.st_mtime));
 	else
 		fileinfo->time = ft_strsub(ctime(&fileinfo->st.st_mtime), 4, 12);
 	ft_amode(fileinfo);

@@ -88,7 +88,7 @@ void				ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 	new = NULL;
 	if (!(dir = opendir(current->path)))
 	{
-		new = ft_info(current->path, pdir->d_name, sp);
+		new = ft_info(current->path, NULL, sp);
 		if (new->error == NULL)
 			ft_error(&new, current->name, strerror(errno));
 		ft_flag_f(current, new, flag);

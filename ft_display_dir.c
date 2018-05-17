@@ -20,7 +20,7 @@ void	ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp)
 		if (file->other)
 			ft_file_other(file, flag, sp);
 		else
-			ft_file_no_other(file, flag, sp);
+			ft_file_no_other(file, flag);
 		file = file->next;
 	}
 }
