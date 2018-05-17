@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_initialise.c                                  .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/05/15 11:36:38 by vbranco      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/17 17:42:06 by vbranco     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-t_fileinfo  *ft_init_fileinfo(void)
+t_fileinfo		*ft_init_fileinfo(void)
 {
-	t_fileinfo  *fileinfo;
+	t_fileinfo	*fileinfo;
 
 	fileinfo = NULL;
 	fileinfo = malloc(sizeof(t_fileinfo));
@@ -25,11 +38,11 @@ t_fileinfo  *ft_init_fileinfo(void)
 	return (fileinfo);
 }
 
-void    ft_init_flag(t_flag *flag)
+void			ft_init_flag(t_flag *flag)
 {
 	flag->l = 0;
-	flag->R = 0;
-	flag->G = 0;
+	flag->gr = 0;
+	flag->gg = 0;
 	flag->g = 0;
 	flag->r = 0;
 	flag->a = 0;
@@ -43,9 +56,9 @@ void    ft_init_flag(t_flag *flag)
 	flag->out = 0;
 }
 
-t_node  *ft_init_node(void)
+t_node			*ft_init_node(void)
 {
-	t_node  *node;
+	t_node		*node;
 
 	node = NULL;
 	node = malloc(sizeof(t_node));
@@ -55,7 +68,7 @@ t_node  *ft_init_node(void)
 	return (node);
 }
 
-void    ft_init_space(t_space *sp)
+void			ft_init_space(t_space *sp)
 {
 	sp->size_nlink = 0;
 	sp->size_pname = 0;

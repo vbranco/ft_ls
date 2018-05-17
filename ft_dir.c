@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/30 16:07:19 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/30 16:54:35 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/17 17:40:48 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,15 +39,17 @@ static void			ft_new_null(t_fileinfo *current, t_flag *flag, t_space *sp)
 		ft_fileinfo_sort(&(current->other), new, flag);
 }
 
-static void			ft_flag_f(t_fileinfo *current, t_fileinfo *new, t_flag *flag)
+static void			ft_flag_f(t_fileinfo *current, t_fileinfo *new,
+		t_flag *flag)
 {
-		if (flag->f)
-			ft_add_file_back(&(current->other), new);
-		else
-			ft_fileinfo_sort(&(current->other), new, flag);
+	if (flag->f)
+		ft_add_file_back(&(current->other), new);
+	else
+		ft_fileinfo_sort(&(current->other), new, flag);
 }
 
-void				ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp)
+void				ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag,
+		t_space *sp)
 {
 	DIR				*dir;
 	struct dirent	*pdir;
@@ -68,7 +70,7 @@ void				ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp)
 		if (ft_test(flag, pdir->d_name))
 			continue ;
 		new = ft_info(direct, pdir->d_name, sp);
-		((ft_dir(new) && flag->R)) ? ft_recursive(new, flag, sp) : 0;
+		((ft_dir(new) && flag->gr)) ? ft_recursive(new, flag, sp) : 0;
 		ft_flag_f(current, new, flag);
 	}
 	((flag->a)) ? ft_flag_a(current, direct, flag, sp) : 0;
@@ -97,7 +99,7 @@ void				ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp)
 		if (ft_test(flag, pdir->d_name))
 			continue ;
 		new = ft_info(current->path, pdir->d_name, sp);
-		((ft_dir(new) && flag->R)) ? ft_recursive(new, flag, sp) : 0;
+		((ft_dir(new) && flag->gr)) ? ft_recursive(new, flag, sp) : 0;
 		ft_flag_f(current, new, flag);
 	}
 	((flag->a)) ? ft_flag_a(current, current->path, flag, sp) : 0;

@@ -6,14 +6,14 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/05 19:38:39 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 20:04:03 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/17 16:36:48 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int	ft_sort_r(t_flag *flag)
+static int		ft_sort_r(t_flag *flag)
 {
 	if (flag->r == 0)
 		return (1);
@@ -22,9 +22,9 @@ static int	ft_sort_r(t_flag *flag)
 	return (1);
 }
 
-static int	ft_sort_name(char *s1, char *s2, t_flag *flag)
+static int		ft_sort_name(char *s1, char *s2, t_flag *flag)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	if (s1 == NULL || s2 == NULL)
@@ -63,9 +63,9 @@ static int		ft_sort_time(t_fileinfo *file, t_fileinfo *novo, t_flag *flag)
 	return (0);
 }
 
-static int	ft_sort(t_fileinfo *file, t_fileinfo *novo, t_flag *flag)
+static int		ft_sort(t_fileinfo *file, t_fileinfo *novo, t_flag *flag)
 {
-	t_flag	fl;
+	t_flag		fl;
 
 	ft_init_flag(&fl);
 	if ((file->name == NULL) || (novo->name == NULL))
@@ -88,7 +88,8 @@ static int	ft_sort(t_fileinfo *file, t_fileinfo *novo, t_flag *flag)
 	}
 }
 
-void	ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *next, t_flag *flag)
+void			ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *next,
+		t_flag *flag)
 {
 	t_fileinfo	*tmp;
 	t_fileinfo	*ll;

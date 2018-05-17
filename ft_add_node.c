@@ -6,16 +6,16 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/07 12:10:18 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/28 17:47:04 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/17 16:39:25 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int	ft_test(char *s1, char *s2)
+static int		ft_test(char *s1, char *s2)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	while (s1[i] == s2[i] && s1[i] && s2[i])
@@ -25,7 +25,7 @@ static int	ft_test(char *s1, char *s2)
 	return (0);
 }
 
-static int	ft_sort(char *s1, char *s2)
+static int		ft_sort(char *s1, char *s2)
 {
 	int			i;
 	struct stat	st2;
@@ -37,24 +37,25 @@ static int	ft_sort(char *s1, char *s2)
 	stat(s1, &st1);
 	stat(s2, &st2);
 	if (((st2.st_mode & S_IFMT) == S_IFDIR) && ((st1.st_mode & S_IFMT) !=
-		S_IFDIR))
+				S_IFDIR))
 		return (1);
 	else if (((st2.st_mode & S_IFMT) == S_IFDIR) && ((st1.st_mode & S_IFMT) ==
-		S_IFDIR))
+				S_IFDIR))
 		return (ft_test(s1, s2));
 	else if (((st2.st_mode & S_IFMT) != S_IFDIR) && ((st1.st_mode & S_IFMT) ==
-		S_IFDIR))
+				S_IFDIR))
 		return (0);
 	else
 		return (ft_test(s1, s2));
 	return (0);
 }
 
-void	ft_node_sort_add(t_node **node, void *content, size_t content_size)
+void			ft_node_sort_add(t_node **node, void *content,
+		size_t content_size)
 {
-	t_node  *new;
-	t_node  *tmp;
-	t_node  *ll;
+	t_node		*new;
+	t_node		*tmp;
+	t_node		*ll;
 
 	tmp = NULL;
 	ll = *node;
@@ -76,10 +77,11 @@ void	ft_node_sort_add(t_node **node, void *content, size_t content_size)
 		*node = new;
 }
 
-void    ft_node_back_add(t_node **node, void *content, size_t content_size)
+void			ft_node_back_add(t_node **node, void *content,
+		size_t content_size)
 {
-	t_node  *tmp;
-	t_node  *new;
+	t_node		*tmp;
+	t_node		*new;
 
 	tmp = NULL;
 	if (!(new = (t_node*)malloc(sizeof(t_node))))
@@ -103,9 +105,10 @@ void    ft_node_back_add(t_node **node, void *content, size_t content_size)
 	new->content_size = content_size;
 }
 
-void    ft_node_front_add(t_node **node, void *content, size_t content_size)
+void			ft_node_front_add(t_node **node, void *content,
+		size_t content_size)
 {
-	t_node  *new;
+	t_node		*new;
 
 	if (!(new = (t_node*)malloc(sizeof(t_node))))
 		return ;

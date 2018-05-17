@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_color_and_long.c                              .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/05/15 11:38:35 by vbranco      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/17 17:40:09 by vbranco     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-static int test(t_fileinfo *file)
+static int	test(t_fileinfo *f)
 {
-	if (file->amode == 'd')
+	if (f->amode == 'd')
 	{
-		if (file->mode[7] == 'w')
+		if (f->mode[7] == 'w')
 		{
-			if (file->mode[8] == 't' || file->mode[8] == 'T')
+			if (f->mode[8] == 't' || f->mode[8] == 'T')
 				return (10);
 			else
 				return (11);
@@ -14,21 +27,22 @@ static int test(t_fileinfo *file)
 		else
 			return (1);
 	}
-	else if (S_ISREG(file->st.st_mode))
+	else if (S_ISREG(f->st.st_mode))
 	{
-		if (file->mode[2] == 's')
+		if (f->mode[2] == 's')
 			return (8);
-		else if (file->mode[5] == 's')
+		else if (f->mode[5] == 's')
 			return (9);
-		else if (file->mode[2] != 'x' && file->mode[5] != 'x' && file->mode[8] != 'x')
+		else if (f->mode[2] != 'x' && f->mode[5] != 'x' && f->mode[8] != 'x')
 			return (0);
-		else if (file->mode[2] != '-' || file->mode[5] != '-' || file->mode[8] != '-')
+		else if (f->mode[2] != '-' || f->mode[5] != '-' ||
+				f->mode[8] != '-')
 			return (5);
 	}
 	return (0);
 }
 
-void    color(t_fileinfo *file)
+void		color(t_fileinfo *file)
 {
 	if (test(file) == 1)
 		ft_printf("%s%s%s", TCYAN, file->name, TSTOP);
@@ -56,10 +70,11 @@ void    color(t_fileinfo *file)
 		ft_printf("%s", file->name);
 }
 
-void	flag_o_g(t_fileinfo *file, t_space *sp, t_flag *flag)
+void		flag_o_g(t_fileinfo *file, t_space *sp, t_flag *flag)
 {
 	if (flag->l && !flag->o && !flag->g)
-		ft_printf("%-*s  %-*s  ", sp->size_pname, file->pw_name, sp->size_gname, file->gr_name);
+		ft_printf("%-*s  %-*s  ", sp->size_pname, file->pw_name,
+				sp->size_gname, file->gr_name);
 	else
 	{
 		if (flag->o && !flag->g)
@@ -71,25 +86,26 @@ void	flag_o_g(t_fileinfo *file, t_space *sp, t_flag *flag)
 	}
 }
 
-void    printl(t_fileinfo *file, t_space *sp, t_flag *flag)
+void		printl(t_fileinfo *file, t_space *sp, t_flag *flag)
 {
-	if (flag->i)
-		ft_printf("%llu ", file->st.st_ino);
+	((flag->i)) ? ft_printf("%llu ", file->st.st_ino) : 0;
 	ft_printf("%c%s %*i ", file->amode, file->mode, sp->size_nlink,
 			file->st.st_nlink);
 	flag_o_g(file, sp, flag);
 	if (file->amode == 'b' || file->amode == 'c')
-		ft_printf(" %*i, %*i ", sp->size_madev, file->maj, sp->size_midev, file->min);
+		ft_printf(" %*i, %*i ", sp->size_madev, file->maj, sp->size_midev,
+				file->min);
 	else
 	{
 		if (sp->size_midev != 0 || sp->size_madev != 0)
-			ft_printf("%*lli ", (sp->size_madev + sp->size_midev + sp->size_stsize-1),
+			ft_printf("%*lli ", (sp->size_madev + sp->size_midev +
+						sp->size_stsize - 1),
 					file->st.st_size);
 		else
 			ft_printf("%*lli ", (sp->size_stsize), file->st.st_size);
 	}
 	ft_printf("%s ", file->time);
-	if (flag->G == 1)
+	if (flag->gg == 1)
 		color(file);
 	else
 		ft_printf("%s", file->name);
@@ -99,9 +115,9 @@ void    printl(t_fileinfo *file, t_space *sp, t_flag *flag)
 		ft_printf("\n");
 }
 
-int ft_total(t_fileinfo *file)
+int			ft_total(t_fileinfo *file)
 {
-	int     total;
+	int		total;
 
 	total = 0;
 	while (file)

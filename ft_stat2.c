@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_stat2.c                                       .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/05/15 09:42:32 by vbranco      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/17 16:59:50 by vbranco     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-void            ft_amode(t_fileinfo *fileinfo)
+void			ft_amode(t_fileinfo *fileinfo)
 {
 	if (S_ISLNK(fileinfo->st.st_mode))
 		fileinfo->amode = 'l';
@@ -19,41 +32,49 @@ void            ft_amode(t_fileinfo *fileinfo)
 	fileinfo->total = fileinfo->st.st_blocks;
 }
 
-void            ft_rmode(t_fileinfo *fileinfo)
+static void		ft_rmode2(t_fileinfo *fileinfo)
 {
 	((fileinfo->st.st_mode & S_IRUSR) ? fileinfo->mode[0] = 'r' : 0);
 	((fileinfo->st.st_mode & S_IWUSR) ? fileinfo->mode[1] = 'w' : 0);
+	((fileinfo->st.st_mode & S_IRGRP) ? fileinfo->mode[3] = 'r' : 0);
+	((fileinfo->st.st_mode & S_IWGRP) ? fileinfo->mode[4] = 'w' : 0);
+	((fileinfo->st.st_mode & S_IROTH) ? fileinfo->mode[6] = 'r' : 0);
+	((fileinfo->st.st_mode & S_IWOTH) ? fileinfo->mode[7] = 'w' : 0);
+}
+
+void			ft_rmode(t_fileinfo *fileinfo)
+{
+	ft_rmode2(fileinfo);
 	if ((fileinfo->st.st_mode & S_ISUID) && !(fileinfo->st.st_mode & S_IXUSR))
 		fileinfo->mode[2] = 'S';
-	else if ((fileinfo->st.st_mode & S_ISUID) && (fileinfo->st.st_mode & S_IXUSR))
+	else if ((fileinfo->st.st_mode & S_ISUID) &&
+			(fileinfo->st.st_mode & S_IXUSR))
 		fileinfo->mode[2] = 's';
 	else if (fileinfo->st.st_mode & S_IXUSR)
 		fileinfo->mode[2] = 'x';
-	((fileinfo->st.st_mode & S_IRGRP) ? fileinfo->mode[3] = 'r' : 0);
-	((fileinfo->st.st_mode & S_IWGRP) ? fileinfo->mode[4] = 'w' : 0);
 	if ((fileinfo->st.st_mode & S_ISGID) && !(fileinfo->st.st_mode & S_IXGRP))
 		fileinfo->mode[5] = 'S';
-	else if ((fileinfo->st.st_mode & S_ISGID) && (fileinfo->st.st_mode & S_IXGRP))
+	else if ((fileinfo->st.st_mode & S_ISGID) &&
+			(fileinfo->st.st_mode & S_IXGRP))
 		fileinfo->mode[5] = 's';
 	else if (fileinfo->st.st_mode & S_IXGRP)
 		fileinfo->mode[5] = 'x';
-	((fileinfo->st.st_mode & S_IROTH) ? fileinfo->mode[6] = 'r' : 0);
-	((fileinfo->st.st_mode & S_IWOTH) ? fileinfo->mode[7] = 'w' : 0);
 	if ((fileinfo->st.st_mode & S_ISVTX) && (fileinfo->st.st_mode & S_IXOTH))
 		fileinfo->mode[8] = 't';
-	else if ((fileinfo->st.st_mode & S_ISVTX) && !(fileinfo->st.st_mode & S_IXOTH))
+	else if ((fileinfo->st.st_mode & S_ISVTX) &&
+			!(fileinfo->st.st_mode & S_IXOTH))
 		fileinfo->mode[8] = 'T';
 	else if (fileinfo->st.st_mode & S_IXOTH)
 		fileinfo->mode[8] = 'x';
 }
 
-char        *ft_time(char *time, t_space *sp)
+char			*ft_time(char *time, t_space *sp)
 {
-	char        *tmp;
-	char        *year;
-	char        *ret;
-	int         len;
-	short int   stop;
+	char		*tmp;
+	char		*year;
+	char		*ret;
+	int			len;
+	short int	stop;
 
 	len = ft_strlen(time) - 1;
 	while (time[len] != ' ')

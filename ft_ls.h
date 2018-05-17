@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:30 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/30 16:54:21 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/17 17:44:02 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,8 +51,8 @@
 typedef struct			s_flag
 {
 	short int			l;
-	short int			R;
-	short int			G;
+	short int			gr;
+	short int			gg;
 	short int			g;
 	short int			r;
 	short int			a;
@@ -123,11 +123,11 @@ void					ft_amode(t_fileinfo *fileinfo);
 void					ft_rmode(t_fileinfo *fileinfo);
 char					*ft_time(char *time, t_space *sp);
 
-
 /*
 **	Infos pour affichage Long + infos generales
 */
-void					ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp);
+void					ft_ls(t_fileinfo **start, t_node **args,
+		t_flag *flag, t_space *sp);
 void					ft_ugid(t_fileinfo *file);
 t_fileinfo				*ft_info(char *dir, char *name, t_space *sp);
 int						ft_dir(t_fileinfo *novo);
@@ -141,13 +141,16 @@ int						ft_arg(char **av, t_flag *flag, t_node **node);
 /*
 **	Recursive + quelques gestions particulieres >> ft_dir.c
 */
-void					ft_is_dir(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp);
-void					ft_recursive(t_fileinfo *current, t_flag *flag, t_space *sp);
+void					ft_is_dir(t_fileinfo *current, char *direct,
+		t_flag *flag, t_space *sp);
+void					ft_recursive(t_fileinfo *current, t_flag *flag,
+		t_space *sp);
 
 /*
 **	Gestion flag->a >> ft_flag_a.c
 */
-void					ft_flag_a(t_fileinfo *current, char *direct, t_flag *flag, t_space *sp);
+void					ft_flag_a(t_fileinfo *current, char *direct,
+		t_flag *flag, t_space *sp);
 
 /*
 **	Colors and long >> ft_color_and_long.c
@@ -173,15 +176,19 @@ void					ft_fileinfo_dell(t_fileinfo **file);
 /*
 **	Listes affichage >> ft_fileinfoprint.c
 */
-void					ft_fileinfoprint(t_fileinfo *file, t_flag *flag, t_space *sp);
+void					ft_fileinfoprint(t_fileinfo *file, t_flag *flag,
+		t_space *sp);
 void					ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp);
-void					ft_file_other(t_fileinfo *file, t_flag *flag, t_space *sp);
-void					ft_file_no_other(t_fileinfo *file, t_flag *flag, t_space *sp);
+void					ft_file_other(t_fileinfo *file, t_flag *flag,
+		t_space *sp);
+void					ft_file_no_other(t_fileinfo *file, t_flag *flag,
+		t_space *sp);
 
 /*
 **	Decoupage affichage >> ft_display_dir.c
 */
-void					ft_display_dir(t_fileinfo *file, t_flag *flag, t_space *sp);
+void					ft_display_dir(t_fileinfo *file, t_flag *flag,
+		t_space *sp);
 
 /*
 **	Gestion des affichages en generale
@@ -192,14 +199,18 @@ void					ft_error(t_fileinfo **novo, char *file, char *error);
 /*
 **	Ajout element dans la liste
 */
-void					ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *novo, t_flag *flag);
+void					ft_fileinfo_sort(t_fileinfo **file, t_fileinfo *novo,
+		t_flag *flag);
 void					ft_add_file_back(t_fileinfo **file, t_fileinfo *novo);
 
 /*
 **	Gestion param recus >> ft_add_node.c
 */
-void					ft_node_back_add(t_node **node, void *content, size_t content_size);
-void					ft_node_front_add(t_node **node, void *content, size_t content_size);
-void					ft_node_sort_add(t_node **node, void *content, size_t content_size);
+void					ft_node_back_add(t_node **node, void *content,
+		size_t content_size);
+void					ft_node_front_add(t_node **node, void *content,
+		size_t content_size);
+void					ft_node_sort_add(t_node **node, void *content,
+		size_t content_size);
 
 #endif

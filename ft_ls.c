@@ -6,14 +6,14 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/30 16:54:34 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/15 11:29:48 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ft_error(t_fileinfo **novo, char *file, char *error)
+void			ft_error(t_fileinfo **novo, char *file, char *error)
 {
 	char		err[PATH_MAX];
 	char		*name;
@@ -39,14 +39,15 @@ void	ft_error(t_fileinfo **novo, char *file, char *error)
 		free(name);
 }
 
-int		ft_dir(t_fileinfo *new)
+int				ft_dir(t_fileinfo *new)
 {
-	if (((new->st.st_mode & S_IFMT) == S_IFDIR) && !(new->mode[0] == 'r' && new->mode[2] == '-'))
+	if (((new->st.st_mode & S_IFMT) == S_IFDIR) && !(new->mode[0] == 'r'
+				&& new->mode[2] == '-'))
 		return (1);
 	return (0);
 }
 
-t_fileinfo	*ft_info(char *dir, char *name, t_space *sp)
+t_fileinfo		*ft_info(char *dir, char *name, t_space *sp)
 {
 	t_fileinfo	*new;
 
@@ -68,7 +69,7 @@ t_fileinfo	*ft_info(char *dir, char *name, t_space *sp)
 	return (new);
 }
 
-t_fileinfo	*ft_is_link(char *file)
+t_fileinfo		*ft_is_link(char *file)
 {
 	t_fileinfo	*new;
 
@@ -82,7 +83,8 @@ t_fileinfo	*ft_is_link(char *file)
 	return (new);
 }
 
-void		ft_ls(t_fileinfo **start, t_node **args, t_flag *flag, t_space *sp)
+void			ft_ls(t_fileinfo **start, t_node **args, t_flag *flag,
+		t_space *sp)
 {
 	t_node		*arg;
 	t_fileinfo	*new;

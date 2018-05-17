@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/05 16:12:27 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/24 17:15:08 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/17 17:41:30 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ static void		ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 	if (file->error != NULL)
 	{
 		ft_putendl_fd(file->error, 2);
-		if (file->amode != 'd' && !flag->R)
+		if (file->amode != 'd' && !flag->gr)
 			flag->out--;
 	}
 	else
@@ -31,7 +31,7 @@ static void		ft_display(t_fileinfo *file, t_flag *flag, t_space *sp)
 			{
 				if (flag->i)
 					ft_printf("%*llu ", 8, file->st.st_ino);
-				if (flag->G == 1)
+				if (flag->gg == 1)
 					color(file);
 				else
 					ft_printf("%s", file->name);
@@ -48,7 +48,8 @@ void			ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp)
 
 	tmp = file;
 	flag->out = 1;
-	if ((flag->l || flag->o || flag->g) && file->error == NULL && file->name != NULL)
+	if ((flag->l || flag->o || flag->g) && file->error == NULL
+			&& file->name != NULL)
 		ft_printf("total %i\n", ft_total(file));
 	while (file)
 	{
@@ -56,9 +57,8 @@ void			ft_pdir(t_fileinfo *file, t_flag *flag, t_space *sp)
 		file = file->next;
 	}
 	file = tmp;
-	if (flag->R)
+	if (flag->gr)
 		ft_display_dir(file, flag, sp);
-
 }
 
 void			ft_file_other(t_fileinfo *file, t_flag *flag, t_space *sp)

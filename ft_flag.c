@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:57 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/30 16:54:27 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/17 17:41:50 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ static int	ft_usage(char c)
 	ft_putstr_fd("ls: illegal option -- ", 2);
 	ft_putchar_fd(c, 2);
 	ft_putchar_fd('\n', 2);
-	ft_putendl_fd("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]", 2);
+	ft_putendl_fd("usage: ls [-GRafgilort1] [file ...]", 2);
 	return (1);
 }
 
@@ -30,8 +30,8 @@ static void	ft_rec(char *str, t_flag *flag)
 	while (str[i])
 	{
 		((str[i] == 'l')) ? flag->l = 1 : 0;
-		((str[i] == 'G')) ? flag->G = 1 : 0;
-		((str[i] == 'R')) ? flag->R = 1 : 0;
+		((str[i] == 'G')) ? flag->gg = 1 : 0;
+		((str[i] == 'R')) ? flag->gr = 1 : 0;
 		((str[i] == 'g')) ? flag->g = 1 : 0;
 		((str[i] == 'r')) ? flag->r = 1 : 0;
 		((str[i] == 'a')) ? flag->a = 1 : 0;
@@ -41,8 +41,8 @@ static void	ft_rec(char *str, t_flag *flag)
 		((str[i] == '1')) ? flag->un = 1 : 0;
 		if (str[i] == 'f')
 		{
-			 flag->f = 1;
-			 flag->a = 1;
+			flag->f = 1;
+			flag->a = 1;
 		}
 		i++;
 	}
@@ -89,12 +89,12 @@ int			ft_flag(int ac, char **av, t_flag *flag)
 				return (1);
 			c = test_flag(av[i]);
 			if (c != 0)
-				return(ft_usage(c));
+				return (ft_usage(c));
 			else
 				ft_rec(av[i], flag);
 		}
 		if (av[i][0] != '-')
-			break;
+			break ;
 	}
 	return (0);
 }

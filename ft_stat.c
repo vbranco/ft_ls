@@ -6,18 +6,18 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 18:40:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/02 12:16:16 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/15 09:37:57 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		ft_acl(t_fileinfo *fileinfo)
+static void			ft_acl(t_fileinfo *fileinfo)
 {
-	acl_t		acl;
-	acl_entry_t	dummy;
-	ssize_t		xatrr;
+	acl_t			acl;
+	acl_entry_t		dummy;
+	ssize_t			xatrr;
 
 	xatrr = 0;
 	acl = NULL;
@@ -42,11 +42,11 @@ static void		ft_acl(t_fileinfo *fileinfo)
 	}
 }
 
-char			*ft_name(char *str)
+char				*ft_name(char *str)
 {
-	int		i;
-	int		s;
-	char	*ret;
+	int				i;
+	int				s;
+	char			*ret;
 
 	if (!str)
 		return (NULL);
@@ -69,7 +69,7 @@ char			*ft_name(char *str)
 	return (ret);
 }
 
-static void		ft_file_display(char *str, t_fileinfo *tmp, t_space *sp)
+static void			ft_file_display(char *str, t_fileinfo *tmp, t_space *sp)
 {
 	tmp->name = ft_name(str);
 	if (tmp->amode == 'b' || tmp->amode == 'c')
@@ -91,7 +91,7 @@ static void		ft_file_display(char *str, t_fileinfo *tmp, t_space *sp)
 		sp->size_stsize = ft_size_nb(tmp->st.st_size);
 }
 
-void		ft_ugid(t_fileinfo *file)
+void				ft_ugid(t_fileinfo *file)
 {
 	struct passwd	*pwd;
 	struct group	*grp;
@@ -108,7 +108,7 @@ void		ft_ugid(t_fileinfo *file)
 		file->gr_name = ft_strdup(grp->gr_name);
 }
 
-int			ft_stat(t_fileinfo *fileinfo, t_space *sp)
+int					ft_stat(t_fileinfo *fileinfo, t_space *sp)
 {
 	errno = 0;
 	if (lstat(fileinfo->path, &(fileinfo->st)) != 0)
