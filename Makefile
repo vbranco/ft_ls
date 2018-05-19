@@ -6,35 +6,35 @@
 #    By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/03/07 17:08:49 by vbranco      #+#   ##    ##    #+#        #
-#    Updated: 2018/05/19 14:19:57 by vbranco     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/05/19 14:23:26 by vbranco     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-NAME        =   ft_ls 
+NAME		=	ft_ls 
 
-HEADER      =   ft_ls.h 
+HEADER		=	ft_ls.h 
 
-FILENAMES   =   main.c ft_flag.c ft_stat.c ft_stat2.c\
+FILENAMES	=	main.c ft_flag.c ft_stat.c ft_stat2.c\
 	ft_fileinfoprint.c ft_add_node.c ft_ls.c \
 	ft_count_args.c ft_args.c ft_fileinfo_sort.c\
 	ft_add_file_back.c ft_dir.c ft_color_and_long.c\
 	ft_initialise.c ft_list_dell.c ft_flag_a.c ft_display_dir.c\
 
 
-SOURCES     =   $(addprefix ./, $(FILENAMES))
+SOURCES		=	$(addprefix ./, $(FILENAMES))
 
-OBJECTS     =   $(addprefix build/, $(FILENAMES:.c=.o))
+OBJECTS		=	$(addprefix build/, $(FILENAMES:.c=.o))
 
-L_FT        =   ./libft
+L_FT		=	./libft
 
-LIB	  	 	=   ./libft/libft.a
+LIB			=	./libft/libft.a
 
-LIB_LNK     =   -L $(L_FT) -l ft
+LIB_LNK		=	-L $(L_FT) -l ft
 
-LIB_INC     =   -I $(L_FT)/libft.h
+LIB_INC		=	-I $(L_FT)/libft.h
 
-FLAGS	    =  -Wall -Wextra -Werror
+FLAGS		=	-Wall -Wextra -Werror
 
 .PHONY: all clean fclean re
 
