@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/15 11:37:44 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/15 11:38:20 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/19 13:58:54 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,11 +45,11 @@ void			ft_nodedell(t_node **node)
 
 	while (*node)
 	{
-		tmp = *node;
+		tmp = (*node)->next;
 		free((*node)->content);
 		(*node)->content_size = 0;
 		free(*node);
-		(*node) = tmp->next;
+		(*node) = tmp;
 	}
 	*node = NULL;
 }

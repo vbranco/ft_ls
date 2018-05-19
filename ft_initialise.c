@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/15 11:36:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/17 17:42:06 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/19 11:43:34 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,8 @@ t_node			*ft_init_node(void)
 	t_node		*node;
 
 	node = NULL;
-	node = malloc(sizeof(t_node));
+	if (!(node = malloc(sizeof(t_node))))
+		return (NULL);
 	node->content = NULL;
 	node->content_size = 0;
 	node->next = NULL;

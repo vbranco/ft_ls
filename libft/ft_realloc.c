@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/15 09:36:22 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/15 09:36:24 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/19 13:58:24 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,10 +16,17 @@
 char	*ft_realloc(char *s1, char *s2)
 {
 	char	*tmp;
+	int		len;
 
-	if (!s1 || !s2)
+	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	tmp = ft_strnew(len);
+	if (!tmp)
 		return (NULL);
-	tmp = ft_strjoin(s1, s2);
+	if (s1)
+	{
+		ft_strcpy(tmp, s1);
+		ft_strcat(tmp, s2);
+	}
 	free(s1);
 	return (tmp);
 }

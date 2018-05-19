@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/15 11:29:48 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/19 13:58:37 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,15 +60,13 @@ t_fileinfo		*ft_info(char *dir, char *name, t_space *sp)
 		new->path = ft_strdup(dir);
 		if (ft_strcmp(dir, "/"))
 			new->path = ft_realloc(new->path, "/");
-		new->path = ft_realloc(new->path, name);
+		if (name)
+			new->path = ft_realloc(new->path, name);
 	}
-	if (name)
-	{
-		if (name[0] != '\0')
-			ft_stat(new, sp);
-		if (name[0] == '\0' && dir[0] == '\0')
-			ft_error(&new, "fts_open", "No such file or directory");
-	}
+	if (name && name[0] != '\0')
+		ft_stat(new, sp);
+	if (!name && dir[0] == '\0')
+		ft_error(&new, "fts_open", "No such file or directory");
 	return (new);
 }
 
