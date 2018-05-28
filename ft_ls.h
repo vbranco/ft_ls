@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/07 17:07:30 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/17 17:44:02 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/28 17:44:43 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,6 +84,7 @@ typedef struct			s_fileinfo
 	int					min;
 	unsigned int		total;
 	char				*error;
+	short int			stat_error;
 	struct s_fileinfo	*next;
 	struct s_fileinfo	*other;
 }						t_fileinfo;

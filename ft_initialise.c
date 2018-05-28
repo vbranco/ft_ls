@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/15 11:36:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/19 11:43:34 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/28 17:52:26 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,9 +17,8 @@ t_fileinfo		*ft_init_fileinfo(void)
 {
 	t_fileinfo	*fileinfo;
 
-	fileinfo = NULL;
-	fileinfo = malloc(sizeof(t_fileinfo));
-	fileinfo->amode = 0;
+	fileinfo = (t_fileinfo*)malloc(sizeof(t_fileinfo));
+	fileinfo->amode = '\0';
 	fileinfo->name = NULL;
 	fileinfo->path = NULL;
 	ft_memset(fileinfo->mode, '-', 10);
@@ -32,6 +31,7 @@ t_fileinfo		*ft_init_fileinfo(void)
 	fileinfo->min = 0;
 	fileinfo->maj = 0;
 	fileinfo->total = 0;
+	fileinfo->stat_error = 0;
 	fileinfo->error = NULL;
 	fileinfo->next = NULL;
 	fileinfo->other = NULL;

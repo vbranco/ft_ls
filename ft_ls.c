@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/17 16:15:07 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/19 13:58:37 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/28 18:00:48 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,13 +94,16 @@ void			ft_ls(t_fileinfo **start, t_node **args, t_flag *flag,
 	while (arg->next)
 	{
 		new = ft_info(NULL, arg->content, sp);
-		if (S_ISLNK(new->st.st_mode) && !flag->l)
+		if (new->stat_error == 0)
 		{
-			ft_fileinfo_dell(&new);
-			new = ft_is_link(arg->content);
+			if (S_ISLNK(new->st.st_mode) && !flag->l)
+			{
+				ft_fileinfo_dell(&new);
+				new = ft_is_link(arg->content);
+			}
+			if (ft_dir(new))
+				ft_is_dir(new, arg->content, flag, sp);
 		}
-		if (ft_dir(new))
-			ft_is_dir(new, arg->content, flag, sp);
 		if (flag->t || new->error != NULL)
 			ft_fileinfo_sort(start, new, flag);
 		else

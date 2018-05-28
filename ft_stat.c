@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/20 18:40:38 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/15 09:37:57 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/28 18:00:49 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -113,6 +113,7 @@ int					ft_stat(t_fileinfo *fileinfo, t_space *sp)
 	errno = 0;
 	if (lstat(fileinfo->path, &(fileinfo->st)) != 0)
 	{
+		fileinfo->stat_error = 1;
 		if (fileinfo->error == NULL)
 			ft_error(&fileinfo, fileinfo->path, strerror(errno));
 		return (1);

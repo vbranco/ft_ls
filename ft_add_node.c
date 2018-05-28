@@ -6,7 +6,7 @@
 /*   By: vbranco <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/07 12:10:18 by vbranco      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/19 11:49:26 by vbranco     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/28 16:32:39 by vbranco     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,10 +32,12 @@ static int		ft_sort(char *s1, char *s2)
 	struct stat st1;
 
 	i = 0;
-	if (!s1 || !s2)
+	if (s1 == NULL || s2 == NULL)
 		return (0);
-	stat(s1, &st1);
-	stat(s2, &st2);
+	if (stat(s1, &st1) == -1)
+		return (0);
+	if (stat(s2, &st2))
+		return (0);
 	if (((st2.st_mode & S_IFMT) == S_IFDIR) && ((st1.st_mode & S_IFMT) !=
 				S_IFDIR))
 		return (1);
